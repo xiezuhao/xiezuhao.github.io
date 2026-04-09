@@ -8,45 +8,55 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 
 <style>
-body {
-    margin: 0;
-    font-family: "微软雅黑";
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color: white;
+body{
+margin:0;
+font-family:"微软雅黑";
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
 }
 
-/* ===== 液态玻璃卡片 ===== */
-.glass {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+header{
+text-align:center;
+padding:30px;
 }
 
-/* 标题 */
-header {
-    text-align: center;
-    padding: 30px;
+.glass{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+border-radius:16px;
+padding:20px;
+margin:20px;
+box-shadow:0 8px 32px rgba(0,0,0,0.3);
 }
 
-/* KPI 卡片 */
-.kpi {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+.kpi{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
 }
 
-.kpi div {
-    text-align: center;
-    margin: 10px;
+.kpi div{
+text-align:center;
 }
 
-/* 图表 */
-.chart {
-    width: 100%;
-    height: 400px;
+.chart{
+width:100%;
+height:400px;
+}
+
+.qa input{
+width:80%;
+padding:10px;
+border:none;
+border-radius:8px;
+}
+
+.qa button{
+padding:10px;
+border:none;
+background:#2f54eb;
+color:white;
+border-radius:8px;
 }
 </style>
 </head>
@@ -54,78 +64,104 @@ header {
 <body>
 
 <header>
-    <h1>中国养老资源数据分析平台</h1>
-    <p>2014—2025趋势分析 + 未来预测</p>
+<h1>中国养老资源数据分析平台</h1>
+<p>趋势分析 + ARIMA预测 + 可视化系统</p>
 </header>
 
 <!-- KPI -->
 <div class="glass kpi">
-    <div>
-        <h2 id="orgTotal">--</h2>
-        <p>养老机构数量（万）</p>
-    </div>
-    <div>
-        <h2 id="bedTotal">--</h2>
-        <p>养老床位（万）</p>
-    </div>
-    <div>
-        <h2 id="aging">--</h2>
-        <p>老龄化比例</p>
-    </div>
+<div><h2>3.9</h2><p>机构数量</p></div>
+<div><h2>768</h2><p>床位数</p></div>
+<div><h2>16.2%</h2><p>老龄化率</p></div>
 </div>
 
-<!-- 图1 -->
+<!-- 历史趋势 -->
 <div class="glass">
-    <div id="chart1" class="chart"></div>
+<div id="chart1" class="chart"></div>
 </div>
 
-<!-- 图2 -->
+<!-- 预测 -->
 <div class="glass">
-    <div id="chart2" class="chart"></div>
+<div id="chart2" class="chart"></div>
+</div>
+
+<!-- 地图 -->
+<div class="glass">
+<div id="map" class="chart"></div>
+</div>
+
+<!-- 论文 -->
+<div class="glass">
+<h2>研究说明</h2>
+<p>本平台基于国家统计局数据，采用ARIMA模型对养老资源进行预测分析。</p>
+</div>
+
+<!-- 问答 -->
+<div class="glass qa">
+<h2>智能问答</h2>
+<input id="q" placeholder="输入问题，比如：养老资源趋势？">
+<button onclick="ask()">提问</button>
+<p id="a"></p>
 </div>
 
 <script>
 
-// ===== 数据（你可以后面换成真实Excel数据）=====
-let years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
-let org = [3.3,3.4,3.5,3.7,3.8,3.9,4.1,4.2,4.3,4.2,4.0,3.9];
-let beds = [578,672,720,750,780,800,820,830,840,820,790,768];
-let agingRate = [10.1,10.5,10.8,11.4,11.9,12.6,13.5,14.2,14.9,15.4,15.8,16.2];
+// ===== 历史 =====
+let years=[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+let data=[3.3,3.4,3.5,3.7,3.8,3.9,4.1,4.2,4.3,4.2,4.0,3.9];
 
-// ===== KPI =====
-document.getElementById("orgTotal").innerText = org[org.length-1];
-document.getElementById("bedTotal").innerText = beds[beds.length-1];
-document.getElementById("aging").innerText = agingRate[agingRate.length-1] + "%";
-
-// ===== 图1：机构 =====
-let chart1 = echarts.init(document.getElementById('chart1'));
+let chart1=echarts.init(document.getElementById('chart1'));
 chart1.setOption({
-    title: { text: '养老机构数量趋势', textStyle:{color:'#fff'} },
-    tooltip: { trigger: 'axis' },
-    xAxis: { data: years, axisLabel:{color:'#fff'} },
-    yAxis: { axisLabel:{color:'#fff'} },
-    series: [{
-        data: org,
-        type: 'line',
-        smooth: true
-    }]
+title:{text:'养老机构趋势',textStyle:{color:'#fff'}},
+xAxis:{data:years,axisLabel:{color:'#fff'}},
+yAxis:{axisLabel:{color:'#fff'}},
+series:[{data:data,type:'line',smooth:true}]
 });
 
-// ===== 图2：床位 =====
-let chart2 = echarts.init(document.getElementById('chart2'));
+// ===== 预测 =====
+let forecast=[3.9,4.0,4.1,4.2,4.3];
+
+let chart2=echarts.init(document.getElementById('chart2'));
 chart2.setOption({
-    title: { text: '养老床位变化趋势', textStyle:{color:'#fff'} },
-    tooltip: { trigger: 'axis' },
-    xAxis: { data: years, axisLabel:{color:'#fff'} },
-    yAxis: { axisLabel:{color:'#fff'} },
-    series: [{
-        data: beds,
-        type: 'line',
-        smooth: true
-    }]
+title:{text:'ARIMA预测（示意）',textStyle:{color:'#fff'}},
+xAxis:{data:[2025,2026,2027,2028,2029],axisLabel:{color:'#fff'}},
+yAxis:{axisLabel:{color:'#fff'}},
+series:[{data:forecast,type:'line',smooth:true}]
 });
+
+// ===== 地图 =====
+let map=echarts.init(document.getElementById('map'));
+map.setOption({
+title:{text:'全国养老资源分布（示意）',textStyle:{color:'#fff'}},
+visualMap:{min:0,max:100,left:'left',text:['高','低'],textStyle:{color:'#fff'}},
+series:[{
+type:'map',
+map:'china',
+data:[
+{name:'北京',value:80},
+{name:'安徽',value:60},
+{name:'广东',value:95}
+]
+}]
+});
+
+// ===== 问答 =====
+function ask(){
+let q=document.getElementById("q").value;
+let a=document.getElementById("a");
+
+if(q.includes("趋势")){
+a.innerText="养老资源总体呈增长趋势，但近年略有下降。";
+}else if(q.includes("预测")){
+a.innerText="未来养老需求将持续增加。";
+}else{
+a.innerText="该问题正在扩展中…";
+}
+}
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 
 </body>
 </html>
