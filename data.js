@@ -2,25 +2,25 @@
 // 全国时间序列数据（2014–2025）
 // ======================
 
-let years = [
+var years = [
 2014,2015,2016,2017,2018,2019,
 2020,2021,2022,2023,2024,2025
 ];
 
 // 养老机构数量（万）
-let orgData = [
+var orgData = [
 3.3,3.4,3.5,3.7,3.8,3.9,
 4.1,4.2,4.3,4.2,4.0,3.9
 ];
 
 // 养老床位数（万）
-let bedData = [
+var bedData = [
 578,672,720,750,780,800,
 820,830,840,820,790,768
 ];
 
 // 老龄化率（%）
-let agingData = [
+var agingData = [
 10.1,10.5,10.8,11.4,11.9,12.6,
 13.5,14.2,14.9,15.4,15.8,16.2
 ];
@@ -30,15 +30,15 @@ let agingData = [
 // ARIMA预测数据（2026–2030）
 // ======================
 
-let forecastYears = [2025,2026,2027,2028,2029,2030];
+var forecastYears = [2025,2026,2027,2028,2029,2030];
 
-// 机构预测（示意，可后续替换真实模型）
-let orgForecast = [
+// 机构预测
+var orgForecast = [
 3.9,4.0,4.1,4.2,4.3,4.4
 ];
 
-// 床位预测（万）
-let bedForecast = [
+// 床位预测
+var bedForecast = [
 768,780,800,820,850,880
 ];
 
@@ -47,7 +47,7 @@ let bedForecast = [
 // 全国31省数据（地图用）
 // ======================
 
-let provinceData = [
+var provinceData = [
 {name:'北京',value:85},
 {name:'天津',value:70},
 {name:'河北',value:125},
@@ -90,20 +90,45 @@ let provinceData = [
 
 
 // ======================
-// 排名数据（自动生成Top10）
+// 排行榜（Top10）
 // ======================
 
-let top10 = [...provinceData]
-.sort((a,b)=>b.value-a.value)
+var top10 = provinceData
+.slice()
+.sort(function(a,b){return b.value - a.value;})
 .slice(0,10);
 
 
 // ======================
-// KPI数据（自动取最新）
+// KPI（自动取最新数据）
 // ======================
 
-let kpi = {
+var kpi = {
 org: orgData[orgData.length-1],
 beds: bedData[bedData.length-1],
 aging: agingData[agingData.length-1]
 };
+
+
+// ======================
+// 智能问答数据（升级版）
+// ======================
+
+var qaData = [
+{
+q:"趋势",
+a:"中国养老资源总体呈增长趋势，但区域差异明显。"
+},
+{
+q:"预测",
+a:"未来五年养老需求将持续上升，尤其是护理型床位需求。"
+},
+{
+q:"老龄化",
+a:"我国已进入中度老龄化阶段，比例持续提升。"
+},
+{
+q:"区域",
+a:"东部地区资源更集中，西部仍存在不足。"
+}
+];
