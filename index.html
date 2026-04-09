@@ -16,33 +16,26 @@ background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:#fff;
 }
 
-/* 顶部导航 */
 nav{
 text-align:center;
 padding:15px;
 background:rgba(255,255,255,0.1);
 backdrop-filter:blur(10px);
-position:sticky;
-top:0;
 }
 
 nav a{
 margin:10px;
 cursor:pointer;
-font-size:14px;
 }
 
-/* 液态玻璃卡片 */
 .glass{
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
 border-radius:16px;
 padding:20px;
 margin:20px;
-box-shadow:0 8px 32px rgba(0,0,0,0.3);
 }
 
-/* KPI */
 .kpi{
 display:flex;
 justify-content:space-around;
@@ -50,17 +43,11 @@ flex-wrap:wrap;
 text-align:center;
 }
 
-.kpi div{
-min-width:100px;
-}
-
-/* 图表 */
 .chart{
 width:100%;
 height:400px;
 }
 
-/* 页面切换 */
 .page{display:none;}
 .active{display:block;}
 </style>
@@ -77,36 +64,27 @@ height:400px;
 
 <header style="text-align:center;">
 <h1>中国养老资源数据分析平台</h1>
-<p>2014–2025趋势分析 + 未来预测</p>
 </header>
 
-<!-- 首页 -->
 <div id="home" class="page active">
 <div class="glass kpi">
-<div><h2 id="k1"></h2><p>机构数（万）</p></div>
-<div><h2 id="k2"></h2><p>床位数（万）</p></div>
-<div><h2 id="k3"></h2><p>老龄化率</p></div>
+<div><h2 id="k1">--</h2><p>机构数</p></div>
+<div><h2 id="k2">--</h2><p>床位数</p></div>
+<div><h2 id="k3">--</h2><p>老龄化率</p></div>
 </div>
 </div>
 
-<!-- 历史 -->
 <div id="history" class="page">
-<div class="glass">
-<div id="chart1" class="chart"></div>
-</div>
+<div class="glass"><div id="chart1" class="chart"></div></div>
 </div>
 
-<!-- 预测 -->
 <div id="forecast" class="page">
-<div class="glass">
-<div id="chart2" class="chart"></div>
-</div>
+<div class="glass"><div id="chart2" class="chart"></div></div>
 </div>
 
-<!-- 问答 -->
 <div id="qa" class="page">
 <div class="glass">
-<input id="q" placeholder="输入问题（如：趋势 / 预测）" style="width:70%;padding:10px;">
+<input id="q" placeholder="输入问题">
 <button onclick="ask()">提问</button>
 <p id="a"></p>
 </div>
@@ -120,65 +98,52 @@ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
-// KPI加载（防报错写法）
-window.onload = function(){
+// ⭐⭐⭐ 核心修复：DOM加载后执行
+document.addEventListener("DOMContentLoaded", function(){
 
-if(typeof kpi !== "undefined"){
+// KPI
+if(window.kpi){
 document.getElementById("k1").innerText = kpi.org;
 document.getElementById("k2").innerText = kpi.beds;
 document.getElementById("k3").innerText = kpi.aging + "%";
 }
 
-// 历史图
-if(typeof years !== "undefined"){
+// 图表1
+if(window.years){
 let chart1 = echarts.init(document.getElementById('chart1'));
 chart1.setOption({
-title:{text:'养老机构数量趋势',textStyle:{color:'#fff'}},
+title:{text:'养老机构趋势',textStyle:{color:'#fff'}},
 xAxis:{data:years,axisLabel:{color:'#fff'}},
 yAxis:{axisLabel:{color:'#fff'}},
-series:[{
-data:orgData,
-type:'line',
-smooth:true
-}]
+series:[{data:orgData,type:'line',smooth:true}]
 });
 }
 
-// 预测图
-if(typeof forecastYears !== "undefined"){
+// 图表2
+if(window.forecastYears){
 let chart2 = echarts.init(document.getElementById('chart2'));
 chart2.setOption({
-title:{text:'未来趋势预测（示意）',textStyle:{color:'#fff'}},
+title:{text:'未来预测',textStyle:{color:'#fff'}},
 xAxis:{data:forecastYears,axisLabel:{color:'#fff'}},
 yAxis:{axisLabel:{color:'#fff'}},
-series:[{
-data:orgForecast,
-type:'line',
-smooth:true
-}]
+series:[{data:orgForecast,type:'line',smooth:true}]
 });
 }
 
-}
+});
 
-// 智能问答（升级版）
+
+// 问答
 function ask(){
 let q=document.getElementById("q").value;
 let a=document.getElementById("a");
 
-if(!q){
-a.innerText="请输入问题";
-return;
-}
-
 if(q.includes("趋势")){
-a.innerText="养老资源总体呈增长趋势，但增速有所放缓。";
+a.innerText="养老资源总体呈增长趋势。";
 }else if(q.includes("预测")){
-a.innerText="未来养老需求将持续增长，护理型资源需求更快。";
-}else if(q.includes("老龄化")){
-a.innerText="我国已进入中度老龄化阶段。";
+a.innerText="未来需求持续增长。";
 }else{
-a.innerText="暂未匹配问题，可尝试输入：趋势 / 预测 / 老龄化";
+a.innerText="请输入关键词：趋势 / 预测";
 }
 }
 
