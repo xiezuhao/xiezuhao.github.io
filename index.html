@@ -1,170 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>中国养老资源数据平台</title>
-  <meta name="description" content="基于2014—2025年数据的中国养老资源分析与可视化平台" />
-  <link rel="stylesheet" href="assets/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国养老资源数据分析平台</title>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: "微软雅黑";
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color: white;
+}
+
+/* ===== 液态玻璃卡片 ===== */
+.glass {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* 标题 */
+header {
+    text-align: center;
+    padding: 30px;
+}
+
+/* KPI 卡片 */
+.kpi {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.kpi div {
+    text-align: center;
+    margin: 10px;
+}
+
+/* 图表 */
+.chart {
+    width: 100%;
+    height: 400px;
+}
+</style>
 </head>
+
 <body>
-  <div class="bg-orb orb-a"></div>
-  <div class="bg-orb orb-b"></div>
-  <div class="bg-orb orb-c"></div>
 
-  <header class="topbar glass">
-    <div class="brand">
-      <div class="brand-badge">养</div>
-      <div>
-        <div class="brand-title">中国养老资源数据平台</div>
-        <div class="brand-subtitle">Data Platform for Elderly Care Resources</div>
-      </div>
+<header>
+    <h1>中国养老资源数据分析平台</h1>
+    <p>2014—2025趋势分析 + 未来预测</p>
+</header>
+
+<!-- KPI -->
+<div class="glass kpi">
+    <div>
+        <h2 id="orgTotal">--</h2>
+        <p>养老机构数量（万）</p>
     </div>
-    <nav class="nav">
-      <a href="#overview">总览</a>
-      <a href="#history">历史趋势</a>
-      <a href="#forecast">预测展示</a>
-      <a href="#dataset">数据表</a>
-    </nav>
-  </header>
+    <div>
+        <h2 id="bedTotal">--</h2>
+        <p>养老床位（万）</p>
+    </div>
+    <div>
+        <h2 id="aging">--</h2>
+        <p>老龄化比例</p>
+    </div>
+</div>
 
-  <main class="page-shell">
-    <section class="hero glass">
-      <div class="hero-copy">
-        <div class="eyebrow">2014—2025 历史数据 · 可视化展示平台</div>
-        <h1>用更直观的方式展示中国老龄化与养老资源变化</h1>
-        <p>
-          聚合总人口、65岁及以上人口、老龄化比例、养老机构数量、养老机构床位数等核心指标，
-          以液态玻璃与高斯模糊风格展示趋势特征，适合作为论文答辩、比赛展示与项目落地首页。
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#history">查看趋势分析</a>
-          <a class="btn btn-secondary" href="#dataset">浏览原始数据</a>
-        </div>
-        <div class="hero-note">
-          注：预测模块当前为 <strong>演示预测</strong>，基于近年线性趋势自动生成，页面中已明确标注，可后续替换为你的 ARIMA 正式结果。
-        </div>
-      </div>
-      <div class="hero-panel glass-soft">
-        <div class="mini-title">平台亮点</div>
-        <ul class="feature-list">
-          <li>液态玻璃 + 高斯模糊视觉</li>
-          <li>支持手机与电脑自适应浏览</li>
-          <li>可直接部署在 GitHub Pages</li>
-          <li>图表、数据表、摘要模块一体化</li>
-        </ul>
-        <div class="pulse-ring"></div>
-      </div>
-    </section>
+<!-- 图1 -->
+<div class="glass">
+    <div id="chart1" class="chart"></div>
+</div>
 
-    <section id="overview" class="section-block">
-      <div class="section-heading">
-        <span class="section-tag">Overview</span>
-        <h2>核心指标总览</h2>
-      </div>
-      <div class="kpi-grid" id="kpiGrid"></div>
-    </section>
+<!-- 图2 -->
+<div class="glass">
+    <div id="chart2" class="chart"></div>
+</div>
 
-    <section id="history" class="section-block two-col">
-      <div class="glass card chart-card wide">
-        <div class="card-head">
-          <div>
-            <div class="card-tag">Historical Trends</div>
-            <h3>人口与老龄化趋势</h3>
-          </div>
-          <div class="chip-group">
-            <button class="chip active" data-pop-view="dual">双指标</button>
-            <button class="chip" data-pop-view="aging">仅老龄化</button>
-          </div>
-        </div>
-        <div id="populationChart" class="chart"></div>
-      </div>
+<script>
 
-      <div class="glass card chart-card">
-        <div class="card-head">
-          <div>
-            <div class="card-tag">Resource Trends</div>
-            <h3>养老机构与床位变化</h3>
-          </div>
-        </div>
-        <div id="resourceChart" class="chart"></div>
-      </div>
+// ===== 数据（你可以后面换成真实Excel数据）=====
+let years = [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+let org = [3.3,3.4,3.5,3.7,3.8,3.9,4.1,4.2,4.3,4.2,4.0,3.9];
+let beds = [578,672,720,750,780,800,820,830,840,820,790,768];
+let agingRate = [10.1,10.5,10.8,11.4,11.9,12.6,13.5,14.2,14.9,15.4,15.8,16.2];
 
-      <div class="glass card insight-card">
-        <div class="card-head">
-          <div>
-            <div class="card-tag">Quick Insights</div>
-            <h3>阶段性观察</h3>
-          </div>
-        </div>
-        <div class="insight-list" id="insightList"></div>
-      </div>
-    </section>
+// ===== KPI =====
+document.getElementById("orgTotal").innerText = org[org.length-1];
+document.getElementById("bedTotal").innerText = beds[beds.length-1];
+document.getElementById("aging").innerText = agingRate[agingRate.length-1] + "%";
 
-    <section id="forecast" class="section-block two-col">
-      <div class="glass card chart-card wide">
-        <div class="card-head">
-          <div>
-            <div class="card-tag">Forecast Demo</div>
-            <h3>2026—2030 演示预测</h3>
-          </div>
-          <span class="warning-badge">仅供页面展示，可替换为 ARIMA</span>
-        </div>
-        <div id="forecastChart" class="chart"></div>
-      </div>
+// ===== 图1：机构 =====
+let chart1 = echarts.init(document.getElementById('chart1'));
+chart1.setOption({
+    title: { text: '养老机构数量趋势', textStyle:{color:'#fff'} },
+    tooltip: { trigger: 'axis' },
+    xAxis: { data: years, axisLabel:{color:'#fff'} },
+    yAxis: { axisLabel:{color:'#fff'} },
+    series: [{
+        data: org,
+        type: 'line',
+        smooth: true
+    }]
+});
 
-      <div class="glass card summary-card">
-        <div class="card-head">
-          <div>
-            <div class="card-tag">Model Note</div>
-            <h3>预测说明</h3>
-          </div>
-        </div>
-        <p>
-          当前预测曲线为根据近年数据自动生成的演示结果，主要用于展示页面的完整性与交互效果。
-          若你已经完成 ARIMA 建模，可直接把 <code>assets/data.js</code> 中的 forecast 数据替换为正式结果。
-        </p>
-        <div class="forecast-list" id="forecastList"></div>
-      </div>
-    </section>
+// ===== 图2：床位 =====
+let chart2 = echarts.init(document.getElementById('chart2'));
+chart2.setOption({
+    title: { text: '养老床位变化趋势', textStyle:{color:'#fff'} },
+    tooltip: { trigger: 'axis' },
+    xAxis: { data: years, axisLabel:{color:'#fff'} },
+    yAxis: { axisLabel:{color:'#fff'} },
+    series: [{
+        data: beds,
+        type: 'line',
+        smooth: true
+    }]
+});
 
-    <section id="dataset" class="section-block">
-      <div class="section-heading">
-        <span class="section-tag">Dataset</span>
-        <h2>原始数据浏览</h2>
-      </div>
-      <div class="glass card">
-        <div class="table-toolbar">
-          <div class="table-title">总览数据表</div>
-          <div class="legend-note">单位已按原始 Excel 录入展示</div>
-        </div>
-        <div class="table-wrap">
-          <table id="dataTable">
-            <thead></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
+</script>
 
-    <section class="section-block">
-      <div class="glass card footer-card">
-        <div>
-          <div class="card-tag">Project Usage</div>
-          <h3>可继续扩展的方向</h3>
-        </div>
-        <div class="footer-grid">
-          <div>接入 ARIMA 正式结果</div>
-          <div>加入省域地图分布</div>
-          <div>增加论文摘要与参考文献页</div>
-          <div>增加下载 Excel / PDF 功能</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="assets/data.js"></script>
-  <script src="assets/app.js"></script>
 </body>
 </html>
