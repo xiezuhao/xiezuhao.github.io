@@ -1,153 +1,504 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中国养老资源数据分析平台</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中国养老资源数据分析平台</title>
 
-<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+  <script src="data.js"></script>
 
-<style>
-body{
-margin:0;
-font-family:"微软雅黑";
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:#fff;
-}
+  <style>
+    *{
+      box-sizing:border-box;
+    }
 
-nav{
-text-align:center;
-padding:15px;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-}
+    body{
+      margin:0;
+      font-family:"Microsoft YaHei","微软雅黑",sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,255,180,0.08), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(0,170,255,0.08), transparent 30%),
+        linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      color:#fff;
+      min-height:100vh;
+    }
 
-nav a{
-margin:10px;
-cursor:pointer;
-}
+    nav{
+      position:sticky;
+      top:0;
+      z-index:10;
+      text-align:center;
+      padding:14px 10px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
 
-.glass{
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-border-radius:16px;
-padding:20px;
-margin:20px;
-}
+    nav a{
+      display:inline-block;
+      margin:4px 8px;
+      padding:8px 14px;
+      border-radius:999px;
+      color:#fff;
+      text-decoration:none;
+      cursor:pointer;
+      font-size:14px;
+      transition:all .25s ease;
+    }
 
-.kpi{
-display:flex;
-justify-content:space-around;
-flex-wrap:wrap;
-text-align:center;
-}
+    nav a:hover{
+      background:rgba(255,255,255,0.12);
+    }
 
-.chart{
-width:100%;
-height:400px;
-}
+    .wrap{
+      width:min(1200px, 94%);
+      margin:0 auto;
+      padding-bottom:40px;
+    }
 
-.page{display:none;}
-.active{display:block;}
-</style>
+    header{
+      text-align:center;
+      padding:28px 0 10px;
+    }
+
+    header h1{
+      margin:0;
+      font-size:34px;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+
+    header p{
+      margin:12px 0 0;
+      color:rgba(255,255,255,0.82);
+      font-size:14px;
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-radius:20px;
+      padding:20px;
+      margin:18px 0;
+      box-shadow:0 12px 40px rgba(0,0,0,0.22);
+    }
+
+    .kpi{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .kpi-card{
+      text-align:center;
+      padding:10px 8px;
+    }
+
+    .kpi-card h2{
+      margin:0 0 8px;
+      font-size:34px;
+      font-weight:700;
+    }
+
+    .kpi-card p{
+      margin:0;
+      color:rgba(255,255,255,0.8);
+      font-size:14px;
+    }
+
+    .chart{
+      width:100%;
+      height:420px;
+    }
+
+    .section-title{
+      margin:0 0 14px;
+      font-size:20px;
+      font-weight:700;
+    }
+
+    .desc{
+      line-height:1.8;
+      color:rgba(255,255,255,0.84);
+      font-size:15px;
+    }
+
+    .page{
+      display:none;
+    }
+
+    .page.active{
+      display:block;
+    }
+
+    .qa-box{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .qa-box input{
+      flex:1;
+      min-width:220px;
+      padding:12px 14px;
+      border:none;
+      outline:none;
+      border-radius:12px;
+      background:rgba(255,255,255,0.12);
+      color:#fff;
+      font-size:15px;
+    }
+
+    .qa-box input::placeholder{
+      color:rgba(255,255,255,0.55);
+    }
+
+    .qa-box button{
+      padding:12px 18px;
+      border:none;
+      border-radius:12px;
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    #a{
+      margin-top:16px;
+      line-height:1.8;
+      color:rgba(255,255,255,0.9);
+      min-height:28px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:rgba(255,255,255,0.55);
+      font-size:13px;
+      margin-top:8px;
+    }
+
+    @media (max-width: 768px){
+      header h1{
+        font-size:28px;
+      }
+
+      .kpi{
+        grid-template-columns:1fr;
+      }
+
+      .chart{
+        height:320px;
+      }
+
+      nav a{
+        font-size:13px;
+        margin:4px 4px;
+        padding:7px 10px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<nav>
-<a onclick="show('home')">首页</a>
-<a onclick="show('history')">历史分析</a>
-<a onclick="show('forecast')">预测分析</a>
-<a onclick="show('qa')">智能问答</a>
-</nav>
+  <nav>
+    <a onclick="showPage('home')">首页</a>
+    <a onclick="showPage('history')">历史分析</a>
+    <a onclick="showPage('forecast')">预测分析</a>
+    <a onclick="showPage('qa')">智能问答</a>
+  </nav>
 
-<header style="text-align:center;">
-<h1>中国养老资源数据分析平台</h1>
-</header>
+  <div class="wrap">
+    <header>
+      <h1>中国养老资源数据分析平台</h1>
+      <p>2014—2025 趋势分析 · 未来预测 · 数据可视化展示</p>
+    </header>
 
-<div id="home" class="page active">
-<div class="glass kpi">
-<div><h2 id="k1">--</h2><p>机构数</p></div>
-<div><h2 id="k2">--</h2><p>床位数</p></div>
-<div><h2 id="k3">--</h2><p>老龄化率</p></div>
-</div>
-</div>
+    <!-- 首页 -->
+    <section id="home" class="page active">
+      <div class="glass">
+        <div class="kpi">
+          <div class="kpi-card">
+            <h2 id="k1">--</h2>
+            <p>机构数（万）</p>
+          </div>
+          <div class="kpi-card">
+            <h2 id="k2">--</h2>
+            <p>床位数（万）</p>
+          </div>
+          <div class="kpi-card">
+            <h2 id="k3">--</h2>
+            <p>老龄化率</p>
+          </div>
+        </div>
+      </div>
 
-<div id="history" class="page">
-<div class="glass"><div id="chart1" class="chart"></div></div>
-</div>
+      <div class="glass">
+        <h3 class="section-title">养老机构数量趋势</h3>
+        <div id="homeChart" class="chart"></div>
+      </div>
 
-<div id="forecast" class="page">
-<div class="glass"><div id="chart2" class="chart"></div></div>
-</div>
+      <div class="glass">
+        <h3 class="section-title">平台说明</h3>
+        <div class="desc">
+          本平台围绕我国人口老龄化与养老资源配置问题展开，展示养老机构数量、养老床位数和老龄化率等关键指标，
+          并结合趋势图和预测图，直观反映养老服务资源的发展变化情况。该平台适用于课程展示、论文答辩和比赛汇报。
+        </div>
+      </div>
+    </section>
 
-<div id="qa" class="page">
-<div class="glass">
-<input id="q" placeholder="输入问题">
-<button onclick="ask()">提问</button>
-<p id="a"></p>
-</div>
-</div>
+    <!-- 历史分析 -->
+    <section id="history" class="page">
+      <div class="glass">
+        <h3 class="section-title">历史趋势分析</h3>
+        <div id="historyChart1" class="chart"></div>
+      </div>
 
-<script>
+      <div class="glass">
+        <h3 class="section-title">床位数量变化</h3>
+        <div id="historyChart2" class="chart"></div>
+      </div>
+    </section>
 
-// 页面切换
-function show(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-}
+    <!-- 预测分析 -->
+    <section id="forecast" class="page">
+      <div class="glass">
+        <h3 class="section-title">未来机构数量预测</h3>
+        <div id="forecastChart1" class="chart"></div>
+      </div>
 
-// ⭐⭐⭐ 核心修复：DOM加载后执行
-document.addEventListener("DOMContentLoaded", function(){
+      <div class="glass">
+        <h3 class="section-title">未来床位数量预测</h3>
+        <div id="forecastChart2" class="chart"></div>
+      </div>
+    </section>
 
-// KPI
-if(window.kpi){
-document.getElementById("k1").innerText = kpi.org;
-document.getElementById("k2").innerText = kpi.beds;
-document.getElementById("k3").innerText = kpi.aging + "%";
-}
+    <!-- 智能问答 -->
+    <section id="qa" class="page">
+      <div class="glass">
+        <h3 class="section-title">智能问答</h3>
+        <div class="desc">
+          可输入：趋势、预测、老龄化、区域
+        </div>
+        <div class="qa-box">
+          <input id="q" placeholder="请输入问题，例如：养老资源趋势如何？">
+          <button onclick="ask()">提问</button>
+        </div>
+        <div id="a"></div>
+      </div>
+    </section>
 
-// 图表1
-if(window.years){
-let chart1 = echarts.init(document.getElementById('chart1'));
-chart1.setOption({
-title:{text:'养老机构趋势',textStyle:{color:'#fff'}},
-xAxis:{data:years,axisLabel:{color:'#fff'}},
-yAxis:{axisLabel:{color:'#fff'}},
-series:[{data:orgData,type:'line',smooth:true}]
-});
-}
+    <div class="footer-note">
+      数据平台演示版 · GitHub Pages 部署
+    </div>
+  </div>
 
-// 图表2
-if(window.forecastYears){
-let chart2 = echarts.init(document.getElementById('chart2'));
-chart2.setOption({
-title:{text:'未来预测',textStyle:{color:'#fff'}},
-xAxis:{data:forecastYears,axisLabel:{color:'#fff'}},
-yAxis:{axisLabel:{color:'#fff'}},
-series:[{data:orgForecast,type:'line',smooth:true}]
-});
-}
+  <script>
+    function showPage(id){
+      document.querySelectorAll('.page').forEach(function(page){
+        page.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
 
-});
+      setTimeout(function(){
+        window.dispatchEvent(new Event('resize'));
+      }, 120);
+    }
 
+    function ask(){
+      var q = document.getElementById("q").value.trim();
+      var a = document.getElementById("a");
 
-// 问答
-function ask(){
-let q=document.getElementById("q").value;
-let a=document.getElementById("a");
+      if(!q){
+        a.innerText = "请输入问题。";
+        return;
+      }
 
-if(q.includes("趋势")){
-a.innerText="养老资源总体呈增长趋势。";
-}else if(q.includes("预测")){
-a.innerText="未来需求持续增长。";
-}else{
-a.innerText="请输入关键词：趋势 / 预测";
-}
-}
+      if(q.indexOf("趋势") !== -1){
+        a.innerText = "从历史数据来看，我国养老机构数量和养老床位总体呈上升趋势，但近年增速有所放缓，说明养老资源正在由规模扩张向结构优化转变。";
+      }else if(q.indexOf("预测") !== -1){
+        a.innerText = "根据当前展示的预测结果，未来几年养老需求仍将持续增长，养老服务供给需要继续扩充，尤其是护理型和专业化资源。";
+      }else if(q.indexOf("老龄化") !== -1){
+        a.innerText = "老龄化率持续提升，表明我国老年人口占比不断增加，这将进一步推动养老服务体系建设与资源优化配置。";
+      }else if(q.indexOf("区域") !== -1){
+        a.innerText = "从区域角度看，人口大省和经济较发达地区的养老资源规模通常更高，而部分西部和人口较少地区资源规模相对有限。";
+      }else{
+        a.innerText = "暂未匹配该问题，可尝试输入：趋势、预测、老龄化、区域。";
+      }
+    }
 
-</script>
+    document.addEventListener("DOMContentLoaded", function(){
 
+      if(typeof kpi !== "undefined"){
+        document.getElementById("k1").innerText = kpi.org;
+        document.getElementById("k2").innerText = kpi.beds;
+        document.getElementById("k3").innerText = kpi.aging + "%";
+      }
+
+      if(typeof echarts === "undefined"){
+        return;
+      }
+
+      // 首页趋势图
+      if(typeof years !== "undefined" && typeof orgData !== "undefined"){
+        var homeChart = echarts.init(document.getElementById('homeChart'));
+        homeChart.setOption({
+          backgroundColor: 'transparent',
+          tooltip: { trigger: 'axis' },
+          grid: { left: '8%', right: '5%', top: '16%', bottom: '12%' },
+          xAxis: {
+            type: 'category',
+            data: years,
+            axisLabel: { color: '#d8e6ef' },
+            axisLine: { lineStyle: { color: 'rgba(255,255,255,0.25)' } }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: '#d8e6ef' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.12)' } }
+          },
+          series: [{
+            data: orgData,
+            type: 'line',
+            smooth: true,
+            symbolSize: 7,
+            lineStyle: { width: 3 },
+            areaStyle: {}
+          }]
+        });
+      }
+
+      // 历史图1
+      if(typeof years !== "undefined" && typeof orgData !== "undefined"){
+        var historyChart1 = echarts.init(document.getElementById('historyChart1'));
+        historyChart1.setOption({
+          tooltip: { trigger: 'axis' },
+          legend: {
+            data: ['机构数'],
+            textStyle: { color: '#fff' }
+          },
+          grid: { left: '8%', right: '5%', top: '18%', bottom: '12%' },
+          xAxis: {
+            type: 'category',
+            data: years,
+            axisLabel: { color: '#d8e6ef' }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: '#d8e6ef' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.12)' } }
+          },
+          series: [{
+            name: '机构数',
+            data: orgData,
+            type: 'line',
+            smooth: true,
+            symbolSize: 7,
+            lineStyle: { width: 3 }
+          }]
+        });
+      }
+
+      // 历史图2
+      if(typeof years !== "undefined" && typeof bedData !== "undefined"){
+        var historyChart2 = echarts.init(document.getElementById('historyChart2'));
+        historyChart2.setOption({
+          tooltip: { trigger: 'axis' },
+          legend: {
+            data: ['床位数'],
+            textStyle: { color: '#fff' }
+          },
+          grid: { left: '8%', right: '5%', top: '18%', bottom: '12%' },
+          xAxis: {
+            type: 'category',
+            data: years,
+            axisLabel: { color: '#d8e6ef' }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: '#d8e6ef' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.12)' } }
+          },
+          series: [{
+            name: '床位数',
+            data: bedData,
+            type: 'line',
+            smooth: true,
+            symbolSize: 7,
+            lineStyle: { width: 3 }
+          }]
+        });
+      }
+
+      // 预测图1
+      if(typeof forecastYears !== "undefined" && typeof orgForecast !== "undefined"){
+        var forecastChart1 = echarts.init(document.getElementById('forecastChart1'));
+        forecastChart1.setOption({
+          tooltip: { trigger: 'axis' },
+          grid: { left: '8%', right: '5%', top: '16%', bottom: '12%' },
+          xAxis: {
+            type: 'category',
+            data: forecastYears,
+            axisLabel: { color: '#d8e6ef' }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: '#d8e6ef' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.12)' } }
+          },
+          series: [{
+            data: orgForecast,
+            type: 'line',
+            smooth: true,
+            symbolSize: 7,
+            lineStyle: { width: 3 }
+          }]
+        });
+      }
+
+      // 预测图2
+      if(typeof forecastYears !== "undefined" && typeof bedForecast !== "undefined"){
+        var forecastChart2 = echarts.init(document.getElementById('forecastChart2'));
+        forecastChart2.setOption({
+          tooltip: { trigger: 'axis' },
+          grid: { left: '8%', right: '5%', top: '16%', bottom: '12%' },
+          xAxis: {
+            type: 'category',
+            data: forecastYears,
+            axisLabel: { color: '#d8e6ef' }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: { color: '#d8e6ef' },
+            splitLine: { lineStyle: { color: 'rgba(255,255,255,0.12)' } }
+          },
+          series: [{
+            data: bedForecast,
+            type: 'line',
+            smooth: true,
+            symbolSize: 7,
+            lineStyle: { width: 3 }
+          }]
+        });
+      }
+
+      window.addEventListener('resize', function(){
+        var chartIds = ['homeChart', 'historyChart1', 'historyChart2', 'forecastChart1', 'forecastChart2'];
+        chartIds.forEach(function(id){
+          var dom = document.getElementById(id);
+          if(dom){
+            var instance = echarts.getInstanceByDom(dom);
+            if(instance){
+              instance.resize();
+            }
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
