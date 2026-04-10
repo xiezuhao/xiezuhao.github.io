@@ -1,332 +1,735 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中国养老资源数据平台</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中国养老资源数据分析平台</title>
 
-<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-<script src="data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="data.js"></script>
 
-<style>
-body{
-    margin:0;
-    font-family:"微软雅黑",sans-serif;
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:#fff;
-    text-align:center;
-}
-
-h1{
-    margin-top:20px;
-    margin-bottom:10px;
-}
-
-.sub{
-    color:#d9e6ee;
-    font-size:14px;
-    margin-bottom:20px;
-}
-
-.kpi{
-    display:flex;
-    justify-content:space-around;
-    gap:12px;
-    margin:20px;
-    flex-wrap:wrap;
-}
-
-.kpi div{
-    background:rgba(255,255,255,0.1);
-    padding:15px;
-    border-radius:12px;
-    min-width:160px;
-    flex:1;
-}
-
-.kpi h2{
-    margin:0 0 8px 0;
-}
-
-.chart-box{
-    width:92%;
-    margin:20px auto;
-    background:rgba(255,255,255,0.08);
-    border-radius:14px;
-    padding:16px;
-}
-
-.chart-title{
-    text-align:left;
-    margin:0 0 10px 0;
-    font-size:18px;
-}
-
-.chart{
-    width:100%;
-    height:380px;
-}
-
-.rank-box{
-    width:92%;
-    margin:20px auto;
-    background:rgba(255,255,255,0.08);
-    border-radius:14px;
-    padding:16px;
-    text-align:left;
-}
-
-.rank-list{
-    margin-top:10px;
-}
-
-.rank-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:12px 10px;
-    margin-bottom:8px;
-    background:rgba(255,255,255,0.08);
-    border-radius:10px;
-}
-
-.rank-left{
-    display:flex;
-    gap:10px;
-    align-items:center;
-}
-
-.rank-num{
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    border-radius:50%;
-    background:rgba(255,255,255,0.18);
-    font-weight:bold;
-}
-
-.rank-name{
-    font-size:15px;
-}
-
-.rank-value{
-    color:#dff6ff;
-    font-weight:bold;
-}
-
-.qa-box{
-    width:92%;
-    margin:20px auto 40px;
-    background:rgba(255,255,255,0.08);
-    border-radius:14px;
-    padding:16px;
-    text-align:left;
-}
-
-.qa-row{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:10px;
-}
-
-.qa-row input{
-    flex:1;
-    min-width:220px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    outline:none;
-}
-
-.qa-row button{
-    padding:12px 18px;
-    border:none;
-    border-radius:10px;
-    background:#2f54eb;
-    color:#fff;
-    cursor:pointer;
-}
-
-#answer{
-    margin-top:14px;
-    line-height:1.8;
-    color:#eaf3f8;
-}
-
-@media (max-width:768px){
-    .chart{
-        height:300px;
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
-}
-</style>
+
+    :root{
+      --bg1:#08121f;
+      --bg2:#0f2d3f;
+      --bg3:#123f52;
+      --glass:rgba(255,255,255,0.10);
+      --glass-strong:rgba(255,255,255,0.14);
+      --border:rgba(255,255,255,0.16);
+      --text:#ffffff;
+      --sub:#d8e7ef;
+      --accent:#7be7ff;
+      --accent2:#7b9cff;
+      --shadow:0 18px 48px rgba(0,0,0,0.28);
+      --radius:22px;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:"Microsoft YaHei","微软雅黑",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(123,231,255,0.12), transparent 26%),
+        radial-gradient(circle at 85% 18%, rgba(123,156,255,0.12), transparent 24%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05), transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .bg-blur{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+
+    .blob{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(70px);
+      opacity:.28;
+      animation:floatBlob 12s ease-in-out infinite;
+    }
+
+    .blob1{
+      width:280px;
+      height:280px;
+      background:#53d8fb;
+      top:8%;
+      left:6%;
+    }
+
+    .blob2{
+      width:320px;
+      height:320px;
+      background:#7b9cff;
+      top:18%;
+      right:6%;
+      animation-delay:2s;
+    }
+
+    .blob3{
+      width:260px;
+      height:260px;
+      background:#6fffd2;
+      bottom:6%;
+      left:34%;
+      animation-delay:4s;
+    }
+
+    @keyframes floatBlob{
+      0%,100%{transform:translateY(0) translateX(0) scale(1);}
+      50%{transform:translateY(-16px) translateX(10px) scale(1.06);}
+    }
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      width:min(1200px,94%);
+      margin:16px auto 0;
+      background:rgba(255,255,255,0.08);
+      border:1px solid var(--border);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+      border-radius:999px;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px;
+    }
+
+    nav a{
+      color:#fff;
+      text-decoration:none;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:14px;
+      transition:.25s ease;
+    }
+
+    nav a:hover{
+      background:rgba(255,255,255,0.12);
+      transform:translateY(-1px);
+    }
+
+    .wrap{
+      width:min(1200px,94%);
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+      padding-bottom:50px;
+    }
+
+    header{
+      padding:44px 0 20px;
+      text-align:center;
+    }
+
+    .hero{
+      background:var(--glass);
+      border:1px solid var(--border);
+      border-radius:32px;
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      box-shadow:var(--shadow);
+      padding:34px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:180px;
+      height:180px;
+      background:radial-gradient(circle, rgba(255,255,255,.18), transparent 65%);
+      border-radius:50%;
+      filter:blur(10px);
+    }
+
+    h1{
+      font-size:40px;
+      letter-spacing:1px;
+      margin-bottom:12px;
+    }
+
+    .sub{
+      color:var(--sub);
+      font-size:15px;
+      line-height:1.8;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .section{
+      margin-top:22px;
+      animation:fadeUp .7s ease both;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0; transform:translateY(18px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    .glass{
+      background:var(--glass);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
+
+    .section-title{
+      font-size:22px;
+      margin-bottom:14px;
+      text-align:left;
+    }
+
+    .section-desc{
+      text-align:left;
+      color:var(--sub);
+      line-height:1.8;
+      font-size:14px;
+      margin-bottom:14px;
+    }
+
+    .kpi-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
+    }
+
+    .kpi-card{
+      position:relative;
+      overflow:hidden;
+      padding:24px 18px;
+      text-align:center;
+      border-radius:20px;
+      background:var(--glass-strong);
+      border:1px solid rgba(255,255,255,0.18);
+      transition:.28s ease;
+    }
+
+    .kpi-card::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      right:-10%;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.16), transparent 70%);
+      filter:blur(6px);
+    }
+
+    .kpi-card:hover{
+      transform:translateY(-4px);
+    }
+
+    .kpi-value{
+      font-size:34px;
+      font-weight:700;
+      margin-bottom:8px;
+      color:#fff;
+    }
+
+    .kpi-label{
+      color:var(--sub);
+      font-size:14px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .chart{
+      width:100%;
+      height:400px;
+    }
+
+    .chart-sm{
+      width:100%;
+      height:360px;
+    }
+
+    .rank-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .rank-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.08);
+      transition:.25s ease;
+    }
+
+    .rank-item:hover{
+      background:rgba(255,255,255,0.12);
+      transform:translateX(4px);
+    }
+
+    .rank-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .rank-num{
+      width:30px;
+      height:30px;
+      line-height:30px;
+      text-align:center;
+      border-radius:50%;
+      background:rgba(255,255,255,0.18);
+      font-weight:700;
+    }
+
+    .rank-name{
+      font-size:15px;
+    }
+
+    .rank-value{
+      color:#e6fbff;
+      font-weight:700;
+    }
+
+    .qa-wrap{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .qa-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .qa-row input{
+      flex:1;
+      min-width:220px;
+      padding:13px 14px;
+      border:none;
+      outline:none;
+      border-radius:14px;
+      background:rgba(255,255,255,0.13);
+      color:#fff;
+      font-size:15px;
+    }
+
+    .qa-row input::placeholder{
+      color:rgba(255,255,255,.55);
+    }
+
+    .qa-row button{
+      border:none;
+      border-radius:14px;
+      background:linear-gradient(135deg,#5bbcff,#7b9cff);
+      color:#fff;
+      padding:13px 18px;
+      cursor:pointer;
+      font-size:15px;
+      transition:.25s ease;
+    }
+
+    .qa-row button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 24px rgba(91,188,255,.28);
+    }
+
+    #answer{
+      min-height:34px;
+      line-height:1.8;
+      color:#edf8ff;
+      text-align:left;
+      background:rgba(255,255,255,.06);
+      border-radius:16px;
+      padding:14px;
+    }
+
+    .footer{
+      text-align:center;
+      color:rgba(255,255,255,.58);
+      font-size:13px;
+      padding:16px 0 8px;
+    }
+
+    @media (max-width: 980px){
+      .grid-2{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+      h1{
+        font-size:30px;
+      }
+
+      .kpi-grid{
+        grid-template-columns:1fr;
+      }
+
+      .chart{
+        height:320px;
+      }
+
+      .chart-sm{
+        height:320px;
+      }
+
+      nav{
+        border-radius:26px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="bg-blur">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
 
-<h1>中国养老资源数据平台</h1>
-<div class="sub">2014—2025 数据展示 + 趋势分析 + 未来预测</div>
+  <nav>
+    <a href="#overview">总览</a>
+    <a href="#history">历史趋势</a>
+    <a href="#forecast">未来预测</a>
+    <a href="#map">地图分析</a>
+    <a href="#ranking">省份排行</a>
+    <a href="#qa">智能问答</a>
+  </nav>
 
-<div class="kpi">
-    <div>
-        <h2 id="k1">--</h2>
-        <p>机构数（万）</p>
-    </div>
+  <div class="wrap">
+    <header>
+      <div class="hero">
+        <h1>中国养老资源数据分析平台</h1>
+        <div class="sub">
+          基于 2014—2025 年养老资源数据，展示机构数量、床位规模、老龄化率变化趋势，
+          并结合未来预测、省份排行和中国地图可视化，形成一体化展示页面。
+        </div>
+      </div>
+    </header>
 
-    <div>
-        <h2 id="k2">--</h2>
-        <p>床位数（万）</p>
-    </div>
+    <section id="overview" class="section glass">
+      <div class="section-title">核心指标总览</div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value" id="k1">--</div>
+          <div class="kpi-label">机构数（万）</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="k2">--</div>
+          <div class="kpi-label">床位数（万）</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="k3">--</div>
+          <div class="kpi-label">老龄化率</div>
+        </div>
+      </div>
+    </section>
 
-    <div>
-        <h2 id="k3">--</h2>
-        <p>老龄化率</p>
-    </div>
-</div>
+    <section id="history" class="section grid-2">
+      <div class="glass">
+        <div class="section-title">养老机构数量趋势</div>
+        <div class="section-desc">从时间序列角度展示养老机构数量变化，用于观察供给规模的长期演进。</div>
+        <div id="chart1" class="chart"></div>
+      </div>
+      <div class="glass">
+        <div class="section-title">养老床位数趋势</div>
+        <div class="section-desc">展示床位资源变化情况，反映养老服务承载能力的调整过程。</div>
+        <div id="chart2" class="chart-sm"></div>
+      </div>
+    </section>
 
-<div class="chart-box">
-    <h3 class="chart-title">养老机构数量趋势</h3>
-    <div id="chart1" class="chart"></div>
-</div>
+    <section id="forecast" class="section glass">
+      <div class="section-title">未来趋势预测</div>
+      <div class="section-desc">展示未来机构数量预测结果，可用于比赛展示与后续论文说明。</div>
+      <div id="chart3" class="chart"></div>
+    </section>
 
-<div class="chart-box">
-    <h3 class="chart-title">养老床位数趋势</h3>
-    <div id="chart2" class="chart"></div>
-</div>
+    <section id="map" class="section glass">
+      <div class="section-title">全国养老资源地图</div>
+      <div class="section-desc">根据省级数据展示全国养老资源分布情况，颜色越深表示资源指数越高。</div>
+      <div id="mapChart" class="chart"></div>
+    </section>
 
-<div class="chart-box">
-    <h3 class="chart-title">未来机构数量预测</h3>
-    <div id="chart3" class="chart"></div>
-</div>
+    <section id="ranking" class="section glass">
+      <div class="section-title">省份养老资源 Top10</div>
+      <div class="section-desc">根据省级资源指数自动生成排行榜，便于直观比较不同地区差异。</div>
+      <div id="rankList" class="rank-list"></div>
+    </section>
 
-<div class="rank-box">
-    <h3 class="chart-title">省份养老资源 Top10</h3>
-    <div id="rankList" class="rank-list"></div>
-</div>
+    <section id="qa" class="section glass">
+      <div class="section-title">简单问答</div>
+      <div class="section-desc">可输入：趋势、预测、老龄化、排名、地图</div>
+      <div class="qa-wrap">
+        <div class="qa-row">
+          <input id="question" placeholder="请输入问题，例如：养老资源趋势如何？">
+          <button onclick="askQuestion()">提问</button>
+        </div>
+        <div id="answer">这里会显示回答。</div>
+      </div>
+    </section>
 
-<div class="qa-box">
-    <h3 style="margin:0;">简单问答</h3>
-    <div class="qa-row">
-        <input id="question" placeholder="输入问题，例如：趋势、预测、老龄化、排名">
-        <button onclick="askQuestion()">提问</button>
-    </div>
-    <div id="answer">这里会显示回答。</div>
-</div>
+    <div class="footer">养老资源数据平台 · 单页整合版</div>
+  </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
+  <script>
+    function animateNumber(el, target, suffix = "", decimals = 0){
+      let start = 0;
+      const duration = 1200;
+      const startTime = performance.now();
 
-    // KPI
-    document.getElementById("k1").innerText = kpi.org;
-    document.getElementById("k2").innerText = kpi.beds;
-    document.getElementById("k3").innerText = kpi.aging + "%";
+      function update(now){
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = start + (target - start) * eased;
+        el.textContent = value.toFixed(decimals) + suffix;
+        if(progress < 1){
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
 
-    // 图1：机构数趋势
-    const chart1 = echarts.init(document.getElementById('chart1'));
-    chart1.setOption({
+    function loadChinaMap(callback){
+      if (echarts.getMap && echarts.getMap('china')) {
+        callback();
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js';
+      script.onload = callback;
+      script.onerror = function(){
+        const mapDom = document.getElementById('mapChart');
+        if(mapDom){
+          mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;">地图加载失败，请刷新页面重试</div>';
+        }
+      };
+      document.head.appendChild(script);
+    }
+
+    function askQuestion(){
+      const q = document.getElementById("question").value.trim();
+      const a = document.getElementById("answer");
+
+      if(!q){
+        a.innerText = "请输入问题。";
+        return;
+      }
+
+      if(q.includes("趋势")){
+        a.innerText = "从历史趋势图来看，养老机构数量和养老床位数总体呈上升趋势，说明我国养老服务供给规模在持续扩大。";
+      }else if(q.includes("预测")){
+        a.innerText = "预测结果显示，未来几年养老资源需求仍将保持增长，养老机构数量与床位配置还需要进一步优化。";
+      }else if(q.includes("老龄化")){
+        a.innerText = "老龄化率持续上升，表明老年人口占比不断提高，这会进一步推动养老服务体系建设。";
+      }else if(q.includes("排名")){
+        a.innerText = "从当前排行榜看，广东、河南、四川、山东等地区养老资源指数较高，体现出人口规模与资源配置之间的关联。";
+      }else if(q.includes("地图")){
+        a.innerText = "地图模块反映了我国养老资源的空间分布差异，东部沿海和人口大省整体资源指数更高。";
+      }else{
+        a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图。";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+
+      animateNumber(document.getElementById("k1"), Number(kpi.org), "", 1);
+      animateNumber(document.getElementById("k2"), Number(kpi.beds), "", 0);
+      animateNumber(document.getElementById("k3"), Number(kpi.aging), "%", 1);
+
+      const chartTextColor = '#ffffff';
+      const axisColor = '#d7e6ee';
+      const splitColor = 'rgba(255,255,255,0.10)';
+
+      const chart1 = echarts.init(document.getElementById('chart1'));
+      chart1.setOption({
+        animationDuration: 1400,
         tooltip:{ trigger:'axis' },
+        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
         xAxis:{
-            type:'category',
-            data:years,
-            axisLabel:{ color:'#fff' }
+          type:'category',
+          data:years,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
         },
         yAxis:{
-            type:'value',
-            axisLabel:{ color:'#fff' }
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-            data:orgData,
-            type:'line',
-            smooth:true
+          data:orgData,
+          type:'line',
+          smooth:true,
+          symbolSize:7,
+          lineStyle:{ width:4, color:'#7be7ff' },
+          itemStyle:{ color:'#7be7ff' },
+          areaStyle:{
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[
+              {offset:0,color:'rgba(123,231,255,0.35)'},
+              {offset:1,color:'rgba(123,231,255,0.02)'}
+            ])
+          }
         }]
-    });
+      });
 
-    // 图2：床位趋势
-    const chart2 = echarts.init(document.getElementById('chart2'));
-    chart2.setOption({
+      const chart2 = echarts.init(document.getElementById('chart2'));
+      chart2.setOption({
+        animationDuration: 1500,
         tooltip:{ trigger:'axis' },
+        grid:{ left:'10%', right:'5%', top:'10%', bottom:'12%' },
         xAxis:{
-            type:'category',
-            data:years,
-            axisLabel:{ color:'#fff' }
+          type:'category',
+          data:years,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
         },
         yAxis:{
-            type:'value',
-            axisLabel:{ color:'#fff' }
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-            data:bedData,
-            type:'line',
-            smooth:true
+          data:bedData,
+          type:'line',
+          smooth:true,
+          symbolSize:7,
+          lineStyle:{ width:4, color:'#7b9cff' },
+          itemStyle:{ color:'#7b9cff' },
+          areaStyle:{
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[
+              {offset:0,color:'rgba(123,156,255,0.32)'},
+              {offset:1,color:'rgba(123,156,255,0.02)'}
+            ])
+          }
         }]
-    });
+      });
 
-    // 图3：预测
-    const chart3 = echarts.init(document.getElementById('chart3'));
-    chart3.setOption({
+      const chart3 = echarts.init(document.getElementById('chart3'));
+      chart3.setOption({
+        animationDuration: 1500,
         tooltip:{ trigger:'axis' },
+        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
         xAxis:{
-            type:'category',
-            data:forecastYears,
-            axisLabel:{ color:'#fff' }
+          type:'category',
+          data:forecastYears,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
         },
         yAxis:{
-            type:'value',
-            axisLabel:{ color:'#fff' }
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-            data:orgForecast,
-            type:'line',
-            smooth:true
+          data:orgForecast,
+          type:'line',
+          smooth:true,
+          symbolSize:8,
+          lineStyle:{ width:4, color:'#6fffd2' },
+          itemStyle:{ color:'#6fffd2' },
+          areaStyle:{
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[
+              {offset:0,color:'rgba(111,255,210,0.30)'},
+              {offset:1,color:'rgba(111,255,210,0.02)'}
+            ])
+          }
         }]
-    });
+      });
 
-    // 排行榜
-    const rankList = document.getElementById("rankList");
-    rankList.innerHTML = "";
-    top10.forEach(function(item, index){
+      const rankList = document.getElementById("rankList");
+      rankList.innerHTML = "";
+      top10.forEach(function(item, index){
         const row = document.createElement("div");
         row.className = "rank-item";
         row.innerHTML = `
-            <div class="rank-left">
-                <div class="rank-num">${index + 1}</div>
-                <div class="rank-name">${item.name}</div>
-            </div>
-            <div class="rank-value">${item.value}</div>
+          <div class="rank-left">
+            <div class="rank-num">${index + 1}</div>
+            <div class="rank-name">${item.name}</div>
+          </div>
+          <div class="rank-value">${item.value}</div>
         `;
         rankList.appendChild(row);
-    });
+      });
 
-    window.addEventListener('resize', function(){
+      loadChinaMap(function(){
+        const mapChart = echarts.init(document.getElementById('mapChart'));
+        mapChart.setOption({
+          animationDuration: 1600,
+          tooltip:{
+            trigger:'item',
+            formatter:function(params){
+              if(isNaN(params.value)) return params.name + '<br>暂无数据';
+              return params.name + '<br>资源指数：' + params.value;
+            }
+          },
+          visualMap:{
+            min:20,
+            max:160,
+            left:'left',
+            bottom:10,
+            text:['高','低'],
+            textStyle:{ color:'#fff' },
+            calculable:true,
+            inRange:{
+              color:['#29445a','#2e6d8c','#4db4d7','#87f5ff']
+            }
+          },
+          series:[{
+            name:'养老资源指数',
+            type:'map',
+            map:'china',
+            roam:true,
+            label:{ show:false, color:'#fff' },
+            emphasis:{
+              label:{ show:true, color:'#fff' },
+              itemStyle:{ areaColor:'#87f5ff' }
+            },
+            data:provinceData
+          }]
+        });
+
+        window.addEventListener('resize', function(){
+          mapChart.resize();
+        });
+      });
+
+      window.addEventListener('resize', function(){
         chart1.resize();
         chart2.resize();
         chart3.resize();
+      });
     });
-});
-
-function askQuestion(){
-    const q = document.getElementById("question").value.trim();
-    const a = document.getElementById("answer");
-
-    if(!q){
-        a.innerText = "请输入问题。";
-        return;
-    }
-
-    if(q.includes("趋势")){
-        a.innerText = "从图表看，养老机构数量和床位数总体呈上升趋势，说明养老服务供给规模在逐步扩大。";
-    }else if(q.includes("预测")){
-        a.innerText = "预测结果显示，未来几年养老资源需求仍会增长，机构数量和床位配置需要继续优化。";
-    }else if(q.includes("老龄化")){
-        a.innerText = "老龄化率持续上升，表明老年人口占比不断提高，这会进一步推高养老服务需求。";
-    }else if(q.includes("排名")){
-        a.innerText = "从当前排行榜看，广东、河南、四川、山东等省份养老资源指数较高，说明人口大省和经济较强地区的资源配置更为集中。";
-    }else{
-        a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名。";
-    }
-}
-</script>
-
+  </script>
 </body>
 </html>
