@@ -6,8 +6,8 @@
   <title>中国养老资源数据分析平台</title>
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/map/js/china.js"></script>
   <script src="data.js"></script>
-  <script src="china.js"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -23,9 +23,6 @@
       --text:#f8fbff;
       --sub:#d7e6ef;
       --muted:#9db2bf;
-      --accent:#7ce7ff;
-      --accent2:#8aa2ff;
-      --accent3:#7cf4cb;
       --shadow:0 18px 50px rgba(0,0,0,.24);
       --radius:24px;
     }
@@ -192,7 +189,7 @@
       padding:22px 18px;
       text-align:center;
       border-radius:20px;
-      background:var(--card-strong);
+      background:var(--card);
       border:1px solid rgba(255,255,255,.16);
       position:relative;
       overflow:hidden;
@@ -382,6 +379,19 @@
       text-align:center;
       color:rgba(255,255,255,.58);
       font-size:13px;
+      line-height:1.8;
+    }
+
+    .map-fallback{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100%;
+      color:#fff;
+      background:rgba(255,255,255,.05);
+      border-radius:18px;
+      text-align:center;
+      padding:16px;
       line-height:1.8;
     }
 
@@ -752,6 +762,7 @@
 
       if (echarts.getMap && echarts.getMap('china')) {
         const mapChart = echarts.init(document.getElementById('mapChart'));
+
         const mapSeriesData = provinceData.map(function(item){
           return { name: toMapFullName(item.name), value: item.value };
         });
@@ -800,7 +811,7 @@
         });
       } else {
         document.getElementById('mapChart').innerHTML =
-          '<div class="map-fallback">地图数据未加载。<br>请在仓库根目录新增 <b>china.js</b> 文件后刷新页面。</div>';
+          '<div class="map-fallback">地图脚本未加载成功，请刷新页面重试。</div>';
       }
 
       window.addEventListener('resize', function(){
