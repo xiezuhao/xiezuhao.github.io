@@ -415,6 +415,9 @@
       color:#fff;
       background:rgba(255,255,255,.05);
       border-radius:18px;
+      text-align:center;
+      padding:16px;
+      line-height:1.8;
     }
 
     @media (max-width: 980px){
@@ -456,7 +459,7 @@
       <h1>中国养老资源数据分析平台</h1>
       <p>
         围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比和交互式问答功能，
-        用更直观的方式展示养老服务供给变化与区域差异，适用于课程展示、答辩汇报和比赛演示。
+        用更直观的方式展示养老服务供给变化与区域差异。
       </p>
     </section>
 
@@ -502,7 +505,7 @@
 
     <section id="forecast" class="section card">
       <h2 class="section-title">未来趋势预测</h2>
-      <p class="section-desc">展示 2025—2030 年预测结果，历史与预测区段区分呈现。</p>
+      <p class="section-desc">展示 2025—2030 年预测结果。</p>
       <div id="chart3" class="chart"></div>
     </section>
 
@@ -530,7 +533,7 @@
           </div>
         </div>
         <div style="margin-top:14px;line-height:1.9;color:var(--sub);font-size:14px;" id="detailText">
-          安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。
+          安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强。
         </div>
       </div>
     </section>
@@ -595,7 +598,7 @@
       if(name === "安徽"){
         return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。";
       }
-      return name + "的老龄化率为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模与养老资源供给进一步分析。";
+      return name + "的老龄化率为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平。";
     }
 
     function fillQuick(text){
@@ -616,15 +619,15 @@
 
       setTimeout(function(){
         if(q.includes("趋势")){
-          a.innerText = "从历史趋势图来看，65岁及以上人口总体持续上升，说明我国老龄化程度不断加深，养老服务需求仍将长期存在。";
+          a.innerText = "从历史趋势图来看，65岁及以上人口总体持续上升，说明我国老龄化程度不断加深。";
         }else if(q.includes("预测")){
-          a.innerText = "预测图显示，到2030年前后老龄人口仍将继续增长，因此养老机构数量、床位数和护理型资源都需要持续优化。";
+          a.innerText = "预测结果显示，未来几年老龄人口仍将继续增长，因此养老资源需求还会持续增加。";
         }else if(q.includes("老龄化")){
-          a.innerText = "老龄化率是衡量老年人口占比的重要指标。从省际差异来看，东北、长三角和部分中西部地区老龄化率相对更高。";
+          a.innerText = "老龄化率是衡量老年人口占比的重要指标，不同省份之间存在明显差异。";
         }else if(q.includes("排名")){
-          a.innerText = "排行榜反映了各省养老资源指数差异，高排名地区往往人口规模大、资源配置较集中，也更适合做深度比较分析。";
+          a.innerText = "排行榜反映了各省养老资源指数差异，高排名地区往往人口规模大、资源配置较集中。";
         }else if(q.includes("地图")){
-          a.innerText = "地图模块展示了各省老龄化率的空间分布情况，颜色越深说明该地区指标水平越高，可与排行榜联动查看。";
+          a.innerText = "地图模块展示了各省老龄化率的空间分布情况，颜色越深说明该地区指标水平越高。";
         }else if(q.includes("安徽")){
           a.innerText = "安徽建议重点完善县域养老服务中心和乡镇站点，增加护理型床位，加强医养结合与农村互助养老服务。";
         }else{
@@ -641,7 +644,7 @@
         '河南省':'河南','湖北省':'湖北','湖南省':'湖南','广东省':'广东','广西壮族自治区':'广西',
         '海南省':'海南','重庆市':'重庆','四川省':'四川','贵州省':'贵州','云南省':'云南',
         '西藏自治区':'西藏','陕西省':'陕西','甘肃省':'甘肃','青海省':'青海','宁夏回族自治区':'宁夏',
-        '新疆维吾尔自治区':'新疆','香港特别行政区':'香港','澳门特别行政区':'澳门','台湾省':'台湾'
+        '新疆维吾尔自治区':'新疆'
       };
       return map[name] || name;
     }
@@ -699,8 +702,8 @@
       }
 
       const urls = [
-        'https://cdn.jsdelivr.net/npm/echarts@5/map/json/china.json',
         'https://fastly.jsdelivr.net/npm/echarts@5/map/json/china.json',
+        'https://cdn.jsdelivr.net/npm/echarts@5/map/json/china.json',
         'https://unpkg.com/echarts@5/map/json/china.json'
       ];
 
@@ -726,7 +729,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', function(){
-
       animateNumber(document.getElementById('k1'), parseFloat(kpi.org), "", 1);
       animateNumber(document.getElementById('k2'), parseFloat(kpi.beds), "", 1);
       animateNumber(document.getElementById('k3'), parseFloat(kpi.aging), "%", 1);
@@ -743,8 +745,7 @@
         xAxis:{
           type:'category',
           data:years,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+          axisLabel:{ color:axisColor }
         },
         yAxis:{
           type:'value',
@@ -752,7 +753,6 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          name:'65岁及以上人口',
           data:elderly65,
           type:'line',
           smooth:true,
@@ -776,8 +776,7 @@
         xAxis:{
           type:'category',
           data:supplyYears,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+          axisLabel:{ color:axisColor }
         },
         yAxis:{
           type:'value',
@@ -785,7 +784,6 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          name:'每千人床位数',
           data:supplyPer1000,
           type:'bar',
           barWidth:'40%',
@@ -799,24 +797,15 @@
         }]
       });
 
-      const historyPart = elderly65.slice(0, 1);
-      const forecastPart = elderlyForecast;
-
       const chart3 = echarts.init(document.getElementById('chart3'));
       chart3.setOption({
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
-        legend:{
-          data:['预测老龄人口'],
-          textStyle:{ color:'#fff' },
-          top:0
-        },
-        grid:{ left:'8%', right:'5%', top:'14%', bottom:'12%' },
+        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
         xAxis:{
           type:'category',
           data:forecastYears,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+          axisLabel:{ color:axisColor }
         },
         yAxis:{
           type:'value',
@@ -824,7 +813,6 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          name:'预测老龄人口',
           data:elderlyForecast,
           type:'line',
           smooth:true,
@@ -836,11 +824,6 @@
               {offset:0,color:'rgba(124,244,203,.28)'},
               {offset:1,color:'rgba(124,244,203,.03)'}
             ])
-          },
-          markLine:{
-            silent:true,
-            lineStyle:{ color:'rgba(255,255,255,.35)', type:'dashed' },
-            data:[{ xAxis: '2025' }]
           }
         }]
       });
@@ -865,7 +848,7 @@
             formatter:function(params){
               const shortName = normalizeMapName(params.name);
               if(isNaN(params.value)) return shortName + '<br>暂无数据';
-              return shortName + '<br>老龄化率：' + params.value.toFixed(2) + '%';
+              return shortName + '<br>老龄化率：' + Number(params.value).toFixed(2) + '%';
             }
           },
           visualMap:{
