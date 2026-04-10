@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,39 +9,35 @@
   <script src="data.js"></script>
 
   <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     :root{
-      --bg1:#08121f;
-      --bg2:#0f2d3f;
-      --bg3:#123f52;
-      --glass:rgba(255,255,255,0.10);
-      --glass-strong:rgba(255,255,255,0.14);
-      --border:rgba(255,255,255,0.16);
-      --text:#ffffff;
-      --sub:#d8e7ef;
-      --accent:#7be7ff;
-      --accent2:#7b9cff;
-      --shadow:0 18px 48px rgba(0,0,0,0.28);
-      --radius:22px;
-    }
-
-    html{
-      scroll-behavior:smooth;
+      --bg1:#071521;
+      --bg2:#0c2a3d;
+      --bg3:#12384c;
+      --card:rgba(255,255,255,0.10);
+      --card-strong:rgba(255,255,255,0.14);
+      --border:rgba(255,255,255,0.14);
+      --text:#f8fbff;
+      --sub:#d7e6ef;
+      --muted:#9db2bf;
+      --accent:#7ce7ff;
+      --accent2:#8aa2ff;
+      --accent3:#7cf4cb;
+      --shadow:0 18px 50px rgba(0,0,0,.24);
+      --radius:24px;
     }
 
     body{
-      font-family:"Microsoft YaHei","微软雅黑",sans-serif;
+      margin:0;
+      font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 15% 15%, rgba(123,231,255,0.12), transparent 26%),
-        radial-gradient(circle at 85% 18%, rgba(123,156,255,0.12), transparent 24%),
-        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05), transparent 28%),
-        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+        radial-gradient(circle at 12% 14%, rgba(124,231,255,.10), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(138,162,255,.10), transparent 22%),
+        radial-gradient(circle at 50% 82%, rgba(124,244,203,.08), transparent 26%),
+        linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
       min-height:100vh;
       overflow-x:hidden;
     }
@@ -49,227 +45,214 @@
     .bg-blur{
       position:fixed;
       inset:0;
-      pointer-events:none;
       z-index:0;
+      pointer-events:none;
       overflow:hidden;
     }
 
     .blob{
       position:absolute;
       border-radius:50%;
-      filter:blur(70px);
-      opacity:.28;
+      filter:blur(80px);
+      opacity:.22;
       animation:floatBlob 12s ease-in-out infinite;
     }
 
-    .blob1{
-      width:280px;
-      height:280px;
-      background:#53d8fb;
-      top:8%;
-      left:6%;
+    .blob:nth-child(1){
+      width:300px;height:300px;left:2%;top:8%;
+      background:#61dafb;
     }
-
-    .blob2{
-      width:320px;
-      height:320px;
-      background:#7b9cff;
-      top:18%;
-      right:6%;
-      animation-delay:2s;
+    .blob:nth-child(2){
+      width:360px;height:360px;right:4%;top:18%;
+      background:#7d8dff;animation-delay:2s;
     }
-
-    .blob3{
-      width:260px;
-      height:260px;
-      background:#6fffd2;
-      bottom:6%;
-      left:34%;
-      animation-delay:4s;
+    .blob:nth-child(3){
+      width:260px;height:260px;left:36%;bottom:5%;
+      background:#72ffd0;animation-delay:4s;
     }
 
     @keyframes floatBlob{
-      0%,100%{transform:translateY(0) translateX(0) scale(1);}
-      50%{transform:translateY(-16px) translateX(10px) scale(1.06);}
+      0%,100%{ transform:translateY(0) translateX(0) scale(1); }
+      50%{ transform:translateY(-16px) translateX(12px) scale(1.05); }
     }
 
-    nav{
+    .container{
+      width:min(1240px,94%);
+      margin:0 auto;
+      padding:16px 0 40px;
+      position:relative;
+      z-index:1;
+    }
+
+    .nav{
       position:sticky;
-      top:0;
-      z-index:20;
-      width:min(1200px,94%);
-      margin:16px auto 0;
-      background:rgba(255,255,255,0.08);
-      border:1px solid var(--border);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      box-shadow:var(--shadow);
-      border-radius:999px;
+      top:12px;
+      z-index:30;
       display:flex;
       justify-content:center;
       flex-wrap:wrap;
       gap:8px;
+      margin-bottom:16px;
       padding:10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
     }
 
-    nav a{
-      color:#fff;
+    .nav a{
       text-decoration:none;
-      padding:10px 16px;
+      color:#fff;
+      padding:10px 15px;
       border-radius:999px;
       font-size:14px;
       transition:.25s ease;
     }
-
-    nav a:hover{
-      background:rgba(255,255,255,0.12);
+    .nav a:hover{
+      background:rgba(255,255,255,.12);
       transform:translateY(-1px);
     }
 
-    .wrap{
-      width:min(1200px,94%);
-      margin:0 auto;
-      position:relative;
-      z-index:1;
-      padding-bottom:50px;
-    }
-
-    header{
-      padding:44px 0 20px;
-      text-align:center;
-    }
-
     .hero{
-      background:var(--glass);
+      padding:32px 26px;
       border:1px solid var(--border);
-      border-radius:32px;
-      backdrop-filter:blur(20px);
-      -webkit-backdrop-filter:blur(20px);
+      border-radius:30px;
+      background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
       box-shadow:var(--shadow);
-      padding:34px 22px;
-      position:relative;
       overflow:hidden;
+      position:relative;
+      animation:fadeUp .7s ease both;
     }
 
-    .hero::before{
+    .hero::after{
       content:"";
       position:absolute;
-      inset:auto -40px -40px auto;
-      width:180px;
-      height:180px;
-      background:radial-gradient(circle, rgba(255,255,255,.18), transparent 65%);
+      width:220px;
+      height:220px;
+      right:-40px;
+      bottom:-40px;
       border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.18), transparent 65%);
       filter:blur(10px);
     }
 
     h1{
+      margin:0 0 12px;
       font-size:40px;
       letter-spacing:1px;
-      margin-bottom:12px;
+      text-align:center;
     }
 
-    .sub{
-      color:var(--sub);
-      font-size:15px;
-      line-height:1.8;
-      max-width:760px;
+    .hero p{
+      max-width:900px;
       margin:0 auto;
+      line-height:1.9;
+      color:var(--sub);
+      text-align:center;
+      font-size:15px;
     }
 
     .section{
-      margin-top:22px;
-      animation:fadeUp .7s ease both;
+      margin-top:18px;
+      animation:fadeUp .75s ease both;
     }
 
     @keyframes fadeUp{
-      from{opacity:0; transform:translateY(18px);}
-      to{opacity:1; transform:translateY(0);}
+      from{ opacity:0; transform:translateY(18px); }
+      to{ opacity:1; transform:translateY(0); }
     }
 
-    .glass{
-      background:var(--glass);
+    .card{
       border:1px solid var(--border);
       border-radius:var(--radius);
-      padding:20px;
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
+      background:var(--card);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
       box-shadow:var(--shadow);
+      padding:20px;
+      transition:.28s ease;
     }
 
-    .section-title{
-      font-size:22px;
-      margin-bottom:14px;
-      text-align:left;
-    }
-
-    .section-desc{
-      text-align:left;
-      color:var(--sub);
-      line-height:1.8;
-      font-size:14px;
-      margin-bottom:14px;
+    .card:hover{
+      transform:translateY(-4px);
     }
 
     .kpi-grid{
       display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:16px;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
     }
 
-    .kpi-card{
-      position:relative;
-      overflow:hidden;
-      padding:24px 18px;
+    .kpi{
+      padding:22px 18px;
       text-align:center;
       border-radius:20px;
-      background:var(--glass-strong);
-      border:1px solid rgba(255,255,255,0.18);
-      transition:.28s ease;
+      background:var(--card-strong);
+      border:1px solid rgba(255,255,255,.16);
+      position:relative;
+      overflow:hidden;
     }
 
-    .kpi-card::after{
+    .kpi::before{
       content:"";
       position:absolute;
-      top:-40%;
-      right:-10%;
-      width:120px;
-      height:120px;
+      width:110px;
+      height:110px;
+      top:-45px;
+      right:-30px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.16), transparent 70%);
+      background:radial-gradient(circle, rgba(255,255,255,.18), transparent 70%);
       filter:blur(6px);
     }
 
-    .kpi-card:hover{
-      transform:translateY(-4px);
+    .kpi-label{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:8px;
     }
 
     .kpi-value{
-      font-size:34px;
+      font-size:32px;
       font-weight:700;
-      margin-bottom:8px;
-      color:#fff;
+      margin-bottom:6px;
     }
 
-    .kpi-label{
+    .kpi-sub{
+      font-size:13px;
       color:var(--sub);
+    }
+
+    .section-title{
+      margin:0 0 10px;
+      font-size:22px;
+      font-weight:700;
+    }
+
+    .section-desc{
+      margin:0 0 14px;
+      color:var(--sub);
+      line-height:1.8;
       font-size:14px;
     }
 
     .grid-2{
       display:grid;
-      grid-template-columns:1.2fr 1fr;
-      gap:18px;
-      align-items:start;
+      grid-template-columns:1.25fr .95fr;
+      gap:16px;
     }
 
     .chart{
       width:100%;
-      height:400px;
+      height:390px;
     }
 
-    .chart-sm{
+    .chart-small{
       width:100%;
-      height:360px;
+      height:350px;
     }
 
     .rank-list{
@@ -283,15 +266,16 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:14px;
       padding:12px 14px;
       border-radius:16px;
-      background:rgba(255,255,255,0.08);
-      transition:.25s ease;
+      background:rgba(255,255,255,.08);
+      cursor:pointer;
+      transition:.22s ease;
     }
 
-    .rank-item:hover{
-      background:rgba(255,255,255,0.12);
+    .rank-item:hover,
+    .rank-item.active{
+      background:rgba(255,255,255,.14);
       transform:translateX(4px);
     }
 
@@ -304,19 +288,39 @@
     .rank-num{
       width:30px;
       height:30px;
+      border-radius:50%;
       line-height:30px;
       text-align:center;
-      border-radius:50%;
-      background:rgba(255,255,255,0.18);
+      font-size:13px;
       font-weight:700;
+      background:rgba(255,255,255,.18);
     }
 
-    .rank-name{
-      font-size:15px;
+    .rank-name{ font-size:15px; }
+    .rank-value{ font-weight:700; color:#eaf8ff; }
+
+    .province-detail{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
     }
 
-    .rank-value{
-      color:#e6fbff;
+    .mini{
+      background:rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
+      text-align:center;
+    }
+
+    .mini .m-label{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:6px;
+    }
+
+    .mini .m-value{
+      font-size:22px;
       font-weight:700;
     }
 
@@ -324,6 +328,28 @@
       display:grid;
       grid-template-columns:1fr;
       gap:12px;
+    }
+
+    .quick-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .quick{
+      border:none;
+      border-radius:999px;
+      padding:10px 14px;
+      cursor:pointer;
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      transition:.22s ease;
+    }
+
+    .quick:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.18);
     }
 
     .qa-row{
@@ -339,7 +365,7 @@
       border:none;
       outline:none;
       border-radius:14px;
-      background:rgba(255,255,255,0.13);
+      background:rgba(255,255,255,.13);
       color:#fff;
       font-size:15px;
     }
@@ -351,154 +377,195 @@
     .qa-row button{
       border:none;
       border-radius:14px;
-      background:linear-gradient(135deg,#5bbcff,#7b9cff);
+      background:linear-gradient(135deg,#61dafb,#7d8dff);
       color:#fff;
       padding:13px 18px;
       cursor:pointer;
-      font-size:15px;
-      transition:.25s ease;
+      transition:.22s ease;
     }
 
     .qa-row button:hover{
       transform:translateY(-2px);
-      box-shadow:0 10px 24px rgba(91,188,255,.28);
+      box-shadow:0 10px 24px rgba(97,218,251,.25);
     }
 
     #answer{
-      min-height:34px;
-      line-height:1.8;
-      color:#edf8ff;
-      text-align:left;
-      background:rgba(255,255,255,.06);
+      min-height:56px;
       border-radius:16px;
       padding:14px;
+      background:rgba(255,255,255,.08);
+      color:#edf8ff;
+      line-height:1.85;
+      text-align:left;
     }
 
-    .footer{
+    .footer-note{
+      margin-top:18px;
       text-align:center;
       color:rgba(255,255,255,.58);
       font-size:13px;
-      padding:16px 0 8px;
+      line-height:1.8;
+    }
+
+    .map-fallback{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100%;
+      color:#fff;
+      background:rgba(255,255,255,.05);
+      border-radius:18px;
     }
 
     @media (max-width: 980px){
       .grid-2{
         grid-template-columns:1fr;
       }
+      .kpi-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
     }
 
-    @media (max-width: 768px){
-      h1{
-        font-size:30px;
-      }
-
-      .kpi-grid{
-        grid-template-columns:1fr;
-      }
-
-      .chart{
-        height:320px;
-      }
-
-      .chart-sm{
-        height:320px;
-      }
-
-      nav{
-        border-radius:26px;
-      }
+    @media (max-width: 680px){
+      h1{ font-size:30px; }
+      .hero{ padding:24px 18px; }
+      .kpi-grid{ grid-template-columns:1fr; }
+      .province-detail{ grid-template-columns:1fr; }
+      .chart,.chart-small{ height:310px; }
     }
   </style>
 </head>
 <body>
   <div class="bg-blur">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blob3"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
   </div>
 
-  <nav>
-    <a href="#overview">总览</a>
-    <a href="#history">历史趋势</a>
-    <a href="#forecast">未来预测</a>
-    <a href="#map">地图分析</a>
-    <a href="#ranking">省份排行</a>
-    <a href="#qa">智能问答</a>
-  </nav>
+  <div class="container">
+    <div class="nav">
+      <a href="#overview">总览</a>
+      <a href="#history">历史趋势</a>
+      <a href="#forecast">未来预测</a>
+      <a href="#map">地图分析</a>
+      <a href="#ranking">省份排行</a>
+      <a href="#qa">智能问答</a>
+    </div>
 
-  <div class="wrap">
-    <header>
-      <div class="hero">
-        <h1>中国养老资源数据分析平台</h1>
-        <div class="sub">
-          基于 2014—2025 年养老资源数据，展示机构数量、床位规模、老龄化率变化趋势，
-          并结合未来预测、省份排行和中国地图可视化，形成一体化展示页面。
-        </div>
-      </div>
-    </header>
+    <section class="hero">
+      <h1>中国养老资源数据分析平台</h1>
+      <p>
+        围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比和交互式问答功能，
+        用更直观的方式展示养老服务供给变化与区域差异，适用于课程展示、答辩汇报和比赛演示。
+      </p>
+    </section>
 
-    <section id="overview" class="section glass">
-      <div class="section-title">核心指标总览</div>
+    <section id="overview" class="section card">
+      <h2 class="section-title">核心指标总览</h2>
+      <p class="section-desc">首页展示最新指标，并通过数字动画增强视觉表现。</p>
       <div class="kpi-grid">
-        <div class="kpi-card">
+        <div class="kpi">
+          <div class="kpi-label">机构数</div>
           <div class="kpi-value" id="k1">--</div>
-          <div class="kpi-label">机构数（万）</div>
+          <div class="kpi-sub">万</div>
         </div>
-        <div class="kpi-card">
+        <div class="kpi">
+          <div class="kpi-label">床位数</div>
           <div class="kpi-value" id="k2">--</div>
-          <div class="kpi-label">床位数（万）</div>
+          <div class="kpi-sub">万张</div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-value" id="k3">--</div>
+        <div class="kpi">
           <div class="kpi-label">老龄化率</div>
+          <div class="kpi-value" id="k3">--</div>
+          <div class="kpi-sub">65岁及以上占比</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">2030预测老龄人口</div>
+          <div class="kpi-value" id="k4">--</div>
+          <div class="kpi-sub">万人</div>
         </div>
       </div>
     </section>
 
     <section id="history" class="section grid-2">
-      <div class="glass">
-        <div class="section-title">养老机构数量趋势</div>
-        <div class="section-desc">从时间序列角度展示养老机构数量变化，用于观察供给规模的长期演进。</div>
+      <div class="card">
+        <h2 class="section-title">老龄人口历史趋势</h2>
+        <p class="section-desc">展示 2017—2025 年 65 岁及以上人口变化趋势。</p>
         <div id="chart1" class="chart"></div>
       </div>
-      <div class="glass">
-        <div class="section-title">养老床位数趋势</div>
-        <div class="section-desc">展示床位资源变化情况，反映养老服务承载能力的调整过程。</div>
-        <div id="chart2" class="chart-sm"></div>
+      <div class="card">
+        <h2 class="section-title">养老床位供给强度</h2>
+        <p class="section-desc">展示每千名老年人对应床位数变化情况。</p>
+        <div id="chart2" class="chart-small"></div>
       </div>
     </section>
 
-    <section id="forecast" class="section glass">
-      <div class="section-title">未来趋势预测</div>
-      <div class="section-desc">展示未来机构数量预测结果，可用于比赛展示与后续论文说明。</div>
+    <section id="forecast" class="section card">
+      <h2 class="section-title">未来趋势预测</h2>
+      <p class="section-desc">展示 2025—2030 年预测结果，历史与预测区段区分呈现。</p>
       <div id="chart3" class="chart"></div>
     </section>
 
-    <section id="map" class="section glass">
-      <div class="section-title">全国养老资源地图</div>
-      <div class="section-desc">根据省级数据展示全国养老资源分布情况，颜色越深表示资源指数越高。</div>
-      <div id="mapChart" class="chart"></div>
+    <section id="map" class="section grid-2">
+      <div class="card">
+        <h2 class="section-title">全国养老资源地图</h2>
+        <p class="section-desc">基于省级老龄化率数据进行空间可视化，点击省份可查看右侧详情。</p>
+        <div id="mapChart" class="chart"></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">省份详情</h2>
+        <p class="section-desc">默认显示安徽，也可通过点击地图或排行榜切换省份。</p>
+        <div class="province-detail">
+          <div class="mini">
+            <div class="m-label">当前省份</div>
+            <div class="m-value" id="detailName">安徽</div>
+          </div>
+          <div class="mini">
+            <div class="m-label">老龄化率</div>
+            <div class="m-value" id="detailValue">15.01%</div>
+          </div>
+          <div class="mini">
+            <div class="m-label">分级判断</div>
+            <div class="m-value" id="detailLevel">较高</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;line-height:1.9;color:var(--sub);font-size:14px;" id="detailText">
+          安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。
+        </div>
+      </div>
     </section>
 
-    <section id="ranking" class="section glass">
-      <div class="section-title">省份养老资源 Top10</div>
-      <div class="section-desc">根据省级资源指数自动生成排行榜，便于直观比较不同地区差异。</div>
+    <section id="ranking" class="section card">
+      <h2 class="section-title">省份养老资源 Top10</h2>
+      <p class="section-desc">排行榜与地图联动，便于直观比较不同地区差异。</p>
       <div id="rankList" class="rank-list"></div>
     </section>
 
-    <section id="qa" class="section glass">
-      <div class="section-title">简单问答</div>
-      <div class="section-desc">可输入：趋势、预测、老龄化、排名、地图</div>
+    <section id="qa" class="section card">
+      <h2 class="section-title">简单问答</h2>
+      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、安徽</p>
+
       <div class="qa-wrap">
+        <div class="quick-buttons">
+          <button class="quick" onclick="fillQuick('养老资源趋势如何？')">趋势</button>
+          <button class="quick" onclick="fillQuick('未来预测说明一下')">预测</button>
+          <button class="quick" onclick="fillQuick('老龄化有什么特点？')">老龄化</button>
+          <button class="quick" onclick="fillQuick('排行榜说明什么？')">排名</button>
+          <button class="quick" onclick="fillQuick('安徽该怎么优化养老资源？')">安徽</button>
+        </div>
+
         <div class="qa-row">
-          <input id="question" placeholder="请输入问题，例如：养老资源趋势如何？">
+          <input id="question" placeholder="请输入问题，例如：安徽该怎么优化养老资源？">
           <button onclick="askQuestion()">提问</button>
         </div>
+
         <div id="answer">这里会显示回答。</div>
       </div>
     </section>
 
-    <div class="footer">养老资源数据平台 · 单页整合版</div>
+    <div class="footer-note">
+      养老资源数据平台 · 单页整合优化版
+    </div>
   </div>
 
   <script>
@@ -512,29 +579,28 @@
         const eased = 1 - Math.pow(1 - progress, 3);
         const value = start + (target - start) * eased;
         el.textContent = value.toFixed(decimals) + suffix;
-        if(progress < 1){
-          requestAnimationFrame(update);
-        }
+        if(progress < 1) requestAnimationFrame(update);
       }
       requestAnimationFrame(update);
     }
 
-    function loadChinaMap(callback){
-      if (echarts.getMap && echarts.getMap('china')) {
-        callback();
-        return;
-      }
+    function getLevel(v){
+      if (v >= 16) return "高";
+      if (v >= 13) return "较高";
+      if (v >= 10) return "中等";
+      return "较低";
+    }
 
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/echarts@5/map/js/china.js';
-      script.onload = callback;
-      script.onerror = function(){
-        const mapDom = document.getElementById('mapChart');
-        if(mapDom){
-          mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;">地图加载失败，请刷新页面重试</div>';
-        }
-      };
-      document.head.appendChild(script);
+    function getProvinceText(name, value){
+      if(name === "安徽"){
+        return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。";
+      }
+      return name + "的老龄化率为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模与养老资源供给进一步分析。";
+    }
+
+    function fillQuick(text){
+      document.getElementById("question").value = text;
+      askQuestion();
     }
 
     function askQuestion(){
@@ -546,30 +612,128 @@
         return;
       }
 
-      if(q.includes("趋势")){
-        a.innerText = "从历史趋势图来看，养老机构数量和养老床位数总体呈上升趋势，说明我国养老服务供给规模在持续扩大。";
-      }else if(q.includes("预测")){
-        a.innerText = "预测结果显示，未来几年养老资源需求仍将保持增长，养老机构数量与床位配置还需要进一步优化。";
-      }else if(q.includes("老龄化")){
-        a.innerText = "老龄化率持续上升，表明老年人口占比不断提高，这会进一步推动养老服务体系建设。";
-      }else if(q.includes("排名")){
-        a.innerText = "从当前排行榜看，广东、河南、四川、山东等地区养老资源指数较高，体现出人口规模与资源配置之间的关联。";
-      }else if(q.includes("地图")){
-        a.innerText = "地图模块反映了我国养老资源的空间分布差异，东部沿海和人口大省整体资源指数更高。";
-      }else{
-        a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图。";
-      }
+      a.innerText = "正在思考中...";
+
+      setTimeout(function(){
+        if(q.includes("趋势")){
+          a.innerText = "从历史趋势图来看，65岁及以上人口总体持续上升，说明我国老龄化程度不断加深，养老服务需求仍将长期存在。";
+        }else if(q.includes("预测")){
+          a.innerText = "预测图显示，到2030年前后老龄人口仍将继续增长，因此养老机构数量、床位数和护理型资源都需要持续优化。";
+        }else if(q.includes("老龄化")){
+          a.innerText = "老龄化率是衡量老年人口占比的重要指标。从省际差异来看，东北、长三角和部分中西部地区老龄化率相对更高。";
+        }else if(q.includes("排名")){
+          a.innerText = "排行榜反映了各省养老资源指数差异，高排名地区往往人口规模大、资源配置较集中，也更适合做深度比较分析。";
+        }else if(q.includes("地图")){
+          a.innerText = "地图模块展示了各省老龄化率的空间分布情况，颜色越深说明该地区指标水平越高，可与排行榜联动查看。";
+        }else if(q.includes("安徽")){
+          a.innerText = "安徽建议重点完善县域养老服务中心和乡镇站点，增加护理型床位，加强医养结合与农村互助养老服务。";
+        }else{
+          a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图、安徽。";
+        }
+      }, 350);
     }
 
-    document.addEventListener("DOMContentLoaded", function(){
+    function normalizeMapName(name){
+      const map = {
+        '北京市':'北京','天津市':'天津','河北省':'河北','山西省':'山西','内蒙古自治区':'内蒙古',
+        '辽宁省':'辽宁','吉林省':'吉林','黑龙江省':'黑龙江','上海市':'上海','江苏省':'江苏',
+        '浙江省':'浙江','安徽省':'安徽','福建省':'福建','江西省':'江西','山东省':'山东',
+        '河南省':'河南','湖北省':'湖北','湖南省':'湖南','广东省':'广东','广西壮族自治区':'广西',
+        '海南省':'海南','重庆市':'重庆','四川省':'四川','贵州省':'贵州','云南省':'云南',
+        '西藏自治区':'西藏','陕西省':'陕西','甘肃省':'甘肃','青海省':'青海','宁夏回族自治区':'宁夏',
+        '新疆维吾尔自治区':'新疆','香港特别行政区':'香港','澳门特别行政区':'澳门','台湾省':'台湾'
+      };
+      return map[name] || name;
+    }
 
-      animateNumber(document.getElementById("k1"), Number(kpi.org), "", 1);
-      animateNumber(document.getElementById("k2"), Number(kpi.beds), "", 0);
-      animateNumber(document.getElementById("k3"), Number(kpi.aging), "%", 1);
+    function toMapFullName(shortName){
+      const map = {
+        '北京':'北京市','天津':'天津市','河北':'河北省','山西':'山西省','内蒙古':'内蒙古自治区',
+        '辽宁':'辽宁省','吉林':'吉林省','黑龙江':'黑龙江省','上海':'上海市','江苏':'江苏省',
+        '浙江':'浙江省','安徽':'安徽省','福建':'福建省','江西':'江西省','山东':'山东省',
+        '河南':'河南省','湖北':'湖北省','湖南':'湖南省','广东':'广东省','广西':'广西壮族自治区',
+        '海南':'海南省','重庆':'重庆市','四川':'四川省','贵州':'贵州省','云南':'云南省',
+        '西藏':'西藏自治区','陕西':'陕西省','甘肃':'甘肃省','青海':'青海省','宁夏':'宁夏回族自治区',
+        '新疆':'新疆维吾尔自治区'
+      };
+      return map[shortName] || shortName;
+    }
 
-      const chartTextColor = '#ffffff';
-      const axisColor = '#d7e6ee';
-      const splitColor = 'rgba(255,255,255,0.10)';
+    function updateProvinceDetail(name, value){
+      document.getElementById('detailName').textContent = name;
+      document.getElementById('detailValue').textContent = value.toFixed(2) + "%";
+      document.getElementById('detailLevel').textContent = getLevel(value);
+      document.getElementById('detailText').textContent = getProvinceText(name, value);
+
+      document.querySelectorAll('.rank-item').forEach(function(item){
+        item.classList.toggle('active', item.dataset.name === name);
+      });
+    }
+
+    function buildRankList(){
+      const rankList = document.getElementById("rankList");
+      rankList.innerHTML = "";
+
+      top10.forEach(function(item, index){
+        const row = document.createElement("div");
+        row.className = "rank-item";
+        row.dataset.name = item.name;
+        row.innerHTML = `
+          <div class="rank-left">
+            <div class="rank-num">${index + 1}</div>
+            <div class="rank-name">${item.name}</div>
+          </div>
+          <div class="rank-value">${item.value.toFixed(2)}%</div>
+        `;
+        row.addEventListener('click', function(){
+          updateProvinceDetail(item.name, item.value);
+        });
+        rankList.appendChild(row);
+      });
+    }
+
+    function loadChinaMap(callback){
+      if (echarts.getMap && echarts.getMap('china')) {
+        callback();
+        return;
+      }
+
+      const urls = [
+        'https://cdn.jsdelivr.net/npm/echarts@5/map/json/china.json',
+        'https://fastly.jsdelivr.net/npm/echarts@5/map/json/china.json',
+        'https://unpkg.com/echarts@5/map/json/china.json'
+      ];
+
+      function tryLoad(index){
+        if(index >= urls.length){
+          const dom = document.getElementById('mapChart');
+          dom.innerHTML = '<div class="map-fallback">地图加载失败，请刷新页面重试</div>';
+          return;
+        }
+
+        fetch(urls[index]).then(function(res){
+          if(!res.ok) throw new Error('load fail');
+          return res.json();
+        }).then(function(geoJson){
+          echarts.registerMap('china', geoJson);
+          callback();
+        }).catch(function(){
+          tryLoad(index + 1);
+        });
+      }
+
+      tryLoad(0);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+      animateNumber(document.getElementById('k1'), parseFloat(kpi.org), "", 1);
+      animateNumber(document.getElementById('k2'), parseFloat(kpi.beds), "", 1);
+      animateNumber(document.getElementById('k3'), parseFloat(kpi.aging), "%", 1);
+      animateNumber(document.getElementById('k4'), elderlyForecast[elderlyForecast.length - 1], "", 0);
+
+      const axisColor = '#d8e6ef';
+      const splitColor = 'rgba(255,255,255,.10)';
 
       const chart1 = echarts.init(document.getElementById('chart1'));
       chart1.setOption({
@@ -580,7 +744,7 @@
           type:'category',
           data:years,
           axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
         },
         yAxis:{
           type:'value',
@@ -588,16 +752,17 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          data:orgData,
+          name:'65岁及以上人口',
+          data:elderly65,
           type:'line',
           smooth:true,
           symbolSize:7,
-          lineStyle:{ width:4, color:'#7be7ff' },
-          itemStyle:{ color:'#7be7ff' },
+          lineStyle:{ width:4, color:'#7ce7ff' },
+          itemStyle:{ color:'#7ce7ff' },
           areaStyle:{
             color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'rgba(123,231,255,0.35)'},
-              {offset:1,color:'rgba(123,231,255,0.02)'}
+              {offset:0,color:'rgba(124,231,255,.30)'},
+              {offset:1,color:'rgba(124,231,255,.03)'}
             ])
           }
         }]
@@ -607,12 +772,12 @@
       chart2.setOption({
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
-        grid:{ left:'10%', right:'5%', top:'10%', bottom:'12%' },
+        grid:{ left:'10%', right:'6%', top:'10%', bottom:'14%' },
         xAxis:{
           type:'category',
-          data:years,
+          data:supplyYears,
           axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
         },
         yAxis:{
           type:'value',
@@ -620,31 +785,38 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          data:bedData,
-          type:'line',
-          smooth:true,
-          symbolSize:7,
-          lineStyle:{ width:4, color:'#7b9cff' },
-          itemStyle:{ color:'#7b9cff' },
-          areaStyle:{
+          name:'每千人床位数',
+          data:supplyPer1000,
+          type:'bar',
+          barWidth:'40%',
+          itemStyle:{
+            borderRadius:[12,12,0,0],
             color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'rgba(123,156,255,0.32)'},
-              {offset:1,color:'rgba(123,156,255,0.02)'}
+              {offset:0,color:'#8aa2ff'},
+              {offset:1,color:'#5c7cff'}
             ])
           }
         }]
       });
+
+      const historyPart = elderly65.slice(0, 1);
+      const forecastPart = elderlyForecast;
 
       const chart3 = echarts.init(document.getElementById('chart3'));
       chart3.setOption({
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
-        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
+        legend:{
+          data:['预测老龄人口'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'8%', right:'5%', top:'14%', bottom:'12%' },
         xAxis:{
           type:'category',
           data:forecastYears,
           axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.22)' } }
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
         },
         yAxis:{
           type:'value',
@@ -652,71 +824,79 @@
           splitLine:{ lineStyle:{ color:splitColor } }
         },
         series:[{
-          data:orgForecast,
+          name:'预测老龄人口',
+          data:elderlyForecast,
           type:'line',
           smooth:true,
           symbolSize:8,
-          lineStyle:{ width:4, color:'#6fffd2' },
-          itemStyle:{ color:'#6fffd2' },
+          lineStyle:{ width:4, color:'#7cf4cb' },
+          itemStyle:{ color:'#7cf4cb' },
           areaStyle:{
             color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'rgba(111,255,210,0.30)'},
-              {offset:1,color:'rgba(111,255,210,0.02)'}
+              {offset:0,color:'rgba(124,244,203,.28)'},
+              {offset:1,color:'rgba(124,244,203,.03)'}
             ])
+          },
+          markLine:{
+            silent:true,
+            lineStyle:{ color:'rgba(255,255,255,.35)', type:'dashed' },
+            data:[{ xAxis: '2025' }]
           }
         }]
       });
 
-      const rankList = document.getElementById("rankList");
-      rankList.innerHTML = "";
-      top10.forEach(function(item, index){
-        const row = document.createElement("div");
-        row.className = "rank-item";
-        row.innerHTML = `
-          <div class="rank-left">
-            <div class="rank-num">${index + 1}</div>
-            <div class="rank-name">${item.name}</div>
-          </div>
-          <div class="rank-value">${item.value}</div>
-        `;
-        rankList.appendChild(row);
-      });
+      buildRankList();
+      updateProvinceDetail('安徽', provinceData.find(function(i){ return i.name === '安徽'; }).value);
 
       loadChinaMap(function(){
         const mapChart = echarts.init(document.getElementById('mapChart'));
+
+        const mapSeriesData = provinceData.map(function(item){
+          return {
+            name: toMapFullName(item.name),
+            value: item.value
+          };
+        });
+
         mapChart.setOption({
           animationDuration: 1600,
           tooltip:{
             trigger:'item',
             formatter:function(params){
-              if(isNaN(params.value)) return params.name + '<br>暂无数据';
-              return params.name + '<br>资源指数：' + params.value;
+              const shortName = normalizeMapName(params.name);
+              if(isNaN(params.value)) return shortName + '<br>暂无数据';
+              return shortName + '<br>老龄化率：' + params.value.toFixed(2) + '%';
             }
           },
           visualMap:{
-            min:20,
-            max:160,
+            min:5,
+            max:18,
             left:'left',
             bottom:10,
             text:['高','低'],
             textStyle:{ color:'#fff' },
             calculable:true,
             inRange:{
-              color:['#29445a','#2e6d8c','#4db4d7','#87f5ff']
+              color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff']
             }
           },
           series:[{
-            name:'养老资源指数',
             type:'map',
             map:'china',
             roam:true,
             label:{ show:false, color:'#fff' },
             emphasis:{
               label:{ show:true, color:'#fff' },
-              itemStyle:{ areaColor:'#87f5ff' }
+              itemStyle:{ areaColor:'#8fdcff' }
             },
-            data:provinceData
+            data:mapSeriesData
           }]
+        });
+
+        mapChart.on('click', function(params){
+          const shortName = normalizeMapName(params.name);
+          const found = provinceData.find(function(i){ return i.name === shortName; });
+          if(found) updateProvinceDetail(found.name, found.value);
         });
 
         window.addEventListener('resize', function(){
