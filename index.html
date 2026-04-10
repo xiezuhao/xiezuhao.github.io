@@ -28,6 +28,7 @@
       --blue:#7ce7ff;
       --purple:#8aa2ff;
       --green:#7cf4cb;
+      --gold:#f5d76e;
     }
 
     body{
@@ -98,8 +99,8 @@
       border:1px solid var(--border);
       border-radius:999px;
       background:rgba(255,255,255,.08);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
+      backdrop-filter:blur(16px) saturate(160%);
+      -webkit-backdrop-filter:blur(16px) saturate(160%);
       box-shadow:var(--shadow);
     }
 
@@ -118,7 +119,7 @@
     }
 
     .hero{
-      padding:34px 26px;
+      padding:36px 26px;
       border:1px solid var(--border);
       border-radius:30px;
       background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
@@ -127,6 +128,16 @@
       box-shadow:var(--shadow);
       overflow:hidden;
       position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.10), transparent 30%),
+        radial-gradient(circle at 72% 45%, rgba(124,231,255,.10), transparent 28%);
+      animation:heroFloat 10s ease-in-out infinite;
     }
 
     .hero::after{
@@ -141,6 +152,16 @@
       filter:blur(10px);
     }
 
+    @keyframes heroFloat{
+      0%,100%{ transform:scale(1) translateY(0); }
+      50%{ transform:scale(1.03) translateY(-8px); }
+    }
+
+    .hero > *{
+      position:relative;
+      z-index:1;
+    }
+
     h1{
       margin:0 0 12px;
       font-size:40px;
@@ -149,7 +170,7 @@
     }
 
     .hero p{
-      max-width:900px;
+      max-width:920px;
       margin:0 auto;
       line-height:1.9;
       color:var(--sub);
@@ -177,8 +198,8 @@
     .section{
       margin-top:18px;
       opacity:0;
-      transform:translateY(24px);
-      transition:opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
+      transform:translateY(28px);
+      transition:opacity .85s ease, transform .85s cubic-bezier(.22,1,.36,1);
     }
 
     .section.show{
@@ -194,12 +215,15 @@
       -webkit-backdrop-filter:blur(16px);
       box-shadow:var(--shadow);
       padding:20px;
-      transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1);
+      transition:
+        transform .4s cubic-bezier(.22,1,.36,1),
+        box-shadow .4s cubic-bezier(.22,1,.36,1),
+        background .3s ease;
     }
 
     .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 24px 60px rgba(0,0,0,.28);
+      transform:translateY(-6px) scale(1.005);
+      box-shadow:0 28px 60px rgba(0,0,0,.28);
     }
 
     .kpi-grid{
@@ -352,6 +376,22 @@
       font-size:14px;
     }
 
+    .source-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .source-item{
+      background:rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
+      color:#ecf7ff;
+      line-height:1.8;
+      font-size:14px;
+    }
+
     .qa-wrap{
       display:grid;
       grid-template-columns:1fr;
@@ -455,6 +495,9 @@
       .kpi-grid{
         grid-template-columns:repeat(2,1fr);
       }
+      .source-list{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width: 680px){
@@ -480,20 +523,21 @@
       <a href="#forecast">未来预测</a>
       <a href="#map">地图分析</a>
       <a href="#ranking">省份排行</a>
+      <a href="#sources">数据来源</a>
       <a href="#qa">智能问答</a>
     </div>
 
     <section class="hero">
       <h1>中国养老资源数据分析平台</h1>
       <p>
-        围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比和交互式问答功能，
+        围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比、数据来源和交互式问答功能，
         用更直观的方式展示养老服务供给变化与区域差异。
       </p>
       <div class="source-tags">
         <span class="tag">国家统计局</span>
         <span class="tag">第七次人口普查</span>
-        <span class="tag">养老床位数据</span>
-        <span class="tag">预测展示版</span>
+        <span class="tag">国家老龄事业发展公报</span>
+        <span class="tag">养老资源主题展示</span>
       </div>
     </section>
 
@@ -502,22 +546,22 @@
       <p class="section-desc">首页展示最新指标，并通过数字动画增强视觉表现。</p>
       <div class="kpi-grid">
         <div class="kpi">
-          <div class="kpi-label">机构数</div>
+          <div class="kpi-label">养老机构和设施</div>
           <div class="kpi-value" id="k1">--</div>
-          <div class="kpi-sub">万</div>
+          <div class="kpi-sub">2024年（万个）</div>
         </div>
         <div class="kpi">
-          <div class="kpi-label">床位数</div>
+          <div class="kpi-label">养老床位</div>
           <div class="kpi-value" id="k2">--</div>
-          <div class="kpi-sub">万张</div>
+          <div class="kpi-sub">2024年（万张）</div>
         </div>
         <div class="kpi">
-          <div class="kpi-label">老龄化率</div>
+          <div class="kpi-label">65岁及以上占比</div>
           <div class="kpi-value" id="k3">--</div>
-          <div class="kpi-sub">65岁及以上占比</div>
+          <div class="kpi-sub">2024年</div>
         </div>
         <div class="kpi">
-          <div class="kpi-label">2030预测老龄人口</div>
+          <div class="kpi-label">2030预测65岁及以上人口</div>
           <div class="kpi-value" id="k4">--</div>
           <div class="kpi-sub">万人</div>
         </div>
@@ -526,27 +570,34 @@
 
     <section id="history" class="section grid-2 reveal">
       <div class="card">
-        <h2 class="section-title">老龄人口历史趋势</h2>
-        <p class="section-desc">展示 2017—2025 年 65 岁及以上人口变化趋势。</p>
+        <h2 class="section-title">60岁及以上与65岁及以上人口趋势</h2>
+        <p class="section-desc">双折线展示老龄人口规模变化，更符合养老资源主题。</p>
         <div id="chart1" class="chart"></div>
       </div>
       <div class="card">
-        <h2 class="section-title">养老床位供给强度</h2>
-        <p class="section-desc">展示每千名老年人对应床位数变化情况。</p>
+        <h2 class="section-title">床位与供给强度</h2>
+        <p class="section-desc">展示养老床位与每千名老人床位数变化。</p>
         <div id="chart2" class="chart-small"></div>
       </div>
     </section>
 
-    <section id="forecast" class="section card reveal">
-      <h2 class="section-title">未来趋势预测</h2>
-      <p class="section-desc">展示 2025—2030 年预测结果，适合用于展示说明。</p>
-      <div id="chart3" class="chart"></div>
+    <section id="forecast" class="section grid-2 reveal">
+      <div class="card">
+        <h2 class="section-title">未来65岁及以上人口预测</h2>
+        <p class="section-desc">展示 2025—2030 年预测结果。</p>
+        <div id="chart3" class="chart"></div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">未来床位与机构展示</h2>
+        <p class="section-desc">平台展示版预测，可后续替换成你的正式模型输出。</p>
+        <div id="chart4" class="chart-small"></div>
+      </div>
     </section>
 
     <section id="map" class="section grid-2 reveal">
       <div class="card">
         <h2 class="section-title">全国养老资源地图</h2>
-        <p class="section-desc">基于省级老龄化率数据进行空间可视化，点击省份可查看右侧详情。</p>
+        <p class="section-desc">基于省级65岁及以上人口占比进行空间可视化，点击省份可查看右侧详情。</p>
         <div id="mapChart" class="chart"></div>
       </div>
       <div class="card">
@@ -578,6 +629,12 @@
       <div id="rankList" class="rank-list"></div>
     </section>
 
+    <section id="sources" class="section card reveal">
+      <h2 class="section-title">数据来源与说明</h2>
+      <p class="section-desc">这一部分可以直接展示给老师或评委，说明数据来源与口径。</p>
+      <div id="sourceList" class="source-list"></div>
+    </section>
+
     <section id="qa" class="section card reveal">
       <h2 class="section-title">简单问答</h2>
       <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、安徽</p>
@@ -601,13 +658,17 @@
     </section>
 
     <div class="footer-note">
-      养老资源数据平台 · 单页整合优化版
+      养老资源数据平台 · 单页整合增强版
     </div>
   </div>
 
   <script>
+    function varColor(name){
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
     function animateNumber(el, target, suffix = "", decimals = 0){
-      const duration = 1700;
+      const duration = 1800;
       const startTime = performance.now();
 
       function update(now){
@@ -631,9 +692,9 @@
 
     function getProvinceText(name, value){
       if(name === "安徽"){
-        return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。";
+        return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系、护理型床位和医养结合资源。";
       }
-      return name + "的老龄化率为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模与养老资源供给进一步分析。";
+      return name + "的65岁及以上人口占比为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模和养老资源供给进一步分析。";
     }
 
     function fillQuick(text){
@@ -722,196 +783,13 @@
       });
     }
 
-    function initReveal(){
-      const observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.classList.add('show');
-          }
-        });
-      }, { threshold: 0.12 });
-
-      document.querySelectorAll('.reveal').forEach(function(el){
-        observer.observe(el);
+    function buildSourceList(){
+      const box = document.getElementById("sourceList");
+      box.innerHTML = "";
+      sourceList.forEach(function(item){
+        const div = document.createElement("div");
+        div.className = "source-item";
+        div.textContent = item;
+        box.appendChild(div);
       });
     }
-
-    document.addEventListener('DOMContentLoaded', function(){
-      initReveal();
-
-      animateNumber(document.getElementById('k1'), Number(kpi.org), "", 1);
-      animateNumber(document.getElementById('k2'), Number(kpi.beds), "", 1);
-      animateNumber(document.getElementById('k3'), Number(kpi.aging), "%", 1);
-      animateNumber(document.getElementById('k4'), Number(kpi.elderly2030), "", 0);
-
-      const axisColor = '#d8e6ef';
-      const splitColor = 'rgba(255,255,255,.10)';
-
-      const chart1 = echarts.init(document.getElementById('chart1'));
-      chart1.setOption({
-        animationDuration: 1400,
-        tooltip:{ trigger:'axis' },
-        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
-        xAxis:{
-          type:'category',
-          data:years,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
-        },
-        yAxis:{
-          type:'value',
-          axisLabel:{ color:axisColor },
-          splitLine:{ lineStyle:{ color:splitColor } }
-        },
-        series:[{
-          data:elderly65,
-          type:'line',
-          smooth:true,
-          symbolSize:7,
-          lineStyle:{ width:4, color:varColor('--blue') },
-          itemStyle:{ color:varColor('--blue') },
-          areaStyle:{
-            color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'rgba(124,231,255,.30)'},
-              {offset:1,color:'rgba(124,231,255,.03)'}
-            ])
-          }
-        }]
-      });
-
-      const chart2 = echarts.init(document.getElementById('chart2'));
-      chart2.setOption({
-        animationDuration: 1500,
-        tooltip:{ trigger:'axis' },
-        grid:{ left:'10%', right:'6%', top:'10%', bottom:'14%' },
-        xAxis:{
-          type:'category',
-          data:supplyYears,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
-        },
-        yAxis:{
-          type:'value',
-          axisLabel:{ color:axisColor },
-          splitLine:{ lineStyle:{ color:splitColor } }
-        },
-        series:[{
-          data:supplyPer1000,
-          type:'bar',
-          barWidth:'40%',
-          itemStyle:{
-            borderRadius:[12,12,0,0],
-            color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'#8aa2ff'},
-              {offset:1,color:'#5c7cff'}
-            ])
-          }
-        }]
-      });
-
-      const chart3 = echarts.init(document.getElementById('chart3'));
-      chart3.setOption({
-        animationDuration: 1500,
-        tooltip:{ trigger:'axis' },
-        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
-        xAxis:{
-          type:'category',
-          data:forecastYears,
-          axisLabel:{ color:axisColor },
-          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
-        },
-        yAxis:{
-          type:'value',
-          axisLabel:{ color:axisColor },
-          splitLine:{ lineStyle:{ color:splitColor } }
-        },
-        series:[{
-          data:elderlyForecast,
-          type:'line',
-          smooth:true,
-          symbolSize:8,
-          lineStyle:{ width:4, color:varColor('--green') },
-          itemStyle:{ color:varColor('--green') },
-          areaStyle:{
-            color:new echarts.graphic.LinearGradient(0,0,0,1,[
-              {offset:0,color:'rgba(124,244,203,.28)'},
-              {offset:1,color:'rgba(124,244,203,.03)'}
-            ])
-          }
-        }]
-      });
-
-      buildRankList();
-      const anhui = provinceData.find(function(i){ return i.name === '安徽'; });
-      if(anhui) updateProvinceDetail('安徽', anhui.aging);
-
-      if (echarts.getMap && echarts.getMap('china')) {
-        const mapChart = echarts.init(document.getElementById('mapChart'));
-
-        const mapSeriesData = provinceData.map(function(item){
-          return {
-            name: toMapFullName(item.name),
-            value: item.aging
-          };
-        });
-
-        mapChart.setOption({
-          animationDuration: 1600,
-          tooltip:{
-            trigger:'item',
-            formatter:function(params){
-              const shortName = normalizeMapName(params.name);
-              if(isNaN(params.value)) return shortName + '<br>暂无数据';
-              return shortName + '<br>老龄化率：' + Number(params.value).toFixed(2) + '%';
-            }
-          },
-          visualMap:{
-            min:5,
-            max:18,
-            left:'left',
-            bottom:10,
-            text:['高','低'],
-            textStyle:{ color:'#fff' },
-            calculable:true,
-            inRange:{ color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff'] }
-          },
-          series:[{
-            type:'map',
-            map:'china',
-            roam:true,
-            label:{ show:false, color:'#fff' },
-            emphasis:{
-              label:{ show:true, color:'#fff' },
-              itemStyle:{ areaColor:'#8fdcff' }
-            },
-            data: mapSeriesData
-          }]
-        });
-
-        mapChart.on('click', function(params){
-          const shortName = normalizeMapName(params.name);
-          const found = provinceData.find(function(i){ return i.name === shortName; });
-          if(found) updateProvinceDetail(found.name, found.aging);
-        });
-
-        window.addEventListener('resize', function(){
-          mapChart.resize();
-        });
-      } else {
-        document.getElementById('mapChart').innerHTML =
-          '<div class="map-fallback">地图脚本未加载成功，请刷新页面重试。</div>';
-      }
-
-      window.addEventListener('resize', function(){
-        chart1.resize();
-        chart2.resize();
-        chart3.resize();
-      });
-    });
-
-    function varColor(name){
-      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    }
-  </script>
-</body>
-</html>
