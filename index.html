@@ -7,14 +7,13 @@
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/map/js/china.js"></script>
-  <script src="data.js"></script>
 
   <style>
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     :root{
-      --bg1:#071521;
+      --bg1:#06131e;
       --bg2:#0c2a3d;
       --bg3:#12384c;
       --card:rgba(255,255,255,.10);
@@ -28,7 +27,7 @@
       --blue:#7ce7ff;
       --purple:#8aa2ff;
       --green:#7cf4cb;
-      --gold:#f5d76e;
+      --gold:#f6d977;
     }
 
     body{
@@ -55,27 +54,27 @@
     .blob{
       position:absolute;
       border-radius:50%;
-      filter:blur(80px);
-      opacity:.22;
-      animation:floatBlob 12s ease-in-out infinite;
+      filter:blur(90px);
+      opacity:.20;
+      animation:floatBlob 14s ease-in-out infinite;
     }
 
     .blob:nth-child(1){
-      width:300px;height:300px;left:2%;top:8%;
+      width:320px;height:320px;left:1%;top:6%;
       background:#61dafb;
     }
     .blob:nth-child(2){
-      width:360px;height:360px;right:4%;top:18%;
+      width:360px;height:360px;right:2%;top:20%;
       background:#7d8dff;animation-delay:2s;
     }
     .blob:nth-child(3){
-      width:260px;height:260px;left:36%;bottom:5%;
+      width:280px;height:280px;left:34%;bottom:4%;
       background:#72ffd0;animation-delay:4s;
     }
 
     @keyframes floatBlob{
       0%,100%{ transform:translateY(0) translateX(0) scale(1); }
-      50%{ transform:translateY(-16px) translateX(12px) scale(1.05); }
+      50%{ transform:translateY(-18px) translateX(12px) scale(1.06); }
     }
 
     .container{
@@ -99,8 +98,8 @@
       border:1px solid var(--border);
       border-radius:999px;
       background:rgba(255,255,255,.08);
-      backdrop-filter:blur(16px) saturate(160%);
-      -webkit-backdrop-filter:blur(16px) saturate(160%);
+      backdrop-filter:blur(18px) saturate(160%);
+      -webkit-backdrop-filter:blur(18px) saturate(160%);
       box-shadow:var(--shadow);
     }
 
@@ -119,10 +118,10 @@
     }
 
     .hero{
-      padding:36px 26px;
+      padding:42px 28px;
       border:1px solid var(--border);
       border-radius:30px;
-      background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+      background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
       backdrop-filter:blur(18px);
       -webkit-backdrop-filter:blur(18px);
       box-shadow:var(--shadow);
@@ -143,8 +142,8 @@
     .hero::after{
       content:"";
       position:absolute;
-      width:220px;
-      height:220px;
+      width:240px;
+      height:240px;
       right:-40px;
       bottom:-40px;
       border-radius:50%;
@@ -198,7 +197,7 @@
     .section{
       margin-top:18px;
       opacity:0;
-      transform:translateY(28px);
+      transform:translateY(26px);
       transition:opacity .85s ease, transform .85s cubic-bezier(.22,1,.36,1);
     }
 
@@ -537,7 +536,7 @@
         <span class="tag">国家统计局</span>
         <span class="tag">第七次人口普查</span>
         <span class="tag">国家老龄事业发展公报</span>
-        <span class="tag">养老资源主题展示</span>
+        <span class="tag">港澳台补充数据</span>
       </div>
     </section>
 
@@ -589,7 +588,7 @@
       </div>
       <div class="card">
         <h2 class="section-title">未来床位与机构展示</h2>
-        <p class="section-desc">平台展示版预测，可后续替换成你的正式模型输出。</p>
+        <p class="section-desc">平台展示版预测，可后续替换为你的正式模型结果。</p>
         <div id="chart4" class="chart-small"></div>
       </div>
     </section>
@@ -597,7 +596,7 @@
     <section id="map" class="section grid-2 reveal">
       <div class="card">
         <h2 class="section-title">全国养老资源地图</h2>
-        <p class="section-desc">基于省级65岁及以上人口占比进行空间可视化，点击省份可查看右侧详情。</p>
+        <p class="section-desc">已补足港澳台显示数据，点击地图可查看右侧详情。</p>
         <div id="mapChart" class="chart"></div>
       </div>
       <div class="card">
@@ -605,11 +604,11 @@
         <p class="section-desc">默认显示安徽，也可通过点击地图或排行榜切换省份。</p>
         <div class="province-detail">
           <div class="mini">
-            <div class="m-label">当前省份</div>
+            <div class="m-label">当前地区</div>
             <div class="m-value" id="detailName">安徽</div>
           </div>
           <div class="mini">
-            <div class="m-label">老龄化率</div>
+            <div class="m-label">65岁及以上占比</div>
             <div class="m-value" id="detailValue">15.01%</div>
           </div>
           <div class="mini">
@@ -637,7 +636,7 @@
 
     <section id="qa" class="section card reveal">
       <h2 class="section-title">简单问答</h2>
-      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、安徽</p>
+      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、安徽、香港、澳门、台湾</p>
 
       <div class="qa-wrap">
         <div class="quick-buttons">
@@ -649,7 +648,7 @@
         </div>
 
         <div class="qa-row">
-          <input id="question" placeholder="请输入问题，例如：安徽该怎么优化养老资源？">
+          <input id="question" placeholder="请输入问题，例如：香港老龄化率是多少？">
           <button onclick="askQuestion()">提问</button>
         </div>
 
@@ -663,6 +662,109 @@
   </div>
 
   <script>
+    const nationalHistory = [
+      { year: 2017, total: 139008, age60: 24090, age65: 15831, agingRate65: 11.4, beds: null,  facilities: null, supply: null },
+      { year: 2018, total: 139538, age60: 24949, age65: 16658, agingRate65: 11.9, beds: null,  facilities: null, supply: null },
+      { year: 2019, total: 140005, age60: 25388, age65: 17603, agingRate65: 12.6, beds: null,  facilities: null, supply: null },
+      { year: 2020, total: 141212, age60: 26402, age65: 19064, agingRate65: 13.5, beds: 821.0, facilities: 32.9, supply: 43.07 },
+      { year: 2021, total: 141260, age60: 26736, age65: 20056, agingRate65: 14.2, beds: null,  facilities: null, supply: null },
+      { year: 2022, total: 141175, age60: 28004, age65: 20978, agingRate65: 14.9, beds: null,  facilities: null, supply: null },
+      { year: 2023, total: 140967, age60: 29697, age65: 21676, agingRate65: 15.4, beds: 823.0, facilities: 40.4, supply: 37.97 },
+      { year: 2024, total: 140828, age60: 31031, age65: 22023, agingRate65: 15.6, beds: 799.3, facilities: 40.6, supply: 36.29 }
+    ];
+
+    const nationalForecast = [
+      { year: 2025, age65: 22804, beds: 810, facilities: 4.2 },
+      { year: 2026, age65: 23579, beds: 830, facilities: 4.3 },
+      { year: 2027, age65: 24348, beds: 850, facilities: 4.4 },
+      { year: 2028, age65: 25112, beds: 880, facilities: 4.5 },
+      { year: 2029, age65: 25869, beds: 910, facilities: 4.6 },
+      { year: 2030, age65: 26621, beds: 950, facilities: 4.7 }
+    ];
+
+    const provinceData = [
+      { name:'北京', aging:13.30, level:'较高' },
+      { name:'天津', aging:14.75, level:'较高' },
+      { name:'河北', aging:13.92, level:'较高' },
+      { name:'山西', aging:12.90, level:'中等' },
+      { name:'内蒙古', aging:13.05, level:'较高' },
+      { name:'辽宁', aging:17.42, level:'高' },
+      { name:'吉林', aging:15.61, level:'较高' },
+      { name:'黑龙江', aging:15.61, level:'较高' },
+      { name:'上海', aging:16.28, level:'高' },
+      { name:'江苏', aging:16.20, level:'高' },
+      { name:'浙江', aging:13.27, level:'较高' },
+      { name:'安徽', aging:15.01, level:'较高' },
+      { name:'福建', aging:11.10, level:'中等' },
+      { name:'江西', aging:11.89, level:'中等' },
+      { name:'山东', aging:15.13, level:'较高' },
+      { name:'河南', aging:13.49, level:'较高' },
+      { name:'湖北', aging:14.59, level:'较高' },
+      { name:'湖南', aging:14.81, level:'较高' },
+      { name:'广东', aging:8.58, level:'较低' },
+      { name:'广西', aging:12.20, level:'中等' },
+      { name:'海南', aging:10.43, level:'中等' },
+      { name:'重庆', aging:17.08, level:'高' },
+      { name:'四川', aging:16.93, level:'高' },
+      { name:'贵州', aging:11.56, level:'中等' },
+      { name:'云南', aging:10.75, level:'中等' },
+      { name:'西藏', aging:5.67, level:'较低' },
+      { name:'陕西', aging:13.32, level:'较高' },
+      { name:'甘肃', aging:12.58, level:'中等' },
+      { name:'青海', aging:8.68, level:'较低' },
+      { name:'宁夏', aging:9.62, level:'较低' },
+      { name:'新疆', aging:7.76, level:'较低' },
+      { name:'香港', aging:20.50, level:'高' },
+      { name:'澳门', aging:14.56, level:'较高' },
+      { name:'台湾', aging:15.90, level:'较高' }
+    ];
+
+    const qaData = [
+      { keywords:['趋势','历史'], answer:'从历史数据看，60岁及以上和65岁及以上人口都在持续增长，说明我国老龄化程度不断加深，养老服务需求具有长期增长趋势。' },
+      { keywords:['预测','未来'], answer:'预测结果显示，未来几年65岁及以上人口仍将继续增加，养老床位和机构资源需要持续优化，尤其是护理型服务。' },
+      { keywords:['老龄化'], answer:'老龄化率反映老年人口占比。不同地区之间存在明显差异，东北、直辖市和部分中西部地区整体水平更高。' },
+      { keywords:['排名','排行'], answer:'排行榜显示的是省级65岁及以上人口占比，数值越高说明该地区老龄化程度越高，对养老资源配置要求通常也更强。' },
+      { keywords:['地图'], answer:'地图模块展示了各地区65岁及以上人口占比的空间分布情况，颜色越深表示指标越高，并可与右侧详情和排行榜联动查看。' },
+      { keywords:['安徽'], answer:'安徽老龄化率较高，建议重点完善县域养老服务中心、乡镇站点、护理型床位和医养结合资源配置。' },
+      { keywords:['香港'], answer:'香港补充采用当地官方口径数据，页面中展示的65岁及以上占比为20.5%，与内地省级统计口径并非完全同口径。' },
+      { keywords:['澳门'], answer:'澳门补充采用2021人口普查本地人口口径推算，页面中展示的65岁及以上占比约为14.6%，与内地省级统计口径并非完全同口径。' },
+      { keywords:['台湾'], answer:'台湾补充采用当地官方人口及住宅普查结果，页面中展示的65岁及以上占比为15.9%。' }
+    ];
+
+    const sourceList = [
+      '国家统计局《2017—2024年国民经济和社会发展统计公报》：全国总人口、60岁及以上人口、65岁及以上人口、老龄化率',
+      '第七次全国人口普查公报（第五号）：31省65岁及以上人口占比',
+      '《“十四五”国家老龄事业发展和养老服务体系规划》：2020年养老床位和养老机构设施数据',
+      '《2023年度国家老龄事业发展公报》：2023年养老床位和养老机构设施数据',
+      '《2024年度国家老龄事业发展公报》：2024年养老床位和养老机构设施数据',
+      '香港补充数据：当地官方人口推算口径，2021年65岁及以上比例20.5%',
+      '澳门补充数据：2021人口普查本地人口568,662与65岁及以上82,812推算约14.6%',
+      '台湾补充数据：109年人口及住宅普查，65岁以上人口占15.9%',
+      '2025—2030年预测数据为平台展示版，用于可视化演示，可后续替换为你的正式ARIMA结果'
+    ];
+
+    const years = nationalHistory.map(i => i.year);
+    const age60Data = nationalHistory.map(i => i.age60);
+    const age65Data = nationalHistory.map(i => i.age65);
+    const bedsYears = nationalHistory.filter(i => i.beds !== null).map(i => i.year);
+    const bedsData = nationalHistory.filter(i => i.beds !== null).map(i => i.beds);
+    const supplyYears = nationalHistory.filter(i => i.supply !== null).map(i => i.year);
+    const supplyPer1000 = nationalHistory.filter(i => i.supply !== null).map(i => i.supply);
+    const forecastYears = nationalForecast.map(i => i.year);
+    const elderlyForecast = nationalForecast.map(i => i.age65);
+    const bedForecast = nationalForecast.map(i => i.beds);
+    const orgForecast = nationalForecast.map(i => i.facilities);
+
+    const rankingData = provinceData.filter(i => !['香港','澳门','台湾'].includes(i.name));
+    const top10 = rankingData.slice().sort((a,b) => b.aging - a.aging).slice(0,10);
+
+    const kpi = {
+      facilities2024: 40.6,
+      beds2024: 799.3,
+      aging2024: 15.6,
+      elderly2030: 26621
+    };
+
     function varColor(name){
       return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
@@ -694,6 +796,15 @@
       if(name === "安徽"){
         return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系、护理型床位和医养结合资源。";
       }
+      if(name === "香港"){
+        return "香港补充采用当地官方口径数据，65岁及以上比例较高，但与内地省级统计口径并非完全同口径。";
+      }
+      if(name === "澳门"){
+        return "澳门补充采用2021人口普查本地人口口径推算，页面里仅用于地图完整展示和区域比较参考。";
+      }
+      if(name === "台湾"){
+        return "台湾补充采用当地官方人口及住宅普查口径，页面里主要用于地图完整展示。";
+      }
       return name + "的65岁及以上人口占比为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模和养老资源供给进一步分析。";
     }
 
@@ -715,39 +826,13 @@
 
       setTimeout(function(){
         for(let i = 0; i < qaData.length; i++){
-          if(qaData[i].keywords.some(function(k){ return q.indexOf(k) !== -1; })){
+          if(qaData[i].keywords.some(k => q.indexOf(k) !== -1)){
             a.innerText = qaData[i].answer;
             return;
           }
         }
-        a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图、安徽。";
+        a.innerText = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图、安徽、香港、澳门、台湾。";
       }, 320);
-    }
-
-    function normalizeMapName(name){
-      const map = {
-        '北京市':'北京','天津市':'天津','河北省':'河北','山西省':'山西','内蒙古自治区':'内蒙古',
-        '辽宁省':'辽宁','吉林省':'吉林','黑龙江省':'黑龙江','上海市':'上海','江苏省':'江苏',
-        '浙江省':'浙江','安徽省':'安徽','福建省':'福建','江西省':'江西','山东省':'山东',
-        '河南省':'河南','湖北省':'湖北','湖南省':'湖南','广东省':'广东','广西壮族自治区':'广西',
-        '海南省':'海南','重庆市':'重庆','四川省':'四川','贵州省':'贵州','云南省':'云南',
-        '西藏自治区':'西藏','陕西省':'陕西','甘肃省':'甘肃','青海省':'青海','宁夏回族自治区':'宁夏',
-        '新疆维吾尔自治区':'新疆'
-      };
-      return map[name] || name;
-    }
-
-    function toMapFullName(shortName){
-      const map = {
-        '北京':'北京市','天津':'天津市','河北':'河北省','山西':'山西省','内蒙古':'内蒙古自治区',
-        '辽宁':'辽宁省','吉林':'吉林省','黑龙江':'黑龙江省','上海':'上海市','江苏':'江苏省',
-        '浙江':'浙江省','安徽':'安徽省','福建':'福建省','江西':'江西省','山东':'山东省',
-        '河南':'河南省','湖北':'湖北省','湖南':'湖南省','广东':'广东省','广西':'广西壮族自治区',
-        '海南':'海南省','重庆':'重庆市','四川':'四川省','贵州':'贵州省','云南':'云南省',
-        '西藏':'西藏自治区','陕西':'陕西省','甘肃':'甘肃省','青海':'青海省','宁夏':'宁夏回族自治区',
-        '新疆':'新疆维吾尔自治区'
-      };
-      return map[shortName] || shortName;
     }
 
     function updateProvinceDetail(name, value){
@@ -819,10 +904,9 @@
       const axisColor = '#d8e6ef';
       const splitColor = 'rgba(255,255,255,.10)';
 
-      // 图1：60+ 和 65+ 双折线
       const chart1 = echarts.init(document.getElementById('chart1'));
       chart1.setOption({
-        animationDuration: 1400,
+        animationDuration: 1500,
         tooltip:{ trigger:'axis' },
         legend:{
           data:['60岁及以上','65岁及以上'],
@@ -869,7 +953,6 @@
         ]
       });
 
-      // 图2：床位与供给强度
       const chart2 = echarts.init(document.getElementById('chart2'));
       chart2.setOption({
         animationDuration: 1500,
@@ -926,10 +1009,9 @@
         ]
       });
 
-      // 图3：65+ 预测
       const chart3 = echarts.init(document.getElementById('chart3'));
       chart3.setOption({
-        animationDuration: 1500,
+        animationDuration: 1600,
         tooltip:{ trigger:'axis' },
         grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
         xAxis:{
@@ -953,139 +1035,4 @@
           areaStyle:{
             color:new echarts.graphic.LinearGradient(0,0,0,1,[
               {offset:0,color:'rgba(124,244,203,.28)'},
-              {offset:1,color:'rgba(124,244,203,.03)'}
-            ])
-          }
-        }]
-      });
-
-      // 图4：预测床位与机构
-      const chart4 = echarts.init(document.getElementById('chart4'));
-      chart4.setOption({
-        animationDuration: 1500,
-        tooltip:{ trigger:'axis' },
-        legend:{
-          data:['预测床位(万张)','预测机构(万)'],
-          textStyle:{ color:'#fff' },
-          top:0
-        },
-        grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
-        xAxis:{
-          type:'category',
-          data:forecastYears,
-          axisLabel:{ color:axisColor }
-        },
-        yAxis:[
-          {
-            type:'value',
-            axisLabel:{ color:axisColor },
-            splitLine:{ lineStyle:{ color:splitColor } }
-          },
-          {
-            type:'value',
-            axisLabel:{ color:axisColor },
-            splitLine:{ show:false }
-          }
-        ],
-        series:[
-          {
-            name:'预测床位(万张)',
-            data:bedForecast,
-            type:'bar',
-            barWidth:'34%',
-            itemStyle:{
-              borderRadius:[12,12,0,0],
-              color:new echarts.graphic.LinearGradient(0,0,0,1,[
-                {offset:0,color:'#7ce7ff'},
-                {offset:1,color:'#3ca7d8'}
-              ])
-            }
-          },
-          {
-            name:'预测机构(万)',
-            data:orgForecast,
-            type:'line',
-            yAxisIndex:1,
-            smooth:true,
-            symbolSize:7,
-            lineStyle:{ width:3, color:'#ffffff' },
-            itemStyle:{ color:'#ffffff' }
-          }
-        ]
-      });
-
-      // 排行榜与来源
-      buildRankList();
-      buildSourceList();
-
-      const anhui = provinceData.find(function(i){ return i.name === '安徽'; });
-      if(anhui) updateProvinceDetail('安徽', anhui.aging);
-
-      // 地图
-      if (echarts.getMap && echarts.getMap('china')) {
-        const mapChart = echarts.init(document.getElementById('mapChart'));
-
-        const mapSeriesData = provinceData.map(function(item){
-          return {
-            name: toMapFullName(item.name),
-            value: item.aging
-          };
-        });
-
-        mapChart.setOption({
-          animationDuration: 1600,
-          tooltip:{
-            trigger:'item',
-            formatter:function(params){
-              const shortName = normalizeMapName(params.name);
-              if(isNaN(params.value)) return shortName + '<br>暂无数据';
-              return shortName + '<br>65岁及以上占比：' + Number(params.value).toFixed(2) + '%';
-            }
-          },
-          visualMap:{
-            min:5,
-            max:18,
-            left:'left',
-            bottom:10,
-            text:['高','低'],
-            textStyle:{ color:'#fff' },
-            calculable:true,
-            inRange:{ color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff'] }
-          },
-          series:[{
-            type:'map',
-            map:'china',
-            roam:true,
-            label:{ show:false, color:'#fff' },
-            emphasis:{
-              label:{ show:true, color:'#fff' },
-              itemStyle:{ areaColor:'#8fdcff' }
-            },
-            data: mapSeriesData
-          }]
-        });
-
-        mapChart.on('click', function(params){
-          const shortName = normalizeMapName(params.name);
-          const found = provinceData.find(function(i){ return i.name === shortName; });
-          if(found) updateProvinceDetail(found.name, found.aging);
-        });
-
-        window.addEventListener('resize', function(){
-          mapChart.resize();
-        });
-      } else {
-        document.getElementById('mapChart').innerHTML =
-          '<div class="map-fallback">地图脚本未加载成功，请刷新页面重试。</div>';
-      }
-
-      window.addEventListener('resize', function(){
-        chart1.resize();
-        chart2.resize();
-        chart3.resize();
-        chart4.resize();
-      });
-    });
-  </script>
-</body>
-</html>
+              {offset:1,color:
