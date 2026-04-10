@@ -793,3 +793,299 @@
         box.appendChild(div);
       });
     }
+
+    function initReveal(){
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('show');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(function(el){
+        observer.observe(el);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      initReveal();
+
+      animateNumber(document.getElementById('k1'), Number(kpi.facilities2024), "", 1);
+      animateNumber(document.getElementById('k2'), Number(kpi.beds2024), "", 1);
+      animateNumber(document.getElementById('k3'), Number(kpi.aging2024), "%", 1);
+      animateNumber(document.getElementById('k4'), Number(kpi.elderly2030), "", 0);
+
+      const axisColor = '#d8e6ef';
+      const splitColor = 'rgba(255,255,255,.10)';
+
+      // 图1：60+ 和 65+ 双折线
+      const chart1 = echarts.init(document.getElementById('chart1'));
+      chart1.setOption({
+        animationDuration: 1400,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['60岁及以上','65岁及以上'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'8%', right:'5%', top:'16%', bottom:'12%' },
+        xAxis:{
+          type:'category',
+          data:years,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+        },
+        yAxis:{
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
+        },
+        series:[
+          {
+            name:'60岁及以上',
+            data:age60Data,
+            type:'line',
+            smooth:true,
+            symbolSize:6,
+            lineStyle:{ width:3, color:varColor('--purple') },
+            itemStyle:{ color:varColor('--purple') }
+          },
+          {
+            name:'65岁及以上',
+            data:age65Data,
+            type:'line',
+            smooth:true,
+            symbolSize:7,
+            lineStyle:{ width:4, color:varColor('--blue') },
+            itemStyle:{ color:varColor('--blue') },
+            areaStyle:{
+              color:new echarts.graphic.LinearGradient(0,0,0,1,[
+                {offset:0,color:'rgba(124,231,255,.28)'},
+                {offset:1,color:'rgba(124,231,255,.03)'}
+              ])
+            }
+          }
+        ]
+      });
+
+      // 图2：床位与供给强度
+      const chart2 = echarts.init(document.getElementById('chart2'));
+      chart2.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['养老床位(万张)','每千名老人床位数'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
+        xAxis:{
+          type:'category',
+          data:bedsYears,
+          axisLabel:{ color:axisColor }
+        },
+        yAxis:[
+          {
+            type:'value',
+            name:'床位',
+            axisLabel:{ color:axisColor },
+            splitLine:{ lineStyle:{ color:splitColor } }
+          },
+          {
+            type:'value',
+            name:'供给强度',
+            axisLabel:{ color:axisColor },
+            splitLine:{ show:false }
+          }
+        ],
+        series:[
+          {
+            name:'养老床位(万张)',
+            data:bedsData,
+            type:'bar',
+            barWidth:'36%',
+            itemStyle:{
+              borderRadius:[12,12,0,0],
+              color:new echarts.graphic.LinearGradient(0,0,0,1,[
+                {offset:0,color:'#8aa2ff'},
+                {offset:1,color:'#5c7cff'}
+              ])
+            }
+          },
+          {
+            name:'每千名老人床位数',
+            data:supplyPer1000,
+            type:'line',
+            yAxisIndex:1,
+            smooth:true,
+            symbolSize:7,
+            lineStyle:{ width:3, color:varColor('--gold') },
+            itemStyle:{ color:varColor('--gold') }
+          }
+        ]
+      });
+
+      // 图3：65+ 预测
+      const chart3 = echarts.init(document.getElementById('chart3'));
+      chart3.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
+        xAxis:{
+          type:'category',
+          data:forecastYears,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+        },
+        yAxis:{
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
+        },
+        series:[{
+          data:elderlyForecast,
+          type:'line',
+          smooth:true,
+          symbolSize:8,
+          lineStyle:{ width:4, color:varColor('--green') },
+          itemStyle:{ color:varColor('--green') },
+          areaStyle:{
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[
+              {offset:0,color:'rgba(124,244,203,.28)'},
+              {offset:1,color:'rgba(124,244,203,.03)'}
+            ])
+          }
+        }]
+      });
+
+      // 图4：预测床位与机构
+      const chart4 = echarts.init(document.getElementById('chart4'));
+      chart4.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['预测床位(万张)','预测机构(万)'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
+        xAxis:{
+          type:'category',
+          data:forecastYears,
+          axisLabel:{ color:axisColor }
+        },
+        yAxis:[
+          {
+            type:'value',
+            axisLabel:{ color:axisColor },
+            splitLine:{ lineStyle:{ color:splitColor } }
+          },
+          {
+            type:'value',
+            axisLabel:{ color:axisColor },
+            splitLine:{ show:false }
+          }
+        ],
+        series:[
+          {
+            name:'预测床位(万张)',
+            data:bedForecast,
+            type:'bar',
+            barWidth:'34%',
+            itemStyle:{
+              borderRadius:[12,12,0,0],
+              color:new echarts.graphic.LinearGradient(0,0,0,1,[
+                {offset:0,color:'#7ce7ff'},
+                {offset:1,color:'#3ca7d8'}
+              ])
+            }
+          },
+          {
+            name:'预测机构(万)',
+            data:orgForecast,
+            type:'line',
+            yAxisIndex:1,
+            smooth:true,
+            symbolSize:7,
+            lineStyle:{ width:3, color:'#ffffff' },
+            itemStyle:{ color:'#ffffff' }
+          }
+        ]
+      });
+
+      // 排行榜与来源
+      buildRankList();
+      buildSourceList();
+
+      const anhui = provinceData.find(function(i){ return i.name === '安徽'; });
+      if(anhui) updateProvinceDetail('安徽', anhui.aging);
+
+      // 地图
+      if (echarts.getMap && echarts.getMap('china')) {
+        const mapChart = echarts.init(document.getElementById('mapChart'));
+
+        const mapSeriesData = provinceData.map(function(item){
+          return {
+            name: toMapFullName(item.name),
+            value: item.aging
+          };
+        });
+
+        mapChart.setOption({
+          animationDuration: 1600,
+          tooltip:{
+            trigger:'item',
+            formatter:function(params){
+              const shortName = normalizeMapName(params.name);
+              if(isNaN(params.value)) return shortName + '<br>暂无数据';
+              return shortName + '<br>65岁及以上占比：' + Number(params.value).toFixed(2) + '%';
+            }
+          },
+          visualMap:{
+            min:5,
+            max:18,
+            left:'left',
+            bottom:10,
+            text:['高','低'],
+            textStyle:{ color:'#fff' },
+            calculable:true,
+            inRange:{ color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff'] }
+          },
+          series:[{
+            type:'map',
+            map:'china',
+            roam:true,
+            label:{ show:false, color:'#fff' },
+            emphasis:{
+              label:{ show:true, color:'#fff' },
+              itemStyle:{ areaColor:'#8fdcff' }
+            },
+            data: mapSeriesData
+          }]
+        });
+
+        mapChart.on('click', function(params){
+          const shortName = normalizeMapName(params.name);
+          const found = provinceData.find(function(i){ return i.name === shortName; });
+          if(found) updateProvinceDetail(found.name, found.aging);
+        });
+
+        window.addEventListener('resize', function(){
+          mapChart.resize();
+        });
+      } else {
+        document.getElementById('mapChart').innerHTML =
+          '<div class="map-fallback">地图脚本未加载成功，请刷新页面重试。</div>';
+      }
+
+      window.addEventListener('resize', function(){
+        chart1.resize();
+        chart2.resize();
+        chart3.resize();
+        chart4.resize();
+      });
+    });
+  </script>
+</body>
+</html>
