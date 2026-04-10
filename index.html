@@ -7,6 +7,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script src="data.js"></script>
+  <script src="china.js"></script>
 
   <style>
     * { box-sizing: border-box; }
@@ -197,18 +198,6 @@
       overflow:hidden;
     }
 
-    .kpi::before{
-      content:"";
-      position:absolute;
-      width:110px;
-      height:110px;
-      top:-45px;
-      right:-30px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.18), transparent 70%);
-      filter:blur(6px);
-    }
-
     .kpi-label{
       font-size:13px;
       color:var(--muted);
@@ -347,11 +336,6 @@
       transition:.22s ease;
     }
 
-    .quick:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,.18);
-    }
-
     .qa-row{
       display:flex;
       gap:10px;
@@ -381,12 +365,6 @@
       color:#fff;
       padding:13px 18px;
       cursor:pointer;
-      transition:.22s ease;
-    }
-
-    .qa-row button:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 24px rgba(97,218,251,.25);
     }
 
     #answer{
@@ -404,19 +382,6 @@
       text-align:center;
       color:rgba(255,255,255,.58);
       font-size:13px;
-      line-height:1.8;
-    }
-
-    .map-fallback{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100%;
-      color:#fff;
-      background:rgba(255,255,255,.05);
-      border-radius:18px;
-      text-align:center;
-      padding:16px;
       line-height:1.8;
     }
 
@@ -458,8 +423,7 @@
     <section class="hero">
       <h1>中国养老资源数据分析平台</h1>
       <p>
-        围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比和交互式问答功能，
-        用更直观的方式展示养老服务供给变化与区域差异。
+        围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比和交互式问答功能。
       </p>
     </section>
 
@@ -695,39 +659,6 @@
       });
     }
 
-    function loadChinaMap(callback){
-      if (echarts.getMap && echarts.getMap('china')) {
-        callback();
-        return;
-      }
-
-      const urls = [
-        'https://fastly.jsdelivr.net/npm/echarts@5/map/json/china.json',
-        'https://cdn.jsdelivr.net/npm/echarts@5/map/json/china.json',
-        'https://unpkg.com/echarts@5/map/json/china.json'
-      ];
-
-      function tryLoad(index){
-        if(index >= urls.length){
-          const dom = document.getElementById('mapChart');
-          dom.innerHTML = '<div class="map-fallback">地图加载失败，请刷新页面重试</div>';
-          return;
-        }
-
-        fetch(urls[index]).then(function(res){
-          if(!res.ok) throw new Error('load fail');
-          return res.json();
-        }).then(function(geoJson){
-          echarts.registerMap('china', geoJson);
-          callback();
-        }).catch(function(){
-          tryLoad(index + 1);
-        });
-      }
-
-      tryLoad(0);
-    }
-
     document.addEventListener('DOMContentLoaded', function(){
       animateNumber(document.getElementById('k1'), parseFloat(kpi.org), "", 1);
       animateNumber(document.getElementById('k2'), parseFloat(kpi.beds), "", 1);
@@ -742,11 +673,7 @@
         animationDuration: 1400,
         tooltip:{ trigger:'axis' },
         grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
-        xAxis:{
-          type:'category',
-          data:years,
-          axisLabel:{ color:axisColor }
-        },
+        xAxis:{ type:'category', data:years, axisLabel:{ color:axisColor } },
         yAxis:{
           type:'value',
           axisLabel:{ color:axisColor },
@@ -773,11 +700,7 @@
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
         grid:{ left:'10%', right:'6%', top:'10%', bottom:'14%' },
-        xAxis:{
-          type:'category',
-          data:supplyYears,
-          axisLabel:{ color:axisColor }
-        },
+        xAxis:{ type:'category', data:supplyYears, axisLabel:{ color:axisColor } },
         yAxis:{
           type:'value',
           axisLabel:{ color:axisColor },
@@ -802,11 +725,7 @@
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
         grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
-        xAxis:{
-          type:'category',
-          data:forecastYears,
-          axisLabel:{ color:axisColor }
-        },
+        xAxis:{ type:'category', data:forecastYears, axisLabel:{ color:axisColor } },
         yAxis:{
           type:'value',
           axisLabel:{ color:axisColor },
@@ -831,14 +750,10 @@
       buildRankList();
       updateProvinceDetail('安徽', provinceData.find(function(i){ return i.name === '安徽'; }).value);
 
-      loadChinaMap(function(){
+      if (echarts.getMap && echarts.getMap('china')) {
         const mapChart = echarts.init(document.getElementById('mapChart'));
-
         const mapSeriesData = provinceData.map(function(item){
-          return {
-            name: toMapFullName(item.name),
-            value: item.value
-          };
+          return { name: toMapFullName(item.name), value: item.value };
         });
 
         mapChart.setOption({
@@ -859,9 +774,7 @@
             text:['高','低'],
             textStyle:{ color:'#fff' },
             calculable:true,
-            inRange:{
-              color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff']
-            }
+            inRange:{ color:['#1d3e56','#2c6b89','#53b5d6','#9af9ff'] }
           },
           series:[{
             type:'map',
@@ -872,7 +785,7 @@
               label:{ show:true, color:'#fff' },
               itemStyle:{ areaColor:'#8fdcff' }
             },
-            data:mapSeriesData
+            data: mapSeriesData
           }]
         });
 
@@ -885,7 +798,10 @@
         window.addEventListener('resize', function(){
           mapChart.resize();
         });
-      });
+      } else {
+        document.getElementById('mapChart').innerHTML =
+          '<div class="map-fallback">地图数据未加载。<br>请在仓库根目录新增 <b>china.js</b> 文件后刷新页面。</div>';
+      }
 
       window.addEventListener('resize', function(){
         chart1.resize();
