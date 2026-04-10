@@ -28,7 +28,7 @@
       --purple:#8aa2ff;
       --green:#7cf4cb;
       --gold:#f6d977;
-      --pink:#ffa8d8;
+      --white:#ffffff;
       --glass:rgba(255,255,255,.08);
       --glass2:rgba(255,255,255,.12);
     }
@@ -380,33 +380,6 @@
       height:350px;
     }
 
-    .segmented{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:14px;
-    }
-
-    .seg-btn{
-      border:none;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      color:#fff;
-      cursor:pointer;
-      transition:.22s ease;
-    }
-
-    .seg-btn:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,.16);
-    }
-
-    .seg-btn.active{
-      background:linear-gradient(135deg,#61dafb,#7d8dff);
-      box-shadow:0 10px 24px rgba(97,218,251,.18);
-    }
-
     .rank-list{
       display:flex;
       flex-direction:column;
@@ -451,149 +424,36 @@
     .rank-name{ font-size:15px; }
     .rank-value{ font-weight:700; color:#eaf8ff; }
 
-    .story-card{
-      position:relative;
-      overflow:hidden;
-      border-radius:28px;
-      padding:22px;
-      background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
-      border:1px solid rgba(255,255,255,.12);
-    }
-
-    .story-card::before{
-      content:"";
-      position:absolute;
-      right:-50px;
-      top:-40px;
-      width:200px;
-      height:200px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
-      filter:blur(8px);
-    }
-
-    .story-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-name{
-      font-size:34px;
-      font-weight:700;
-      line-height:1.1;
-    }
-
-    .story-chip{
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.12);
-      font-size:12px;
-      color:#eefaff;
-    }
-
-    .story-value{
-      margin-top:14px;
-      font-size:46px;
-      font-weight:700;
-      line-height:1;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-sub{
-      margin-top:6px;
-      color:var(--sub);
-      font-size:14px;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-metrics{
-      margin-top:18px;
+    .province-detail{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:12px;
-      position:relative;
-      z-index:1;
+      margin-top:14px;
     }
 
-    .story-mini{
-      padding:14px;
-      border-radius:18px;
+    .mini{
       background:rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
       text-align:center;
     }
 
-    .story-mini .label{
-      font-size:12px;
+    .mini .m-label{
       color:var(--muted);
+      font-size:12px;
       margin-bottom:6px;
     }
 
-    .story-mini .value{
-      font-size:20px;
+    .mini .m-value{
+      font-size:22px;
       font-weight:700;
     }
 
-    .story-bar-wrap{
-      margin-top:18px;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-bar-label{
-      display:flex;
-      justify-content:space-between;
-      font-size:13px;
-      color:var(--sub);
-      margin-bottom:8px;
-    }
-
-    .story-bar{
-      height:10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      overflow:hidden;
-    }
-
-    .story-bar-fill{
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg,#61dafb,#7d8dff,#72ffd0);
-      width:0;
-      transition:width .8s cubic-bezier(.22,1,.36,1);
-    }
-
-    .story-text{
-      margin-top:18px;
+    .detail-note{
+      margin-top:14px;
       line-height:1.9;
       color:var(--sub);
       font-size:14px;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-tags{
-      margin-top:14px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      position:relative;
-      z-index:1;
-    }
-
-    .story-tag{
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      font-size:12px;
-      color:#eef9ff;
-      border:1px solid rgba(255,255,255,.10);
     }
 
     .source-list{
@@ -764,9 +624,6 @@
       .hero-mini{
         grid-template-columns:1fr;
       }
-      .story-metrics{
-        grid-template-columns:1fr;
-      }
     }
 
     @media (max-width: 680px){
@@ -776,6 +633,7 @@
       }
       .hero-title{ font-size:32px; }
       .kpi-grid{ grid-template-columns:1fr; }
+      .province-detail{ grid-template-columns:1fr; }
       .chart,.chart-small{ height:310px; }
       .bubble{ max-width:88%; }
     }
@@ -794,7 +652,7 @@
       <a href="#history">历史趋势</a>
       <a href="#forecast">未来预测</a>
       <a href="#map">地图分析</a>
-      <a href="#ranking">地区排行</a>
+      <a href="#ranking">省份排行</a>
       <a href="#sources">数据来源</a>
       <a href="#qa">智能问答</a>
     </div>
@@ -804,7 +662,7 @@
         <div class="eyebrow">养老资源主题 · 单页展示增强版</div>
         <h1 class="hero-title">中国养老资源数据分析平台</h1>
         <p class="hero-sub">
-          围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、地区对比、数据来源和交互式问答功能，
+          围绕我国人口老龄化与养老资源配置问题，整合核心指标、历史趋势、未来预测、省份对比、数据来源和交互式问答功能，
           用更直观的方式展示养老服务供给变化与区域差异。
         </p>
         <div class="source-tags">
@@ -860,13 +718,8 @@
 
     <section id="history" class="section grid-2 reveal">
       <div class="card">
-        <h2 class="section-title">历史趋势切换</h2>
-        <p class="section-desc">可在同一张图里切换查看人口规模、老龄化率和资源变化。</p>
-        <div class="segmented" id="historyTabs">
-          <button class="seg-btn active" onclick="switchHistory('population', this)">老龄人口规模</button>
-          <button class="seg-btn" onclick="switchHistory('rate', this)">老龄化率</button>
-          <button class="seg-btn" onclick="switchHistory('resource', this)">资源变化</button>
-        </div>
+        <h2 class="section-title">60岁及以上与65岁及以上人口趋势</h2>
+        <p class="section-desc">双折线展示老龄人口规模变化，更符合养老资源主题。</p>
         <div id="chart1" class="chart"></div>
       </div>
       <div class="card">
@@ -878,18 +731,13 @@
 
     <section id="forecast" class="section grid-2 reveal">
       <div class="card">
-        <h2 class="section-title">预测图表切换</h2>
-        <p class="section-desc">可以在同一区域切换未来老龄人口、床位和机构展示。</p>
-        <div class="segmented" id="forecastTabs">
-          <button class="seg-btn active" onclick="switchForecast('elderly', this)">65岁及以上人口</button>
-          <button class="seg-btn" onclick="switchForecast('beds', this)">床位预测</button>
-          <button class="seg-btn" onclick="switchForecast('facilities', this)">机构预测</button>
-        </div>
+        <h2 class="section-title">未来65岁及以上人口预测</h2>
+        <p class="section-desc">展示 2025—2030 年预测结果。</p>
         <div id="chart3" class="chart"></div>
       </div>
       <div class="card">
-        <h2 class="section-title">预测摘要</h2>
-        <p class="section-desc">适合演示时作为“结论页”辅助说明。</p>
+        <h2 class="section-title">未来床位与机构展示</h2>
+        <p class="section-desc">平台展示版预测，可后续替换为正式模型结果。</p>
         <div id="chart4" class="chart-small"></div>
       </div>
     </section>
@@ -900,60 +748,31 @@
         <p class="section-desc">已补足港澳台显示数据，点击地图可查看右侧详情。</p>
         <div id="mapChart" class="chart"></div>
       </div>
-
       <div class="card">
-        <h2 class="section-title">地区数据故事</h2>
-        <p class="section-desc">点击地图或排行榜后，右侧会自动生成更直观的说明。</p>
-
-        <div class="story-card">
-          <div class="story-top">
-            <div class="story-name" id="storyName">安徽</div>
-            <div class="story-chip" id="storyLevelChip">较高水平</div>
+        <h2 class="section-title">地区详情</h2>
+        <p class="section-desc">默认显示安徽，也可通过点击地图或排行榜切换地区。</p>
+        <div class="province-detail">
+          <div class="mini">
+            <div class="m-label">当前地区</div>
+            <div class="m-value" id="detailName">安徽</div>
           </div>
-
-          <div class="story-value" id="storyValue">15.01%</div>
-          <div class="story-sub" id="storySub">65岁及以上人口占比</div>
-
-          <div class="story-metrics">
-            <div class="story-mini">
-              <div class="label">地区排名</div>
-              <div class="value" id="storyRank">9 / 34</div>
-            </div>
-            <div class="story-mini">
-              <div class="label">较全国差值</div>
-              <div class="value" id="storyDiff">-0.59%</div>
-            </div>
-            <div class="story-mini">
-              <div class="label">分级判断</div>
-              <div class="value" id="storyLevel">较高</div>
-            </div>
+          <div class="mini">
+            <div class="m-label">65岁及以上占比</div>
+            <div class="m-value" id="detailValue">15.01%</div>
           </div>
-
-          <div class="story-bar-wrap">
-            <div class="story-bar-label">
-              <span>老龄化强度</span>
-              <span id="storyPercent">72%</span>
-            </div>
-            <div class="story-bar">
-              <div class="story-bar-fill" id="storyBarFill"></div>
-            </div>
+          <div class="mini">
+            <div class="m-label">分级判断</div>
+            <div class="m-value" id="detailLevel">较高</div>
           </div>
-
-          <div class="story-text" id="storyText">
-            安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系、护理型床位和医养结合资源。
-          </div>
-
-          <div class="story-tags" id="storyTags">
-            <span class="story-tag">县域养老</span>
-            <span class="story-tag">护理型床位</span>
-            <span class="story-tag">医养结合</span>
-          </div>
+        </div>
+        <div class="detail-note" id="detailText">
+          安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系与护理型资源补充。
         </div>
       </div>
     </section>
 
     <section id="ranking" class="section card reveal">
-      <h2 class="section-title">地区老龄化 Top10</h2>
+      <h2 class="section-title">省份养老资源 Top10</h2>
       <p class="section-desc">排行榜与地图联动，便于直观比较不同地区差异。</p>
       <div id="rankList" class="rank-list"></div>
     </section>
@@ -996,115 +815,333 @@
   </div>
 
   <script>
-    const nationalHistory = [
-      { year: 2017, total: 139008, age60: 24090, age65: 15831, agingRate65: 11.4, beds: null,  facilities: null, supply: null },
-      { year: 2018, total: 139538, age60: 24949, age65: 16658, agingRate65: 11.9, beds: null,  facilities: null, supply: null },
-      { year: 2019, total: 140005, age60: 25388, age65: 17603, agingRate65: 12.6, beds: null,  facilities: null, supply: null },
-      { year: 2020, total: 141212, age60: 26402, age65: 19064, agingRate65: 13.5, beds: 821.0, facilities: 32.9, supply: 43.07 },
-      { year: 2021, total: 141260, age60: 26736, age65: 20056, agingRate65: 14.2, beds: null,  facilities: null, supply: null },
-      { year: 2022, total: 141175, age60: 28004, age65: 20978, agingRate65: 14.9, beds: null,  facilities: null, supply: null },
-      { year: 2023, total: 140967, age60: 29697, age65: 21676, agingRate65: 15.4, beds: 823.0, facilities: 40.4, supply: 37.97 },
-      { year: 2024, total: 140828, age60: 31031, age65: 22023, agingRate65: 15.6, beds: 799.3, facilities: 40.6, supply: 36.29 }
-    ];
-
-    const nationalForecast = [
-      { year: 2025, age65: 22804, beds: 810, facilities: 4.2 },
-      { year: 2026, age65: 23579, beds: 830, facilities: 4.3 },
-      { year: 2027, age65: 24348, beds: 850, facilities: 4.4 },
-      { year: 2028, age65: 25112, beds: 880, facilities: 4.5 },
-      { year: 2029, age65: 25869, beds: 910, facilities: 4.6 },
-      { year: 2030, age65: 26621, beds: 950, facilities: 4.7 }
-    ];
-
-    const provinceData = [
-      { name:'北京', aging:13.30, level:'较高' },
-      { name:'天津', aging:14.75, level:'较高' },
-      { name:'河北', aging:13.92, level:'较高' },
-      { name:'山西', aging:12.90, level:'中等' },
-      { name:'内蒙古', aging:13.05, level:'较高' },
-      { name:'辽宁', aging:17.42, level:'高' },
-      { name:'吉林', aging:15.61, level:'较高' },
-      { name:'黑龙江', aging:15.61, level:'较高' },
-      { name:'上海', aging:16.28, level:'高' },
-      { name:'江苏', aging:16.20, level:'高' },
-      { name:'浙江', aging:13.27, level:'较高' },
-      { name:'安徽', aging:15.01, level:'较高' },
-      { name:'福建', aging:11.10, level:'中等' },
-      { name:'江西', aging:11.89, level:'中等' },
-      { name:'山东', aging:15.13, level:'较高' },
-      { name:'河南', aging:13.49, level:'较高' },
-      { name:'湖北', aging:14.59, level:'较高' },
-      { name:'湖南', aging:14.81, level:'较高' },
-      { name:'广东', aging:8.58, level:'较低' },
-      { name:'广西', aging:12.20, level:'中等' },
-      { name:'海南', aging:10.43, level:'中等' },
-      { name:'重庆', aging:17.08, level:'高' },
-      { name:'四川', aging:16.93, level:'高' },
-      { name:'贵州', aging:11.56, level:'中等' },
-      { name:'云南', aging:10.75, level:'中等' },
-      { name:'西藏', aging:5.67, level:'较低' },
-      { name:'陕西', aging:13.32, level:'较高' },
-      { name:'甘肃', aging:12.58, level:'中等' },
-      { name:'青海', aging:8.68, level:'较低' },
-      { name:'宁夏', aging:9.62, level:'较低' },
-      { name:'新疆', aging:7.76, level:'较低' },
-      { name:'香港', aging:20.50, level:'高' },
-      { name:'澳门', aging:14.56, level:'较高' },
-      { name:'台湾', aging:15.90, level:'较高' }
-    ];
-
-    const qaData = [
-      { keywords:['趋势','历史'], answer:'从历史数据看，60岁及以上和65岁及以上人口都在持续增长，说明我国老龄化程度不断加深，养老服务需求具有长期增长趋势。' },
-      { keywords:['预测','未来'], answer:'预测结果显示，未来几年65岁及以上人口仍将继续增加，养老床位和机构资源需要持续优化，尤其是护理型服务。' },
-      { keywords:['老龄化'], answer:'老龄化率反映老年人口占比。不同地区之间存在明显差异，东北、直辖市和部分中西部地区整体水平更高。' },
-      { keywords:['排名','排行'], answer:'排行榜显示的是地区65岁及以上人口占比，数值越高说明该地区老龄化程度越高，对养老资源配置要求通常也更强。' },
-      { keywords:['地图'], answer:'地图模块展示了各地区65岁及以上人口占比的空间分布情况，颜色越深表示指标越高，并可与右侧详情和排行榜联动查看。' },
-      { keywords:['安徽'], answer:'安徽老龄化率较高，建议重点完善县域养老服务中心、乡镇站点、护理型床位和医养结合资源配置。' },
-      { keywords:['香港'], answer:'香港补充采用当地官方口径数据，65岁及以上比例较高，但与内地地区统计口径并非完全同口径。' },
-      { keywords:['澳门'], answer:'澳门补充采用2021人口普查本地人口口径推算，页面里仅用于地图完整展示和区域比较参考。' },
-      { keywords:['台湾'], answer:'台湾补充采用当地官方人口及住宅普查口径，页面里主要用于地图完整展示。' }
-    ];
-
-    const sourceList = [
-      '国家统计局《2017—2024年国民经济和社会发展统计公报》：全国总人口、60岁及以上人口、65岁及以上人口、老龄化率',
-      '第七次全国人口普查公报（第五号）：31省65岁及以上人口占比',
-      '《“十四五”国家老龄事业发展和养老服务体系规划》：2020年养老床位和养老机构设施数据',
-      '《2023年度国家老龄事业发展公报》：2023年养老床位和养老机构设施数据',
-      '《2024年度国家老龄事业发展公报》：2024年养老床位和养老机构设施数据',
-      '香港、澳门、台湾为补充展示口径，用于地图完整展示与区域参考比较',
-      '2025—2030年预测数据为平台展示版，用于可视化演示，可后续替换为正式模型结果'
-    ];
-
-    const years = nationalHistory.map(i => i.year);
-    const age60Data = nationalHistory.map(i => i.age60);
-    const age65Data = nationalHistory.map(i => i.age65);
-    const agingRate65Data = nationalHistory.map(i => i.agingRate65);
-    const bedsYears = nationalHistory.filter(i => i.beds !== null).map(i => i.year);
-    const bedsData = nationalHistory.filter(i => i.beds !== null).map(i => i.beds);
-    const facilitiesData = nationalHistory.filter(i => i.facilities !== null).map(i => i.facilities);
-    const supplyYears = nationalHistory.filter(i => i.supply !== null).map(i => i.year);
-    const supplyPer1000 = nationalHistory.filter(i => i.supply !== null).map(i => i.supply);
-
-    const forecastYears = nationalForecast.map(i => i.year);
-    const elderlyForecast = nationalForecast.map(i => i.age65);
-    const bedForecast = nationalForecast.map(i => i.beds);
-    const orgForecast = nationalForecast.map(i => i.facilities);
-
-    const top10 = provinceData.slice().sort((a,b) => b.aging - a.aging).slice(0,10);
-
-    const kpi = {
-      facilities2024: 40.6,
-      beds2024: 799.3,
-      aging2024: 15.6,
-      elderly2030: 26621
-    };
-
-    let historyChart = null;
-    let forecastChart = null;
-    let sideForecastChart = null;
-
     function varColor(name){
       return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     }
 
-    function animateNumber(el, target, suffix
+    function animateNumber(el, target, suffix = "", decimals = 0){
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function update(now){
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const value = target * eased;
+        el.textContent = value.toFixed(decimals) + suffix;
+        if(progress < 1){
+          requestAnimationFrame(update);
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    function getLevel(v){
+      if (v >= 16) return "高";
+      if (v >= 13) return "较高";
+      if (v >= 10) return "中等";
+      return "较低";
+    }
+
+    function getProvinceText(name, value){
+      if(name === "安徽"){
+        return "安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系、护理型床位和医养结合资源。";
+      }
+      if(name === "香港"){
+        return "香港补充采用当地官方口径数据，65岁及以上比例较高，但与内地省级统计口径并非完全同口径。";
+      }
+      if(name === "澳门"){
+        return "澳门补充采用2021人口普查本地人口口径推算，页面里仅用于地图完整展示和区域比较参考。";
+      }
+      if(name === "台湾"){
+        return "台湾补充采用当地官方人口及住宅普查口径，页面里主要用于地图完整展示。";
+      }
+      return name + "的65岁及以上人口占比为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模和养老资源供给进一步分析。";
+    }
+
+    function updateProvinceDetail(name, value){
+      document.getElementById('detailName').textContent = name;
+      document.getElementById('detailValue').textContent = value.toFixed(2) + "%";
+      document.getElementById('detailLevel').textContent = getLevel(value);
+      document.getElementById('detailText').textContent = getProvinceText(name, value);
+
+      document.querySelectorAll('.rank-item').forEach(function(item){
+        item.classList.toggle('active', item.dataset.name === name);
+      });
+    }
+
+    function buildRankList(){
+      const rankList = document.getElementById("rankList");
+      rankList.innerHTML = "";
+
+      top10.forEach(function(item, index){
+        const row = document.createElement("div");
+        row.className = "rank-item";
+        row.dataset.name = item.name;
+        row.innerHTML = `
+          <div class="rank-left">
+            <div class="rank-num">${index + 1}</div>
+            <div class="rank-name">${item.name}</div>
+          </div>
+          <div class="rank-value">${item.aging.toFixed(2)}%</div>
+        `;
+        row.addEventListener('click', function(){
+          updateProvinceDetail(item.name, item.aging);
+        });
+        rankList.appendChild(row);
+      });
+    }
+
+    function buildSourceList(){
+      const box = document.getElementById("sourceList");
+      box.innerHTML = "";
+      sourceList.forEach(function(item){
+        const div = document.createElement("div");
+        div.className = "source-item";
+        div.textContent = item;
+        box.appendChild(div);
+      });
+    }
+
+    function initReveal(){
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('show');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(function(el){
+        observer.observe(el);
+      });
+    }
+
+    function initHeroParallax(){
+      const heroInner = document.getElementById('heroInner');
+      window.addEventListener('scroll', function(){
+        const y = Math.min(window.scrollY, 300);
+        heroInner.style.transform = `translateY(${y * 0.08}px)`;
+      });
+    }
+
+    function addBubble(text, role){
+      const chatBox = document.getElementById('chatBox');
+      const row = document.createElement('div');
+      row.className = 'bubble-row ' + role;
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble ' + role;
+      bubble.textContent = text;
+
+      row.appendChild(bubble);
+      chatBox.appendChild(row);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function fillQuick(text){
+      document.getElementById("question").value = text;
+      askQuestion();
+    }
+
+    function askQuestion(){
+      const input = document.getElementById("question");
+      const q = input.value.trim();
+      if(!q) return;
+
+      addBubble(q, 'user');
+      input.value = '';
+
+      setTimeout(function(){
+        let answer = "暂未匹配到该问题，建议输入：趋势、预测、老龄化、排名、地图、安徽、香港、澳门、台湾。";
+        for(let i = 0; i < qaData.length; i++){
+          if(qaData[i].keywords.some(k => q.indexOf(k) !== -1)){
+            answer = qaData[i].answer;
+            break;
+          }
+        }
+        addBubble(answer, 'bot');
+      }, 320);
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      initReveal();
+      initHeroParallax();
+
+      animateNumber(document.getElementById('k1'), Number(kpi.facilities2024), "", 1);
+      animateNumber(document.getElementById('k2'), Number(kpi.beds2024), "", 1);
+      animateNumber(document.getElementById('k3'), Number(kpi.aging2024), "%", 1);
+      animateNumber(document.getElementById('k4'), Number(kpi.elderly2030), "", 0);
+
+      const axisColor = '#d8e6ef';
+      const splitColor = 'rgba(255,255,255,.10)';
+
+      const chart1 = echarts.init(document.getElementById('chart1'));
+      chart1.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['60岁及以上','65岁及以上'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'8%', right:'5%', top:'16%', bottom:'12%' },
+        xAxis:{
+          type:'category',
+          data:years,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+        },
+        yAxis:{
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
+        },
+        series:[
+          {
+            name:'60岁及以上',
+            data:age60Data,
+            type:'line',
+            smooth:true,
+            symbolSize:6,
+            lineStyle:{ width:3, color:varColor('--purple') },
+            itemStyle:{ color:varColor('--purple') }
+          },
+          {
+            name:'65岁及以上',
+            data:age65Data,
+            type:'line',
+            smooth:true,
+            symbolSize:7,
+            lineStyle:{ width:4, color:varColor('--blue') },
+            itemStyle:{ color:varColor('--blue') },
+            areaStyle:{
+              color:new echarts.graphic.LinearGradient(0,0,0,1,[
+                {offset:0,color:'rgba(124,231,255,.28)'},
+                {offset:1,color:'rgba(124,231,255,.03)'}
+              ])
+            }
+          }
+        ]
+      });
+
+      const chart2 = echarts.init(document.getElementById('chart2'));
+      chart2.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['养老床位(万张)','每千名老人床位数'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
+        xAxis:{
+          type:'category',
+          data:bedsYears,
+          axisLabel:{ color:axisColor }
+        },
+        yAxis:[
+          {
+            type:'value',
+            name:'床位',
+            axisLabel:{ color:axisColor },
+            splitLine:{ lineStyle:{ color:splitColor } }
+          },
+          {
+            type:'value',
+            name:'供给强度',
+            axisLabel:{ color:axisColor },
+            splitLine:{ show:false }
+          }
+        ],
+        series:[
+          {
+            name:'养老床位(万张)',
+            data:bedsData,
+            type:'bar',
+            barWidth:'36%',
+            itemStyle:{
+              borderRadius:[12,12,0,0],
+              color:new echarts.graphic.LinearGradient(0,0,0,1,[
+                {offset:0,color:'#8aa2ff'},
+                {offset:1,color:'#5c7cff'}
+              ])
+            }
+          },
+          {
+            name:'每千名老人床位数',
+            data:supplyPer1000,
+            type:'line',
+            yAxisIndex:1,
+            smooth:true,
+            symbolSize:7,
+            lineStyle:{ width:3, color:varColor('--gold') },
+            itemStyle:{ color:varColor('--gold') }
+          }
+        ]
+      });
+
+      const chart3 = echarts.init(document.getElementById('chart3'));
+      chart3.setOption({
+        animationDuration: 1600,
+        tooltip:{ trigger:'axis' },
+        grid:{ left:'8%', right:'5%', top:'10%', bottom:'12%' },
+        xAxis:{
+          type:'category',
+          data:forecastYears,
+          axisLabel:{ color:axisColor },
+          axisLine:{ lineStyle:{ color:'rgba(255,255,255,.20)' } }
+        },
+        yAxis:{
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
+        },
+        series:[{
+          data:elderlyForecast,
+          type:'line',
+          smooth:true,
+          symbolSize:8,
+          lineStyle:{ width:4, color:varColor('--green') },
+          itemStyle:{ color:varColor('--green') },
+          areaStyle:{
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[
+              {offset:0,color:'rgba(124,244,203,.28)'},
+              {offset:1,color:'rgba(124,244,203,.03)'}
+            ])
+          }
+        }]
+      });
+
+      const chart4 = echarts.init(document.getElementById('chart4'));
+      chart4.setOption({
+        animationDuration: 1600,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['预测床位(万张)','预测机构(万)'],
+          textStyle:{ color:'#fff' },
+          top:0
+        },
+        grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
+        xAxis:{
+          type:'category',
+          data:forecastYears,
+          axisLabel:{ color:axisColor }
+        },
+        yAxis:[
+          {
+            type:'value',
+            axisLabel:{ color:axisColor },
+            splitLine:{ lineStyle:{ color:splitColor } }
+          },
+          {
+            type:'value',
+            axisLabel:{ color:axisColor },
+            splitLine:{ show:false }
+          }
+        ],
+        series:[
+          {
+            name:'预测床位(万张)',
+            data:bedForecast,
+            type:'bar',
+  
