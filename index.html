@@ -47,7 +47,7 @@
       border:1px solid rgba(255,255,255,.72); border-radius:24px; box-shadow:var(--shadow);
     }
     .hero{
-      min-height:92vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:56px 24px 70px;
+      min-height:auto; display:flex; align-items:flex-start; justify-content:center; text-align:center; padding:36px 24px 42px;
       position:relative; overflow:hidden;
       background:linear-gradient(135deg, rgba(255,255,255,.78), rgba(255,255,255,.52)),
                  radial-gradient(circle at 25% 28%, rgba(79,172,254,.16), transparent 24%),
@@ -72,21 +72,21 @@
       display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:999px; background:rgba(255,255,255,.72);
       border:1px solid rgba(0,0,0,.05); color:#35506b; font-size:13px; margin-bottom:18px; box-shadow:0 8px 20px rgba(26,43,60,.06);
     }
-    .hero h1{ margin:0 0 16px; font-size:56px; line-height:1.08; letter-spacing:.5px; color:var(--title); font-weight:800; }
-    .hero p{ margin:0 auto; color:var(--sub); line-height:1.95; font-size:17px; max-width:880px; }
+    .hero h1{ margin:0 0 12px; font-size:44px; line-height:1.08; letter-spacing:.5px; color:var(--title); font-weight:800; }
+    .hero p{ margin:0 auto; color:var(--sub); line-height:1.85; font-size:15px; max-width:820px; }
     .hero-tags{ margin-top:22px; display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
     .tag{
       padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.72); border:1px solid rgba(0,0,0,.05);
       color:#35506b; font-size:12px; box-shadow:0 6px 16px rgba(26,43,60,.04);
     }
-    .hero-mini{ margin:30px auto 0; max-width:860px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .hero-mini{ margin:22px auto 0; max-width:860px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
     .hero-mini-card{
       background:rgba(255,255,255,.78); border:1px solid rgba(0,0,0,.05); border-radius:20px; padding:18px 16px;
       box-shadow:0 10px 24px rgba(26,43,60,.06); transition:transform .28s ease, box-shadow .28s ease;
     }
     .hero-mini-card:hover{ transform:translateY(-6px); box-shadow:0 16px 30px rgba(26,43,60,.10); }
     .hero-mini-card .m1{ color:var(--muted); font-size:12px; margin-bottom:8px; }
-    .hero-mini-card .m2{ font-size:26px; font-weight:800; color:var(--title); }
+    .hero-mini-card .m2{ font-size:22px; font-weight:800; color:var(--title); }
     .hero-scroll{
       position:absolute; left:50%; bottom:20px; transform:translateX(-50%); width:34px; height:54px; border-radius:20px;
       border:1px solid rgba(0,0,0,.08); background:rgba(255,255,255,.55); display:flex; justify-content:center; padding-top:10px; z-index:2;
@@ -94,8 +94,9 @@
     .hero-scroll span{ width:4px; height:10px; border-radius:999px; background:var(--blue); animation:scrollDot 1.8s infinite; }
     @keyframes scrollDot{ 0%{ transform:translateY(0); opacity:1;} 70%{ transform:translateY(14px); opacity:.15;} 100%{ transform:translateY(0); opacity:1;} }
 
-    .section{ margin-top:18px; opacity:0; transform:translateY(22px); transition:opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1); }
-    .section.show{ opacity:1; transform:translateY(0); }
+    .section{ margin-top:18px; }
+    .reveal-init{ opacity:0; transform:translateY(22px); transition:opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1); }
+    .section.show, .reveal-init.show{ opacity:1; transform:translateY(0); }
     .card{ padding:20px; transition:.3s ease; }
     .card:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(26,43,60,.12); }
 
@@ -345,12 +346,12 @@
       .method-grid{ grid-template-columns:1fr; }
       .story-extend{ grid-template-columns:1fr; }
       .model-grid{ grid-template-columns:1fr; }
-      .hero h1{ font-size:42px; }
+      .hero h1{ font-size:36px; }
     }
 
     @media (max-width:680px){
-      .hero{ min-height:82vh; padding:36px 18px 64px; }
-      .hero h1{ font-size:34px; line-height:1.14; }
+      .hero{ min-height:auto; padding:28px 18px 38px; }
+      .hero h1{ font-size:30px; line-height:1.16; }
       .hero p{ font-size:15px; }
       .kpi-grid{ grid-template-columns:1fr; }
       .chart,.chart-sm{ height:300px; }
@@ -395,16 +396,16 @@
         </div>
         <div class="hero-mini">
           <div class="hero-mini-card">
-            <div class="m1">2024年养老床位</div>
-            <div class="m2">799.3 万张</div>
+            <div class="m1">2025年养老机构床位</div>
+            <div class="m2">768 万张</div>
           </div>
           <div class="hero-mini-card">
-            <div class="m1">2024年65岁及以上占比</div>
-            <div class="m2">15.6%</div>
+            <div class="m1">2025年65岁及以上占比</div>
+            <div class="m2">15.9%</div>
           </div>
           <div class="hero-mini-card">
             <div class="m1">2030预测65岁及以上人口</div>
-            <div class="m2">26,621 万人</div>
+            <div class="m2">24,544 万人</div>
           </div>
         </div>
       </div>
@@ -415,8 +416,8 @@
       <h2 class="section-title">核心指标总览</h2>
       <p class="section-desc">首页展示最新指标，并通过数字动画增强视觉表现。</p>
       <div class="kpi-grid">
-        <div class="kpi"><div class="label">养老机构和设施</div><div class="value" id="k1">--</div><div class="sub">2024年（万个）</div></div>
-        <div class="kpi"><div class="label">养老床位</div><div class="value" id="k2">--</div><div class="sub">2024年（万张）</div></div>
+        <div class="kpi"><div class="label">养老机构数量</div><div class="value" id="k1">--</div><div class="sub">2025年（万个）</div></div>
+        <div class="kpi"><div class="label">养老机构床位</div><div class="value" id="k2">--</div><div class="sub">2025年（万张）</div></div>
         <div class="kpi"><div class="label">65岁及以上占比</div><div class="value" id="k3">--</div><div class="sub">2024年</div></div>
         <div class="kpi"><div class="label">2030预测65岁及以上人口</div><div class="value" id="k4">--</div><div class="sub">万人</div></div>
       </div>
@@ -435,7 +436,7 @@
       </div>
       <div class="card">
         <h2 class="section-title">床位与供给强度</h2>
-        <p class="section-desc">展示养老床位与每千名老人床位数变化。</p>
+        <p class="section-desc">展示养老机构床位与每千名老人床位数变化。</p>
         <div id="chart2" class="chart-sm"></div>
       </div>
     </section>
@@ -443,17 +444,17 @@
     <section id="forecast" class="section grid-2 reveal">
       <div class="card">
         <h2 class="section-title">未来预测切换</h2>
-        <p class="section-desc">按不同对象切换查看预测结果。</p>
+        <p class="section-desc">按点预测、95%下限和95%上限切换查看 2026—2030 年预测结果。</p>
         <div class="segmented" id="forecastTabs">
-          <button class="seg-btn active" onclick="setForecastMode('elderly', this)">老龄人口</button>
-          <button class="seg-btn" onclick="setForecastMode('beds', this)">床位预测</button>
-          <button class="seg-btn" onclick="setForecastMode('facilities', this)">机构预测</button>
+          <button class="seg-btn active" onclick="setForecastMode('elderly', this)">点预测</button>
+          <button class="seg-btn" onclick="setForecastMode('lower', this)">95%下限</button>
+          <button class="seg-btn" onclick="setForecastMode('upper', this)">95%上限</button>
         </div>
         <div id="chart3" class="chart"></div>
       </div>
       <div class="card">
-        <h2 class="section-title">预测摘要</h2>
-        <p class="section-desc">展示床位与机构的未来变化趋势。</p>
+        <h2 class="section-title">预测区间摘要</h2>
+        <p class="section-desc">展示 95% 预测区间，便于答辩时解释不确定性。</p>
         <div id="chart4" class="chart-sm"></div>
       </div>
     </section>
@@ -527,7 +528,7 @@
         <div class="summary-card">
           <div class="num">03</div>
           <div class="title">未来供给仍需扩容</div>
-          <div class="desc">预测结果显示未来老龄人口规模仍将增加，养老床位和服务体系需要持续优化和扩展。</div>
+          <div class="desc">预测结果显示未来老龄人口规模仍将增加，养老机构床位和服务体系需要持续优化和扩展。</div>
         </div>
         <div class="summary-card">
           <div class="num">04</div>
@@ -557,7 +558,7 @@
         </div>
         <div class="method-item">
           <div class="title">预测模块说明</div>
-          <div class="desc">当前预测区为展示版，可后续替换为正式 ARIMA 模型输出，并继续补充检验过程、参数选择与预测区间。</div>
+          <div class="desc">预测区已按论文最终版更新：采用 ARIMA(1,1,1) 模型，对 2026—2030 年 65 岁及以上人口进行预测，并同步展示 95% 预测区间。</div>
         </div>
       </div>
     </section>
@@ -571,36 +572,36 @@
 
       <div class="card">
         <h2 class="section-title">建模流程摘要</h2>
-        <p class="section-desc">当前为网页展示版，用于说明你“如何建模、如何预测、如何解释结果”。</p>
+        <p class="section-desc">这里已按论文最终结果整理，可直接作为答辩时的模型说明页。</p>
 
         <div class="model-grid">
           <div class="model-item">
             <div class="title">研究序列</div>
-            <div class="desc">以 2017—2024 年全国 65 岁及以上人口序列作为建模对象，重点解释老龄人口增长趋势及未来变化方向。</div>
+            <div class="desc">以 2014—2025 年全国 65 岁及以上人口序列为基础，重点识别老龄人口增长趋势并预测 2026—2030 年变化方向。</div>
           </div>
           <div class="model-item">
             <div class="title">平稳性处理</div>
-            <div class="desc">展示版按“原序列存在趋势、需一阶差分后建模”的逻辑呈现；正式提交时可替换为你的 ADF 检验结果与差分说明。</div>
+            <div class="desc">论文结果显示：原始序列 ADF 统计量为 -0.8520、p 值为 0.8034；一阶差分后 ADF 统计量为 -1.8477、p 值为 0.3571，序列趋势显著减弱后用于建模。</div>
           </div>
           <div class="model-item">
             <div class="title">模型设定</div>
-            <div class="desc">页面示意采用 ARIMA(1,1,1) 结构，用于说明参数、拟合过程与未来预测的展示方式，不直接替代论文正式结果。</div>
+            <div class="desc">候选模型比较后，ARIMA(1,1,1) 的 AIC 为 163.693、BIC 为 164.886，在候选模型中表现最优，因此作为本文最终预测模型。</div>
           </div>
           <div class="model-item">
             <div class="title">预测输出</div>
-            <div class="desc">输出 2025—2030 年点预测，并给出上下界示意，便于在答辩中同时解释趋势判断与不确定性范围。</div>
+            <div class="desc">预测结果显示：2030 年 65 岁及以上人口约为 24,544 万人；Ljung–Box 检验 p 值为 0.9999，样本内 MAPE 为 1.33%，说明模型拟合较稳健。</div>
           </div>
         </div>
 
         <div class="model-badges">
-          <span class="model-badge">展示版逻辑</span>
+          <span class="model-badge">论文最终口径</span>
           <span class="model-badge">一阶差分</span>
           <span class="model-badge">ARIMA(1,1,1)</span>
           <span class="model-badge">点预测 + 区间</span>
         </div>
 
         <div class="model-note">
-          注：该模块用于网站展示与答辩表达。正式论文提交时，建议将这里替换为你最终的 ADF 检验、参数选择、AIC 比较、残差白噪声检验及最优 ARIMA 结果。
+          注：本模块已按论文最终版更新，核心参数与预测值均与文中 ARIMA(1,1,1) 结果保持一致，可直接用于答辩展示。
         </div>
       </div>
     </section>
@@ -619,7 +620,7 @@
 
     <section id="qa" class="section card reveal">
       <h2 class="section-title">智能问答</h2>
-      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、ARIMA、安徽、香港、澳门、台湾</p>
+      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、ARIMA、结构性不足、安徽、香港、澳门、台湾</p>
       <div class="quick-buttons">
         <button class="quick" onclick="fillQuick('养老资源趋势如何？')">趋势</button>
         <button class="quick" onclick="fillQuick('未来预测说明一下')">预测</button>
@@ -637,28 +638,31 @@
       </div>
     </section>
 
-    <div class="footer-note">养老资源数据平台 · 浅色切换增强版</div>
+    <div class="footer-note">养老资源数据平台 · 论文最终数据版 · 脚本修正版 · 安全修正版</div>
   </div>
 
   <script>
     const nationalHistory = [
-      { year: 2017, age60: 24090, age65: 15831, beds: null, supply: null },
-      { year: 2018, age60: 24949, age65: 16658, beds: null, supply: null },
-      { year: 2019, age60: 25388, age65: 17603, beds: null, supply: null },
+      { year: 2014, age60: 21242, age65: 13755, beds: 578.0, supply: 42.02 },
+      { year: 2015, age60: 22200, age65: 14386, beds: 672.0, supply: 46.71 },
+      { year: 2016, age60: 23086, age65: 15003, beds: 730.0, supply: 48.66 },
+      { year: 2017, age60: 24090, age65: 15831, beds: 744.0, supply: 47.00 },
+      { year: 2018, age60: 24949, age65: 16658, beds: 761.0, supply: 45.68 },
+      { year: 2019, age60: 25388, age65: 17603, beds: 775.0, supply: 44.03 },
       { year: 2020, age60: 26402, age65: 19064, beds: 821.0, supply: 43.07 },
-      { year: 2021, age60: 26736, age65: 20056, beds: null, supply: null },
-      { year: 2022, age60: 28004, age65: 20978, beds: null, supply: null },
-      { year: 2023, age60: 29697, age65: 21676, beds: 823.0, supply: 37.97 },
-      { year: 2024, age60: 31031, age65: 22023, beds: 799.3, supply: 36.29 }
+      { year: 2021, age60: 26736, age65: 20056, beds: 813.0, supply: 40.54 },
+      { year: 2022, age60: 28004, age65: 20978, beds: 823.0, supply: 39.23 },
+      { year: 2023, age60: 29697, age65: 21676, beds: 820.0, supply: 37.83 },
+      { year: 2024, age60: 31031, age65: 22023, beds: 790.0, supply: 35.87 },
+      { year: 2025, age60: 32338, age65: 22365, beds: 768.0, supply: 34.34 }
     ];
 
     const nationalForecast = [
-      { year: 2025, age65: 22804, beds: 810, facilities: 4.2 },
-      { year: 2026, age65: 23579, beds: 830, facilities: 4.3 },
-      { year: 2027, age65: 24348, beds: 850, facilities: 4.4 },
-      { year: 2028, age65: 25112, beds: 880, facilities: 4.5 },
-      { year: 2029, age65: 25869, beds: 910, facilities: 4.6 },
-      { year: 2030, age65: 26621, beds: 950, facilities: 4.7 }
+      { year: 2026, age65: 22855 },
+      { year: 2027, age65: 23317 },
+      { year: 2028, age65: 23751 },
+      { year: 2029, age65: 24159 },
+      { year: 2030, age65: 24544 }
     ];
 
     const provinceData = [
@@ -678,11 +682,12 @@
 
     const qaData = [
       { keywords:['趋势','历史'], answer:'从历史数据看，60岁及以上和65岁及以上人口都在持续增长，说明我国老龄化程度不断加深，养老服务需求具有长期增长趋势。' },
-      { keywords:['预测','未来'], answer:'预测结果显示，未来几年65岁及以上人口仍将继续增加，养老床位和机构资源需要持续优化，尤其是护理型服务。' },
+      { keywords:['预测','未来'], answer:'预测结果显示，未来几年65岁及以上人口仍将继续增加，养老机构床位和机构资源需要持续优化，尤其是护理型服务。' },
       { keywords:['老龄化'], answer:'老龄化率反映老年人口占比。不同地区之间存在明显差异，东北、直辖市和部分中西部地区整体水平更高。' },
       { keywords:['排名','排行'], answer:'排行榜显示的是地区65岁及以上人口占比，数值越高说明该地区老龄化程度越高，对养老资源配置要求通常也更强。' },
       { keywords:['地图'], answer:'地图模块展示了各地区65岁及以上人口占比的空间分布情况，颜色越深表示指标越高，并可与右侧详情和排行榜联动查看。' },
-      { keywords:['ARIMA','模型'], answer:'ARIMA 模块用于展示预测思路：先观察时间序列趋势，再进行差分和平稳性处理，最后给出参数设定、拟合结果和未来预测区间。网页中的 ARIMA 区域为展示版，可替换成你论文中的正式结果。' },
+      { keywords:['ARIMA','模型'], answer:'论文最终采用 ARIMA(1,1,1) 模型。原始序列 ADF=-0.8520、p=0.8034；一阶差分后 ADF=-1.8477、p=0.3571；AIC=163.693、BIC=164.886；Ljung–Box p=0.9999；2030 年预测值约为 24,544 万人。' },
+      { keywords:['结构性不足','护理型资源','供需错位'], answer:'论文认为养老资源的主要矛盾已由总量不足转向结构性不足。护理型资源短缺、县域和农村服务薄弱、居家—社区—机构衔接不畅，是当前最突出的三类问题。' },
       { keywords:['安徽'], answer:'安徽老龄化率较高，建议重点完善县域养老服务中心、乡镇站点、护理型床位和医养结合资源配置。' },
       { keywords:['香港'], answer:'香港补充采用当地官方口径数据，65岁及以上比例较高，但与内地地区统计口径并非完全同口径。' },
       { keywords:['澳门'], answer:'澳门补充采用人口普查本地人口口径推算，页面里主要用于地图完整展示和区域比较参考。' },
@@ -690,13 +695,13 @@
     ];
 
     const sourceList = [
-      '国家统计局《2017—2024年国民经济和社会发展统计公报》',
+      '国家统计局《2014—2025年国民经济和社会发展统计公报》',
       '第七次全国人口普查公报（第五号）',
       '《“十四五”国家老龄事业发展和养老服务体系规划》',
       '《2023年度国家老龄事业发展公报》',
       '《2024年度国家老龄事业发展公报》',
-      '港澳台为补充展示口径，用于地图完整展示与区域参考比较',
-      '2025—2030年预测数据为平台展示版'
+      '论文最终口径：2014—2025年65岁及以上人口、老龄化比例、床位强度与 ARIMA(1,1,1) 预测结果',
+      '港澳台为补充展示口径，用于地图完整展示与区域参考比较'
     ];
 
     const years = nationalHistory.map(i => i.year);
@@ -707,14 +712,14 @@
     const supplyData = nationalHistory.filter(i => i.supply !== null).map(i => i.supply);
     const forecastYears = nationalForecast.map(i => i.year);
     const elderlyForecast = nationalForecast.map(i => i.age65);
-    const bedForecast = nationalForecast.map(i => i.beds);
-    const facilityForecast = nationalForecast.map(i => i.facilities);
     const arimaYears = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
-    const arimaActual = [15831,16658,17603,19064,20056,20978,21676,22023,null,null,null,null,null,null];
-    const arimaFitted = [null,16420,17510,18880,19980,20990,21620,22070,null,null,null,null,null,null];
-    const arimaForecast = [null,null,null,null,null,null,null,null,22804,23579,24348,25112,25869,26621];
-    const arimaUpper = [null,null,null,null,null,null,null,null,23280,24170,25060,25990,26820,27620];
-    const arimaLower = [null,null,null,null,null,null,null,null,22320,22980,23640,24230,24910,25620];
+    const arimaActual = [15831,16658,17603,19064,20056,20978,21676,22023,22365,null,null,null,null,null];
+    const arimaFitted = [null,16458,17542,18896,19992,20966,21644,22040,22318,null,null,null,null,null];
+    const arimaForecast = [null,null,null,null,null,null,null,null,null,22855,23317,23751,24159,24544];
+    const arimaUpper = [null,null,null,null,null,null,null,null,null,23436,24252,25034,25795,26538];
+    const arimaLower = [null,null,null,null,null,null,null,null,null,22275,22381,22467,22524,22549];
+    const lowerForecast = arimaLower.slice(9);
+    const upperForecast = arimaUpper.slice(9);
     const top10 = provinceData.slice().sort((a,b)=>b.aging-a.aging).slice(0,10);
 
     function animateNumber(el, target, suffix = "", decimals = 0){
@@ -790,7 +795,7 @@
 
     function updateProvinceDetail(name, value){
       const rank = getRank(name);
-      const diff = value - 15.6;
+      const diff = value - 15.9;
       const percent = Math.max(0, Math.min(100, ((value - 5) / 16) * 100));
       const tags = getStoryTags(name, value);
 
@@ -894,15 +899,20 @@
     }
 
     function initReveal(){
+      if (!('IntersectionObserver' in window)) return;
+      const targets = document.querySelectorAll('.reveal');
+      targets.forEach(function(el){
+        el.classList.add('reveal-init');
+      });
       const observer = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
           if(entry.isIntersecting){
             entry.target.classList.add('show');
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.08 });
 
-      document.querySelectorAll('.reveal').forEach(function(el){
+      targets.forEach(function(el){
         observer.observe(el);
       });
     }
@@ -935,7 +945,7 @@
           xAxis:{ type:'category', data:years, axisLabel:{ color:axisColor } },
           yAxis:{ type:'value', axisLabel:{ color:axisColor }, splitLine:{ lineStyle:{ color:splitColor } } },
           series:[
-            { name:'60岁及以上', type:'line', smooth:true, data:age60Data, symbolSize:6, lineStyle:{ width:3, color:'#8b5cf6' }, itemStyle:{ color:'#8b5cf6' } },
+            { name:'60岁及以上', type:'line', smooth:true, data:age60Data, symbolSize:6, lineStyle:{ width:3, color:'#f59e0b' }, itemStyle:{ color:'#f59e0b' } },
             { name:'65岁及以上', type:'line', smooth:true, data:age65Data, symbolSize:7, lineStyle:{ width:4, color:'#4facfe' }, itemStyle:{ color:'#4facfe' },
               areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(79,172,254,.22)'},{offset:1,color:'rgba(79,172,254,.03)'}]) } }
           ]
@@ -944,15 +954,15 @@
 
       if(mode === 'beds'){
         window.historyChart.setOption({
-          legend:{ data:['养老床位'], textStyle:{ color:'#41576d' }, top:0 },
+          legend:{ data:['养老机构床位'], textStyle:{ color:'#41576d' }, top:0 },
           xAxis:{ type:'category', data:bedsYears, axisLabel:{ color:axisColor } },
           yAxis:{ type:'value', axisLabel:{ color:axisColor }, splitLine:{ lineStyle:{ color:splitColor } } },
           series:[{
-            name:'养老床位',
+            name:'养老机构床位',
             type:'bar',
             data:bedsData,
             barWidth:'40%',
-            itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) }
+            itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#60a5fa'}]) }
           }]
         }, true);
       }
@@ -1001,21 +1011,21 @@
           yAxis:{ type:'value', axisLabel:{ color:axisColor }, splitLine:{ lineStyle:{ color:splitColor } } },
           series:[{
             type:'bar',
-            data:bedForecast,
+            data:lowerForecast,
             barWidth:'40%',
             itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) }
           }]
         }, true);
       }
 
-      if(mode === 'facilities'){
+      if(mode === 'upper'){
         window.forecastChart.setOption({
           xAxis:{ type:'category', data:forecastYears, axisLabel:{ color:axisColor } },
           yAxis:{ type:'value', axisLabel:{ color:axisColor }, splitLine:{ lineStyle:{ color:splitColor } } },
           series:[{
-            type:'line', smooth:true, data:facilityForecast, symbolSize:8,
-            lineStyle:{ width:4, color:'#8b5cf6' }, itemStyle:{ color:'#8b5cf6' },
-            areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(139,92,246,.20)'},{offset:1,color:'rgba(139,92,246,.03)'}]) }
+            type:'line', smooth:true, data:upperForecast, symbolSize:8,
+            lineStyle:{ width:4, color:'#f59e0b' }, itemStyle:{ color:'#f59e0b' },
+            areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(245,158,11,.20)'},{offset:1,color:'rgba(245,158,11,.03)'}]) }
           }]
         }, true);
       }
@@ -1040,13 +1050,20 @@
         }, i * 80);
       });
 
-      animateNumber(document.getElementById('k1'), 40.6, '', 1);
-      animateNumber(document.getElementById('k2'), 799.3, '', 1);
-      animateNumber(document.getElementById('k3'), 15.6, '%', 1);
-      animateNumber(document.getElementById('k4'), 26621, '', 0);
+      animateNumber(document.getElementById('k1'), 3.9, '', 1);
+      animateNumber(document.getElementById('k2'), 768, '', 0);
+      animateNumber(document.getElementById('k3'), 15.9, '%', 1);
+      animateNumber(document.getElementById('k4'), 24544, '', 0);
 
       const axisColor = '#5f7286';
       const splitColor = 'rgba(0,0,0,.06)';
+
+      if (typeof echarts === 'undefined') {
+        document.querySelectorAll('.chart, .chart-sm').forEach(function(el){
+          el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#6b7f92;font-size:14px;">图表脚本未加载成功，请联网后刷新页面</div>';
+        });
+        return;
+      }
 
       window.historyChart = echarts.init(document.getElementById('chart1'));
       const chart1 = window.historyChart;
@@ -1068,7 +1085,7 @@
       chart2.setOption({
         animationDuration: 1400,
         tooltip:{ trigger:'axis' },
-        legend:{ data:['养老床位','每千名老人床位数'], textStyle:{ color:'#41576d' }, top:0 },
+        legend:{ data:['养老机构床位','每千名老人床位数'], textStyle:{ color:'#41576d' }, top:0 },
         grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
         xAxis:{ type:'category', data:bedsYears, axisLabel:{ color:axisColor } },
         yAxis:[
@@ -1076,7 +1093,7 @@
           { type:'value', axisLabel:{ color:axisColor }, splitLine:{ show:false } }
         ],
         series:[
-          { name:'养老床位', type:'bar', data:bedsData, barWidth:'36%', itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) } },
+          { name:'养老机构床位', type:'bar', data:bedsData, barWidth:'36%', itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) } },
           { name:'每千名老人床位数', type:'line', yAxisIndex:1, smooth:true, data:supplyData, symbolSize:7, lineStyle:{ width:3, color:'#f59e0b' }, itemStyle:{ color:'#f59e0b' } }
         ]
       });
@@ -1100,7 +1117,7 @@
       chart4.setOption({
         animationDuration: 1500,
         tooltip:{ trigger:'axis' },
-        legend:{ data:['预测床位','预测机构'], textStyle:{ color:'#41576d' }, top:0 },
+        legend:{ data:['95%下限','95%上限'], textStyle:{ color:'#41576d' }, top:0 },
         grid:{ left:'10%', right:'10%', top:'18%', bottom:'14%' },
         xAxis:{ type:'category', data:forecastYears, axisLabel:{ color:axisColor } },
         yAxis:[
@@ -1108,8 +1125,8 @@
           { type:'value', axisLabel:{ color:axisColor }, splitLine:{ show:false } }
         ],
         series:[
-          { name:'预测床位', type:'bar', data:bedForecast, barWidth:'34%', itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) } },
-          { name:'预测机构', type:'line', yAxisIndex:1, smooth:true, data:facilityForecast, symbolSize:7, lineStyle:{ width:3, color:'#8b5cf6' }, itemStyle:{ color:'#8b5cf6' } }
+          { name:'95%下限', type:'bar', data:lowerForecast, barWidth:'34%', itemStyle:{ borderRadius:[12,12,0,0], color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#4facfe'},{offset:1,color:'#00c6ff'}]) } },
+          { name:'95%上限', type:'line', yAxisIndex:1, smooth:true, data:upperForecast, symbolSize:7, lineStyle:{ width:3, color:'#8b5cf6' }, itemStyle:{ color:'#8b5cf6' } }
         ]
       });
 
