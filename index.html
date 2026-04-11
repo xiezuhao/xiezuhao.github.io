@@ -181,12 +181,113 @@
 
     .footer-note{ text-align:center; margin-top:18px; color:#6b7f92; font-size:13px; }
 
+
+    .summary-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+
+    .summary-card{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.05);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:0 8px 18px rgba(26,43,60,.05);
+    }
+
+    .summary-card .num{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      margin-bottom:8px;
+    }
+
+    .summary-card .title{
+      font-size:15px;
+      font-weight:700;
+      color:var(--title);
+      margin-bottom:8px;
+    }
+
+    .summary-card .desc{
+      font-size:13px;
+      color:var(--sub);
+      line-height:1.85;
+    }
+
+    .conclusion-box{
+      margin-top:14px;
+      background:linear-gradient(135deg, rgba(79,172,254,.10), rgba(0,198,255,.08));
+      border:1px solid rgba(79,172,254,.16);
+      border-radius:18px;
+      padding:16px;
+      color:#34526d;
+      line-height:1.9;
+      font-size:14px;
+    }
+
+    .method-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .method-item{
+      background:#fff;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.05);
+      padding:15px;
+    }
+
+    .method-item .title{
+      font-size:15px;
+      font-weight:700;
+      color:var(--title);
+      margin-bottom:8px;
+    }
+
+    .method-item .desc{
+      font-size:13px;
+      color:var(--sub);
+      line-height:1.85;
+    }
+
+    .story-extend{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .story-extend-item{
+      background:#f8fbff;
+      border:1px solid rgba(0,0,0,.05);
+      border-radius:14px;
+      padding:12px;
+    }
+
+    .story-extend-item .label{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:6px;
+    }
+
+    .story-extend-item .value{
+      color:#36516b;
+      font-size:13px;
+      line-height:1.85;
+    }
+
     @media (max-width:980px){
       .grid-2{ grid-template-columns:1fr; }
       .kpi-grid{ grid-template-columns:repeat(2,1fr); }
       .source-list{ grid-template-columns:1fr; }
       .hero-mini{ grid-template-columns:1fr; }
       .story-metrics{ grid-template-columns:1fr; }
+      .summary-grid{ grid-template-columns:1fr; }
+      .method-grid{ grid-template-columns:1fr; }
+      .story-extend{ grid-template-columns:1fr; }
       .hero h1{ font-size:42px; }
     }
 
@@ -213,6 +314,8 @@
       <a href="#history">历史趋势</a>
       <a href="#forecast">未来预测</a>
       <a href="#map">地图分析</a>
+      <a href="#insights">核心结论</a>
+      <a href="#method">口径说明</a>
       <a href="#ranking">地区排行</a>
       <a href="#sources">数据来源</a>
       <a href="#qa">智能问答</a>
@@ -326,11 +429,77 @@
             <div class="bar"><div class="bar-fill" id="storyBarFill"></div></div>
           </div>
           <div class="story-text" id="storyText">安徽老龄化率处于全国较高水平，说明养老服务资源配置需求较强，适合重点分析县域养老服务体系、护理型床位和医养结合资源。</div>
+
+          <div class="story-extend">
+            <div class="story-extend-item">
+              <div class="label">主要问题判断</div>
+              <div class="value" id="storyIssue">养老需求增长较快，结构性供给优化压力较大，尤其需要关注县域服务和护理型资源配置。</div>
+            </div>
+            <div class="story-extend-item">
+              <div class="label">资源配置建议</div>
+              <div class="value" id="storyAdvice">优先完善县域养老服务网络，增加护理型床位供给，推动医疗资源与养老服务协同布局。</div>
+            </div>
+          </div>
+
           <div class="story-tags" id="storyTags">
             <span class="story-tag">县域养老</span>
             <span class="story-tag">护理型床位</span>
             <span class="story-tag">医养结合</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="insights" class="section card reveal">
+      <h2 class="section-title">核心结论</h2>
+      <p class="section-desc">把图表信息转化为可直接用于答辩和汇报的文字结论。</p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="num">01</div>
+          <div class="title">全国老龄化持续加深</div>
+          <div class="desc">60岁及以上、65岁及以上人口规模持续上升，表明养老服务需求具有长期增长趋势。</div>
+        </div>
+        <div class="summary-card">
+          <div class="num">02</div>
+          <div class="title">区域差异特征明显</div>
+          <div class="desc">东北、直辖市以及部分中西部地区老龄化水平更高，不同地区资源配置压力并不一致。</div>
+        </div>
+        <div class="summary-card">
+          <div class="num">03</div>
+          <div class="title">未来供给仍需扩容</div>
+          <div class="desc">预测结果显示未来老龄人口规模仍将增加，养老床位和服务体系需要持续优化和扩展。</div>
+        </div>
+        <div class="summary-card">
+          <div class="num">04</div>
+          <div class="title">配置重点转向结构优化</div>
+          <div class="desc">后续重点不只是增加总量，更要补齐护理型床位、县域服务网络和医养结合等结构短板。</div>
+        </div>
+      </div>
+
+      <div class="conclusion-box">
+        结合历史趋势、区域分布和未来预测可以看出，我国养老资源配置问题正由“总量扩张”逐步转向“结构优化”。
+        在后续政策设计与资源投入中，应更加重视区域差异、服务层级衔接以及护理型、医养结合类资源的精准配置。
+      </div>
+    </section>
+
+    <section id="method" class="section card reveal">
+      <h2 class="section-title">数据口径与模型说明</h2>
+      <p class="section-desc">这一部分适合直接用于比赛答辩时说明数据依据和预测逻辑。</p>
+
+      <div class="method-grid">
+        <div class="method-item">
+          <div class="title">地图展示口径</div>
+          <div class="desc">地图模块以“65岁及以上人口占比”作为核心指标，用于观察区域老龄化空间差异。港澳台数据仅作补充展示参考。</div>
+        </div>
+        <div class="method-item">
+          <div class="title">历史数据口径</div>
+          <div class="desc">全国趋势图主要依据国家统计局历年公报整理；床位与供给强度指标用于反映养老资源扩张与配置效率变化。</div>
+        </div>
+        <div class="method-item">
+          <div class="title">预测模块说明</div>
+          <div class="desc">当前预测区为展示版，可后续替换为正式 ARIMA 模型输出，并继续补充检验过程、参数选择与预测区间。</div>
         </div>
       </div>
     </section>
@@ -488,6 +657,28 @@
       return name + "的65岁及以上人口占比为 " + value.toFixed(2) + "%，整体处于“" + getLevel(value) + "”水平，可结合本地人口规模和养老资源供给进一步分析。";
     }
 
+
+    function getProvinceIssue(name, value){
+      if(name === "安徽") return "养老需求增长较快，结构性供给优化压力较大，尤其需要关注县域服务和护理型资源配置。";
+      if(name === "香港") return "高龄人口占比较高，社区居家支持和长期照护体系衔接压力更明显。";
+      if(name === "澳门") return "数据主要用于补充展示，适合作为区域比较参考，不宜直接与内地统计口径完全对等解读。";
+      if(name === "台湾") return "高龄化水平较高，居家服务、社区支持与长期照护网络建设值得重点关注。";
+      if(value >= 16) return "老龄化水平偏高，意味着养老服务供给压力较大，护理型资源和基层承接能力需要优先强化。";
+      if(value >= 13) return "老龄化水平较高，说明未来养老需求持续上升，应提前推进服务网络优化与资源布局。";
+      return "当前老龄化水平相对较低，但仍需要前瞻布局，避免未来需求快速上升时出现供给滞后。";
+    }
+
+    function getProvinceAdvice(name, value){
+      if(name === "安徽") return "优先完善县域养老服务网络，增加护理型床位供给，推动医疗资源与养老服务协同布局。";
+      if(name === "香港") return "建议强化社区照护、长期护理支持以及高龄群体连续服务体系建设。";
+      if(name === "澳门") return "建议结合本地人口规模特点，优化小尺度社区服务供给和高龄支持体系。";
+      if(name === "台湾") return "建议推动居家、社区与机构养老服务协同发展，强化长期照护体系衔接。";
+      if(value >= 16) return "建议优先增加护理型床位，提升县域承接能力，并加快医养结合资源落地。";
+      if(value >= 13) return "建议同步推进机构扩容与结构优化，重点加强社区养老、失能照护和服务层级衔接。";
+      return "建议提前布局养老服务网络，保留资源扩展弹性，并增强基层养老服务供给能力。";
+    }
+
+
     function updateProvinceDetail(name, value){
       const rank = getRank(name);
       const diff = value - 15.6;
@@ -503,6 +694,8 @@
       document.getElementById('storyPercent').textContent = percent.toFixed(0) + '%';
       document.getElementById('storyBarFill').style.width = percent + '%';
       document.getElementById('storyText').textContent = getProvinceText(name, value);
+      document.getElementById('storyIssue').textContent = getProvinceIssue(name, value);
+      document.getElementById('storyAdvice').textContent = getProvinceAdvice(name, value);
 
       const box = document.getElementById('storyTags');
       box.innerHTML = '';
