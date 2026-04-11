@@ -279,6 +279,62 @@
       line-height:1.85;
     }
 
+
+    .model-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .model-item{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.05);
+      border-radius:16px;
+      padding:14px;
+      box-shadow:0 8px 18px rgba(26,43,60,.04);
+    }
+
+    .model-item .title{
+      font-size:15px;
+      font-weight:700;
+      color:var(--title);
+      margin-bottom:8px;
+    }
+
+    .model-item .desc{
+      font-size:13px;
+      color:var(--sub);
+      line-height:1.85;
+    }
+
+    .model-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .model-badge{
+      padding:8px 12px;
+      border-radius:999px;
+      background:#edf5ff;
+      border:1px solid rgba(0,0,0,.05);
+      color:#2563eb;
+      font-size:12px;
+    }
+
+    .model-note{
+      margin-top:14px;
+      background:linear-gradient(135deg, rgba(79,172,254,.10), rgba(0,198,255,.08));
+      border:1px solid rgba(79,172,254,.16);
+      border-radius:16px;
+      padding:14px;
+      color:#34526d;
+      line-height:1.9;
+      font-size:14px;
+    }
+
     @media (max-width:980px){
       .grid-2{ grid-template-columns:1fr; }
       .kpi-grid{ grid-template-columns:repeat(2,1fr); }
@@ -288,6 +344,7 @@
       .summary-grid{ grid-template-columns:1fr; }
       .method-grid{ grid-template-columns:1fr; }
       .story-extend{ grid-template-columns:1fr; }
+      .model-grid{ grid-template-columns:1fr; }
       .hero h1{ font-size:42px; }
     }
 
@@ -316,6 +373,7 @@
       <a href="#map">地图分析</a>
       <a href="#insights">核心结论</a>
       <a href="#method">口径说明</a>
+      <a href="#model">ARIMA模块</a>
       <a href="#ranking">地区排行</a>
       <a href="#sources">数据来源</a>
       <a href="#qa">智能问答</a>
@@ -504,6 +562,49 @@
       </div>
     </section>
 
+    <section id="model" class="section grid-2 reveal">
+      <div class="card">
+        <h2 class="section-title">ARIMA 模型展示模块</h2>
+        <p class="section-desc">把建模思路、拟合结果与预测区间集中展示，适合比赛答辩和论文汇报时使用。</p>
+        <div id="chart5" class="chart"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">建模流程摘要</h2>
+        <p class="section-desc">当前为网页展示版，用于说明你“如何建模、如何预测、如何解释结果”。</p>
+
+        <div class="model-grid">
+          <div class="model-item">
+            <div class="title">研究序列</div>
+            <div class="desc">以 2017—2024 年全国 65 岁及以上人口序列作为建模对象，重点解释老龄人口增长趋势及未来变化方向。</div>
+          </div>
+          <div class="model-item">
+            <div class="title">平稳性处理</div>
+            <div class="desc">展示版按“原序列存在趋势、需一阶差分后建模”的逻辑呈现；正式提交时可替换为你的 ADF 检验结果与差分说明。</div>
+          </div>
+          <div class="model-item">
+            <div class="title">模型设定</div>
+            <div class="desc">页面示意采用 ARIMA(1,1,1) 结构，用于说明参数、拟合过程与未来预测的展示方式，不直接替代论文正式结果。</div>
+          </div>
+          <div class="model-item">
+            <div class="title">预测输出</div>
+            <div class="desc">输出 2025—2030 年点预测，并给出上下界示意，便于在答辩中同时解释趋势判断与不确定性范围。</div>
+          </div>
+        </div>
+
+        <div class="model-badges">
+          <span class="model-badge">展示版逻辑</span>
+          <span class="model-badge">一阶差分</span>
+          <span class="model-badge">ARIMA(1,1,1)</span>
+          <span class="model-badge">点预测 + 区间</span>
+        </div>
+
+        <div class="model-note">
+          注：该模块用于网站展示与答辩表达。正式论文提交时，建议将这里替换为你最终的 ADF 检验、参数选择、AIC 比较、残差白噪声检验及最优 ARIMA 结果。
+        </div>
+      </div>
+    </section>
+
     <section id="ranking" class="section card reveal">
       <h2 class="section-title">地区老龄化 Top10</h2>
       <p class="section-desc">排行榜与地图联动，便于直观比较不同地区差异。</p>
@@ -518,12 +619,13 @@
 
     <section id="qa" class="section card reveal">
       <h2 class="section-title">智能问答</h2>
-      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、安徽、香港、澳门、台湾</p>
+      <p class="section-desc">支持关键词：趋势、预测、老龄化、排名、地图、ARIMA、安徽、香港、澳门、台湾</p>
       <div class="quick-buttons">
         <button class="quick" onclick="fillQuick('养老资源趋势如何？')">趋势</button>
         <button class="quick" onclick="fillQuick('未来预测说明一下')">预测</button>
         <button class="quick" onclick="fillQuick('老龄化有什么特点？')">老龄化</button>
         <button class="quick" onclick="fillQuick('排行榜说明什么？')">排名</button>
+        <button class="quick" onclick="fillQuick('ARIMA模块是怎么做的？')">ARIMA</button>
         <button class="quick" onclick="fillQuick('安徽该怎么优化养老资源？')">安徽</button>
       </div>
       <div class="chat-box" id="chatBox">
@@ -580,6 +682,7 @@
       { keywords:['老龄化'], answer:'老龄化率反映老年人口占比。不同地区之间存在明显差异，东北、直辖市和部分中西部地区整体水平更高。' },
       { keywords:['排名','排行'], answer:'排行榜显示的是地区65岁及以上人口占比，数值越高说明该地区老龄化程度越高，对养老资源配置要求通常也更强。' },
       { keywords:['地图'], answer:'地图模块展示了各地区65岁及以上人口占比的空间分布情况，颜色越深表示指标越高，并可与右侧详情和排行榜联动查看。' },
+      { keywords:['ARIMA','模型'], answer:'ARIMA 模块用于展示预测思路：先观察时间序列趋势，再进行差分和平稳性处理，最后给出参数设定、拟合结果和未来预测区间。网页中的 ARIMA 区域为展示版，可替换成你论文中的正式结果。' },
       { keywords:['安徽'], answer:'安徽老龄化率较高，建议重点完善县域养老服务中心、乡镇站点、护理型床位和医养结合资源配置。' },
       { keywords:['香港'], answer:'香港补充采用当地官方口径数据，65岁及以上比例较高，但与内地地区统计口径并非完全同口径。' },
       { keywords:['澳门'], answer:'澳门补充采用人口普查本地人口口径推算，页面里主要用于地图完整展示和区域比较参考。' },
@@ -606,6 +709,12 @@
     const elderlyForecast = nationalForecast.map(i => i.age65);
     const bedForecast = nationalForecast.map(i => i.beds);
     const facilityForecast = nationalForecast.map(i => i.facilities);
+    const arimaYears = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
+    const arimaActual = [15831,16658,17603,19064,20056,20978,21676,22023,null,null,null,null,null,null];
+    const arimaFitted = [null,16420,17510,18880,19980,20990,21620,22070,null,null,null,null,null,null];
+    const arimaForecast = [null,null,null,null,null,null,null,null,22804,23579,24348,25112,25869,26621];
+    const arimaUpper = [null,null,null,null,null,null,null,null,23280,24170,25060,25990,26820,27620];
+    const arimaLower = [null,null,null,null,null,null,null,null,22320,22980,23640,24230,24910,25620];
     const top10 = provinceData.slice().sort((a,b)=>b.aging-a.aging).slice(0,10);
 
     function animateNumber(el, target, suffix = "", decimals = 0){
@@ -1004,6 +1113,76 @@
         ]
       });
 
+
+      const chart5 = echarts.init(document.getElementById('chart5'));
+      chart5.setOption({
+        animationDuration: 1500,
+        tooltip:{ trigger:'axis' },
+        legend:{
+          data:['实际值','拟合值','预测值','预测上界','预测下界'],
+          textStyle:{ color:'#41576d' },
+          top:0
+        },
+        grid:{ left:'8%', right:'5%', top:'16%', bottom:'12%' },
+        xAxis:{
+          type:'category',
+          data:arimaYears,
+          axisLabel:{ color:axisColor }
+        },
+        yAxis:{
+          type:'value',
+          axisLabel:{ color:axisColor },
+          splitLine:{ lineStyle:{ color:splitColor } }
+        },
+        series:[
+          {
+            name:'实际值',
+            type:'line',
+            smooth:true,
+            data:arimaActual,
+            symbolSize:7,
+            lineStyle:{ width:4, color:'#4facfe' },
+            itemStyle:{ color:'#4facfe' }
+          },
+          {
+            name:'拟合值',
+            type:'line',
+            smooth:true,
+            data:arimaFitted,
+            symbolSize:5,
+            lineStyle:{ width:3, type:'dashed', color:'#8b5cf6' },
+            itemStyle:{ color:'#8b5cf6' }
+          },
+          {
+            name:'预测值',
+            type:'line',
+            smooth:true,
+            data:arimaForecast,
+            symbolSize:7,
+            lineStyle:{ width:4, type:'dashed', color:'#34d399' },
+            itemStyle:{ color:'#34d399' }
+          },
+          {
+            name:'预测上界',
+            type:'line',
+            smooth:true,
+            data:arimaUpper,
+            symbolSize:0,
+            lineStyle:{ width:2, type:'dotted', color:'rgba(52,211,153,.65)' },
+            itemStyle:{ color:'rgba(52,211,153,.65)' }
+          },
+          {
+            name:'预测下界',
+            type:'line',
+            smooth:true,
+            data:arimaLower,
+            symbolSize:0,
+            lineStyle:{ width:2, type:'dotted', color:'rgba(52,211,153,.65)' },
+            itemStyle:{ color:'rgba(52,211,153,.65)' }
+          }
+        ]
+      });
+
       buildRankList();
       buildSourceList();
       updateProvinceDetail('安徽', 15.01);
@@ -1056,7 +1235,7 @@
       }
 
       window.addEventListener('resize', function(){
-        chart1.resize(); chart2.resize(); chart3.resize(); chart4.resize();
+        chart1.resize(); chart2.resize(); chart3.resize(); chart4.resize(); chart5.resize();
       });
 
       document.getElementById('question').addEventListener('keydown', function(e){
