@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>智械未来——机器人智能发展调研平台</title>
+  <title>机器人智能调研网站</title>
   <meta name="description" content="机器人智能发展调研平台：展示全球与中国机器人产业数据、核心技术、应用场景、产业关键指标、挑战与未来趋势。" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js">
     document.querySelectorAll('.reveal-up').forEach((el, idx) => {
@@ -17,6 +17,33 @@
       });
     },{threshold:.12});
     document.querySelectorAll('.reveal-up').forEach(el=>revealObserver.observe(el));
+
+  
+    const countObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          if(el.dataset.done === '1') return;
+          el.dataset.done = '1';
+          const target = parseFloat(el.dataset.target || '0');
+          const duration = 1200;
+          const start = performance.now();
+          const decimals = String(target).includes('.') ? String(target).split('.')[1].length : 0;
+          function update(now){
+            const progress = Math.min((now - start) / duration, 1);
+            const value = target * (1 - Math.pow(1 - progress, 3));
+            el.textContent = value.toFixed(decimals);
+            if(progress < 1){
+              requestAnimationFrame(update);
+            }else{
+              el.classList.add('ready');
+            }
+          }
+          requestAnimationFrame(update);
+        }
+      });
+    },{threshold:.5});
+    document.querySelectorAll('.count-up').forEach(el=>countObserver.observe(el));
 
   </script>
   <style>
@@ -805,6 +832,330 @@
       }
     }
 
+  
+    /* ===== official 3D tech final ===== */
+    :root{
+      --heroGlowA: rgba(54,185,255,.18);
+      --heroGlowB: rgba(41,234,215,.16);
+      --heroGlowC: rgba(142,124,255,.14);
+    }
+    @keyframes heroParallaxFloat{
+      0%,100%{transform:translateY(0) translateX(0)}
+      50%{transform:translateY(-10px) translateX(4px)}
+    }
+    @keyframes heroOrbPulse{
+      0%,100%{transform:scale(1); opacity:.55}
+      50%{transform:scale(1.12); opacity:.9}
+    }
+    @keyframes heroLineMove{
+      0%{transform:translateX(-20%)}
+      100%{transform:translateX(120%)}
+    }
+    @keyframes numberPop{
+      0%{transform:translateY(8px); opacity:0}
+      100%{transform:translateY(0); opacity:1}
+    }
+    .hero{
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 16% 18%, var(--heroGlowA), transparent 24%),
+        radial-gradient(circle at 78% 18%, var(--heroGlowB), transparent 22%),
+        radial-gradient(circle at 62% 74%, var(--heroGlowC), transparent 22%);
+      pointer-events:none;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:26px 26px;
+      opacity:.35;
+      pointer-events:none;
+      mask-image:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.2));
+    }
+    .hero-grid{
+      align-items:center!important;
+    }
+    .hero-title{
+      letter-spacing:-1px;
+      text-shadow:0 8px 36px rgba(0,0,0,.24);
+    }
+    .hero-lead{
+      max-width:720px!important;
+    }
+    .hero-kpis{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:22px;
+    }
+    .hero-kpi{
+      padding:14px 14px 12px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.045));
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    }
+    .hero-kpi b{
+      display:block;
+      font-size:26px;
+      line-height:1.1;
+      margin-bottom:4px;
+    }
+    .hero-kpi span{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tech-hero-stage{
+      position:relative;
+      min-height:460px;
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(circle at 22% 20%, rgba(54,185,255,.16), transparent 24%),
+        radial-gradient(circle at 78% 16%, rgba(41,234,215,.14), transparent 22%),
+        linear-gradient(180deg, rgba(10,20,36,.98), rgba(8,15,29,.98));
+      overflow:hidden;
+      box-shadow:0 24px 58px rgba(0,0,0,.26);
+    }
+    .tech-hero-stage::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:24px 24px;
+      pointer-events:none;
+      opacity:.45;
+    }
+    .tech-hero-stage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), transparent 30%, transparent 70%, rgba(255,255,255,.03));
+      pointer-events:none;
+    }
+    .tech-hero-orb{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(2px);
+      animation:heroOrbPulse 4.4s ease-in-out infinite;
+      opacity:.75;
+    }
+    .tech-hero-orb.orb-a{
+      width:120px;height:120px;left:26px;top:30px;
+      background:radial-gradient(circle, rgba(54,185,255,.42), rgba(54,185,255,0) 68%);
+    }
+    .tech-hero-orb.orb-b{
+      width:150px;height:150px;right:24px;top:18px;
+      background:radial-gradient(circle, rgba(41,234,215,.34), rgba(41,234,215,0) 70%);
+      animation-delay:.8s;
+    }
+    .tech-hero-orb.orb-c{
+      width:170px;height:170px;right:70px;bottom:20px;
+      background:radial-gradient(circle, rgba(142,124,255,.28), rgba(142,124,255,0) 70%);
+      animation-delay:1.4s;
+    }
+    .tech-hero-lines{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .tech-hero-lines span{
+      position:absolute;
+      height:2px;
+      width:140px;
+      background:linear-gradient(90deg, rgba(41,234,215,0), rgba(41,234,215,.85), rgba(41,234,215,0));
+      animation:heroLineMove 5.4s linear infinite;
+      opacity:.55;
+    }
+    .tech-hero-lines span:nth-child(1){top:62px; animation-delay:0s}
+    .tech-hero-lines span:nth-child(2){top:146px; animation-delay:1.4s}
+    .tech-hero-lines span:nth-child(3){top:238px; animation-delay:2.2s}
+    .tech-hero-lines span:nth-child(4){top:328px; animation-delay:.8s}
+    .robot-3d-wrap{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:26px;
+    }
+    .robot-3d-card{
+      position:relative;
+      width:82%;
+      max-width:430px;
+      min-height:330px;
+      border-radius:28px;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.11);
+      box-shadow:0 18px 46px rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+      transform:perspective(1000px) rotateX(8deg) rotateY(-10deg);
+      animation:heroParallaxFloat 4.6s ease-in-out infinite;
+    }
+    .robot-3d-card::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.06);
+      pointer-events:none;
+    }
+    .robot-3d-badge{
+      position:absolute;
+      top:16px; left:16px;
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      color:#ecfbff;
+      background:rgba(54,185,255,.12);
+      border:1px solid rgba(54,185,255,.24);
+      backdrop-filter: blur(6px);
+    }
+    .robot-3d-panel{
+      position:absolute;
+      right:16px; top:16px;
+      display:grid;
+      gap:8px;
+      width:104px;
+    }
+    .robot-3d-chip{
+      padding:8px 10px;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:11px;
+      color:#dff3ff;
+      text-align:center;
+    }
+    .robot-3d-svg{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:250px;
+      margin-top:30px;
+    }
+    .robot-3d-svg svg{
+      width:80%;
+      max-width:260px;
+      height:auto;
+      filter:drop-shadow(0 18px 34px rgba(0,0,0,.30));
+    }
+    .robot-3d-base{
+      position:absolute;
+      left:24px; right:24px; bottom:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .robot-3d-base div{
+      padding:10px 10px 8px;
+      border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .robot-3d-base b{
+      display:block;
+      font-size:13px;
+      margin-bottom:3px;
+    }
+    .robot-3d-base small{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+    .count-up.ready{
+      animation:numberPop .6s ease both;
+    }
+    .section-title h2{
+      text-shadow:0 8px 20px rgba(0,0,0,.16);
+    }
+    @media(max-width:980px){
+      .hero-kpis{
+        grid-template-columns:1fr 1fr 1fr;
+      }
+      .tech-hero-stage{
+        min-height:420px;
+      }
+      .robot-3d-card{
+        width:90%;
+        max-width:420px;
+      }
+    }
+    @media(max-width:640px){
+      .hero-kpis{
+        grid-template-columns:1fr;
+      }
+      .hero-kpi b{
+        font-size:24px;
+      }
+      .tech-hero-stage{
+        min-height:390px;
+      }
+      .robot-3d-card{
+        width:94%;
+        padding:16px;
+        min-height:300px;
+      }
+      .robot-3d-panel{
+        width:92px;
+      }
+      .robot-3d-base{
+        grid-template-columns:1fr 1fr 1fr;
+      }
+    }
+
+  
+    /* final cleaned polish */
+    .links{
+      gap:12px!important;
+      flex-wrap:wrap;
+    }
+    .hero{
+      min-height:82vh!important;
+      padding:96px 0 48px!important;
+    }
+    section{
+      padding:56px 0!important;
+    }
+    .section-title{
+      margin:0 auto 30px!important;
+    }
+    .hero-copy .btns{
+      margin-bottom:0!important;
+    }
+    .hero-kpis{
+      margin-top:18px!important;
+    }
+    .card,.atlas-card,.entity-card,.enterprise-card,.chart-card,.conclusion-card{
+      border-radius:22px!important;
+    }
+    .atlas-body p,.atlas-body li,.entity-card p,.enterprise-card p,.conclusion-card p,.card p,.card li{
+      line-height:1.68!important;
+    }
+    .section-title p{
+      max-width:860px;
+      margin:0 auto;
+    }
+    .entity-panel,.showcase-tips{
+      display:none!important;
+    }
+
   </style>
 </head>
 <body>
@@ -814,14 +1165,13 @@
       <nav class="links">
         <a href="#background">行业背景</a>
         <a href="#overview">核心数据</a>
-        <a href="#policy">政策支持</a>
         <a href="#robotAtlas">机器人图鉴</a>
         <a href="#robotShowcase">实体展馆</a>
         <a href="#tech">核心技术</a>
         <a href="#application">应用场景</a>
-        <a href="#industryData">实用数据</a>
         <a href="#enterprise">代表企业</a>
         <a href="#charts">数据分析</a>
+        <a href="#future">未来趋势</a>
         <a href="#conclusion">研究结论</a>
       </nav>
     </div>
@@ -833,12 +1183,10 @@
         <div>
           <div class="badge"><span class="pulse"></span>Robot Intelligence Research Platform</div>
           <h1>机器人智能<br><span class="gradient">发展调研平台</span></h1>
-          <p class="hero-lead">
-            本网站围绕机器人智能化发展，整合全球与中国机器人产业数据、核心技术、应用场景、服务机器人市场、AI 技术趋势与政策背景，形成一个适用于课程作业、创新项目、比赛答辩和调研报告汇报的正式版网站。
-          </p>
+          <p class="hero-lead">聚焦机器人产业发展、核心技术、典型应用与未来趋势，系统展示机器人智能化的发展现状与行业价值，适用于课程汇报、项目展示与 GitHub 静态部署。</p>
           <div class="btns">
-            <a class="btn primary" href="#conclusion">查看研究结论</a>
-            <a class="btn ghost" href="#robotAtlas">进入机器人图鉴</a>
+            <a class="btn primary" href="#conclusion">查看结论</a>
+            <a class="btn ghost" href="#robotAtlas">查看图鉴</a>
           </div>
           <div class="hero-notes">
             <div class="note"><b>产业数据</b><span>IFR / 国家统计局</span></div>
@@ -907,33 +1255,6 @@
           <div class="card fade"><div class="icon">🧹</div><div class="metric">1051.9 万套</div><div class="label">中国服务机器人产量</div><p>2024 年中国服务机器人产量约 1051.9 万套，同比增长 15.6%。</p></div>
           <div class="card fade"><div class="icon">🚚</div><div class="metric">20 万台</div><div class="label">专业服务机器人销量</div><p>2024 年全球专业服务机器人销量接近 200,000 台，同比增长 9%。</p></div>
           <div class="card fade"><div class="icon">🧠</div><div class="metric">近 90%</div><div class="label">AI 模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界，AI 正在加速赋能机器人智能化。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="policy">
-      <div class="container">
-        <div class="section-title fade">
-          <div class="eyebrow">Policy Support</div>
-          <h2>政策支持：机器人产业为什么值得关注</h2>
-          <p>机器人智能化不仅是技术趋势，也与智能制造、未来产业、养老服务、医疗健康和产业升级密切相关。</p>
-        </div>
-        <div class="policy-grid">
-          <div class="card fade">
-            <h3>“机器人+”应用行动</h3>
-            <p>“机器人+”应用行动强调推动机器人进入制造业、农业、建筑、能源、商贸物流、医疗健康、养老服务、教育、商业社区服务和安全应急等领域。</p>
-            <ul>
-              <li>到 2025 年制造业机器人密度较 2020 年实现翻番。</li>
-              <li>服务机器人、特种机器人行业应用深度和广度提升。</li>
-              <li>推广典型应用场景，建设应用体验中心和试验验证中心。</li>
-            </ul>
-          </div>
-          <div class="policy-list fade">
-            <div class="policy-item"><div class="policy-num">1</div><div><b>智能制造升级</b><span>机器人是智能工厂、柔性生产和数字化车间的重要基础装备。</span></div></div>
-            <div class="policy-item"><div class="policy-num">2</div><div><b>未来产业培育</b><span>具身智能、人形机器人、智能终端等方向正在成为新兴产业和未来产业的重要组成部分。</span></div></div>
-            <div class="policy-item"><div class="policy-num">3</div><div><b>民生服务拓展</b><span>医疗康复、养老陪护、社区服务等场景，使机器人从工厂走向社会生活。</span></div></div>
-            <div class="policy-item"><div class="policy-num">4</div><div><b>高危场景替代</b><span>消防、巡检、排爆、应急救援等特种机器人可以降低人员风险。</span></div></div>
-          </div>
         </div>
       </div>
     </section>
@@ -1053,9 +1374,6 @@
       </div>
     </section>
 
-    
-
-    
     <section id="robotShowcase">
       <div class="container">
         <div class="section-title fade reveal-up">
@@ -1254,16 +1572,10 @@
             </div>
           </div>
         </div>
-
-        <div class="entity-panel fade reveal-up">
-          <h3>下一步还可以继续升级</h3>
-          <p>如果你还想继续往“高级官网风”推进，下一版我还可以继续帮你加入：首页主视觉大机器人、鼠标悬停视差、滚动视差光效、分屏展示、数字跳动效果，以及更像真实设备宣传页的 3D 科技插画风格。</p>
-        </div>
-      </div>
+</div>
     </section>
 
-
-<section id="tech">
+    <section id="tech">
       <div class="container">
         <div class="section-title fade">
           <div class="eyebrow">Core Technology</div>
@@ -1298,152 +1610,6 @@
           <div class="card fade"><h3>养老陪护</h3><p>老龄化背景下，机器人可承担健康监测、用药提醒、紧急呼救和情感陪伴等辅助任务。</p><ul><li>健康监测</li><li>智能家居联动</li><li>情感陪伴与安全看护</li></ul></div>
           <div class="card fade"><h3>教育与校园</h3><p>机器人可用于编程教学、科普展示、校园导览和创新实践，适合大学生项目展示。</p><ul><li>编程教育</li><li>智能交互</li><li>创新实践课程</li></ul></div>
           <div class="card fade"><h3>特种作业</h3><p>特种机器人进入危险、复杂或人类难以到达的环境，提高安全性和任务效率。</p><ul><li>消防、排爆、巡检</li><li>水下与空间探索</li><li>农业采摘与应急救援</li></ul></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="industryData">
-      <div class="container">
-        <div class="section-title fade">
-          <div class="eyebrow">Practical Data</div>
-          <h2>实用数据：机器人产业关键指标库</h2>
-          <p>本模块删除了原来的问卷调研内容，改为更适合正式展示的产业数据、应用覆盖、产量变化、专利占比和商用服务机器人出货数据。</p>
-        </div>
-
-        <div class="grid stats">
-          <div class="card fade">
-            <div class="icon">🏭</div>
-            <div class="metric">55.6 万套</div>
-            <div class="label">2024 年中国工业机器人产量</div>
-            <p>中国工业机器人产量由 2015 年的 3.3 万套增长至 2024 年的 55.6 万套，说明本土机器人制造能力快速提升。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">⚙️</div>
-            <div class="metric">77.3 万套</div>
-            <div class="label">2025 年中国工业机器人产量</div>
-            <p>2025 年中国工业机器人产量约 77.3 万套，同比增长 28.0%，延续较快增长态势。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">🤖</div>
-            <div class="metric">1051.9 万套</div>
-            <div class="label">2024 年中国服务机器人产量</div>
-            <p>服务机器人已经成为机器人产业中更贴近生活服务、家庭场景和商业服务的重要方向。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">🧩</div>
-            <div class="metric">71 个大类</div>
-            <div class="label">工业机器人应用覆盖</div>
-            <p>工业机器人已应用于国民经济 71 个行业大类、236 个行业中类，应用范围持续扩大。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">📚</div>
-            <div class="metric">约 2/3</div>
-            <div class="label">中国机器人专利申请占比</div>
-            <p>2024 年中国机器人专利申请量约占全球机器人专利申请总量的三分之二，反映技术创新活跃。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">🏪</div>
-            <div class="metric">84.7%</div>
-            <div class="label">中国商用服务机器人出货占比</div>
-            <p>2024 年中国厂商在全球商用服务机器人市场中出货量占比高达 84.7%，规模优势明显。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">📍</div>
-            <div class="metric">全球第三</div>
-            <div class="label">中国制造业机器人密度</div>
-            <p>中国制造业机器人密度跃升至全球第三位，体现制造业自动化和智能化水平提升。</p>
-          </div>
-          <div class="card fade">
-            <div class="icon">🔧</div>
-            <div class="metric">236 个中类</div>
-            <div class="label">细分行业应用范围</div>
-            <p>机器人应用已经从汽车、电子等传统场景，扩展到更多制造业和服务业细分场景。</p>
-          </div>
-        </div>
-
-        <div class="chart-grid" style="margin-top:24px">
-          <div class="chart-card fade">
-            <h3>中国机器人产量对比</h3>
-            <canvas id="chinaOutputChart"></canvas>
-            <p>单位：万套。工业机器人与服务机器人都在快速发展，但服务机器人产量规模更大。</p>
-          </div>
-          <div class="chart-card fade">
-            <h3>中国机器人应用覆盖范围</h3>
-            <canvas id="coverageChart"></canvas>
-            <p>工业机器人应用覆盖 71 个行业大类、236 个行业中类，说明机器人正在进入更多生产环节。</p>
-          </div>
-          <div class="chart-card fade">
-            <h3>中国机器人产业影响力指标</h3>
-            <canvas id="chinaInfluenceChart"></canvas>
-            <p>专利申请占比和商用服务机器人出货占比，能够体现中国机器人产业的创新能力和规模优势。</p>
-          </div>
-          <div class="card fade">
-            <h3>为什么这些数据比问卷更有用？</h3>
-            <p>
-              问卷数据需要真实样本支撑，如果样本量不足，容易显得不正式。当前版本改为产业关键指标，更适合比赛展示、课程汇报和正式调研网站。后续如果你完成真实问卷，也可以再单独增加“公众认知调研”模块。
-            </p>
-            <ul>
-              <li>产量数据：说明中国机器人产业规模。</li>
-              <li>应用覆盖：说明机器人落地范围。</li>
-              <li>专利占比：说明技术创新能力。</li>
-              <li>出货占比：说明中国厂商市场影响力。</li>
-              <li>机器人密度：说明制造业自动化水平。</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card fade" style="margin-top:24px">
-          <h3>数据资产清单</h3>
-          <div class="table-wrap" style="margin-top:14px">
-            <table>
-              <thead>
-                <tr>
-                  <th>数据指标</th>
-                  <th>数值</th>
-                  <th>说明</th>
-                  <th>适合展示位置</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>全球工业机器人安装量</td>
-                  <td>542,000 台</td>
-                  <td>反映全球工业机器人年度新增部署规模</td>
-                  <td>首页、数据分析页</td>
-                </tr>
-                <tr>
-                  <td>中国工业机器人安装量</td>
-                  <td>295,000 台</td>
-                  <td>中国约占全球 54%，是全球最大应用市场</td>
-                  <td>首页、中国市场页</td>
-                </tr>
-                <tr>
-                  <td>中国工业机器人产量</td>
-                  <td>2024 年 55.6 万套；2025 年 77.3 万套</td>
-                  <td>反映中国本土制造能力提升</td>
-                  <td>实用数据页</td>
-                </tr>
-                <tr>
-                  <td>中国服务机器人产量</td>
-                  <td>2024 年 1051.9 万套</td>
-                  <td>反映服务机器人规模化发展</td>
-                  <td>应用场景页、实用数据页</td>
-                </tr>
-                <tr>
-                  <td>工业机器人应用覆盖</td>
-                  <td>71 个行业大类、236 个行业中类</td>
-                  <td>说明机器人应用场景持续扩展</td>
-                  <td>应用场景页</td>
-                </tr>
-                <tr>
-                  <td>商用服务机器人出货占比</td>
-                  <td>84.7%</td>
-                  <td>中国厂商在全球商用服务机器人市场中具有规模优势</td>
-                  <td>实用数据页、趋势页</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </section>
@@ -1490,21 +1656,6 @@
       </div>
     </section>
 
-    <section id="challenge">
-      <div class="container">
-        <div class="section-title fade">
-          <div class="eyebrow">Challenges</div>
-          <h2>问题挑战：技术、产业与社会影响</h2>
-          <p>机器人智能化前景广阔，但仍面临技术成熟度、成本控制、商业落地、伦理安全和社会接受度等问题。</p>
-        </div>
-        <div class="grid cards3">
-          <div class="card fade"><h3>技术挑战</h3><p>真实场景比实验环境复杂，机器人需要更强的泛化能力和稳定性。</p><ul><li>复杂环境感知不稳定</li><li>运动控制与实时决策难度高</li><li>续航、载荷、散热限制</li><li>软硬件协同复杂</li></ul></div>
-          <div class="card fade"><h3>产业挑战</h3><p>机器人产业链长，核心零部件、产品成本和应用落地影响商业化速度。</p><ul><li>高端传感器与减速器成本较高</li><li>场景定制化要求强</li><li>应用回报周期较长</li><li>同质化竞争风险</li></ul></div>
-          <div class="card fade"><h3>社会挑战</h3><p>机器人进入社会生活后，需要处理人与机器之间的责任、安全和信任关系。</p><ul><li>就业替代担忧</li><li>隐私与数据安全</li><li>人机安全边界</li><li>伦理责任划分</li></ul></div>
-        </div>
-      </div>
-    </section>
-
     <section id="future">
       <div class="container">
         <div class="section-title fade">
@@ -1538,26 +1689,6 @@
         <div class="final-callout fade">
           <h3>最终总结</h3>
           <p>机器人智能化的本质，是人工智能与实体装备的结合。未来机器人将更加重视“感知—决策—控制—执行”的闭环能力，并在智能制造、养老医疗、物流服务和高危作业中发挥更大作用。本网站通过数据、图鉴、技术分析和趋势判断，系统呈现了机器人智能发展的现实基础与未来方向。</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="sources">
-      <div class="container">
-        <div class="section-title fade">
-          <div class="eyebrow">Sources</div>
-          <h2>数据来源与研究方法</h2>
-          <p>网站采用公开权威资料整理、行业数据收集、技术资料归纳、案例分析和数据可视化等方法完成。</p>
-        </div>
-        <div class="grid cards2 source">
-          <div class="card fade"><h3>International Federation of Robotics</h3><p>World Robotics 2025 工业机器人与服务机器人报告，用于全球安装量、区域分布、中国市场、服务机器人等数据。</p><p class="small"><a href="https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years" target="_blank">工业机器人报告</a>　<a href="https://ifr.org/ifr-press-releases/news/service-robots-see-global-growth-boom" target="_blank">服务机器人报告</a></p></div>
-          <div class="card fade"><h3>国家统计局</h3><p>用于中国工业机器人产量、服务机器人产量和相关制造业数据。</p><p class="small"><a href="https://www.stats.gov.cn/zt_18555/zthd/lhfw/2025/2025_hgjj/202502/t20250228_1958824.html" target="_blank">2024 年统计公报</a>　<a href="https://www.news.cn/20260205/54860ffe0c5147588bf5d59f4f955291/c.html" target="_blank">2025 年机械工业数据</a></p></div>
-          <div class="card fade"><h3>Stanford HAI AI Index 2025</h3><p>用于 AI 模型产业来源、训练算力和数据规模变化等内容，说明 AI 对机器人智能化的推动。</p><p class="small"><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank">2025 AI Index Report</a></p></div>
-          <div class="card fade"><h3>中国政府公开资料</h3><p>用于“机器人+”应用行动、制造业机器人密度目标、典型应用场景建设等政策背景。</p><p class="small"><a href="https://english.www.gov.cn/statecouncil/ministries/202301/20/content_WS63c9d296c6d0a757729e5e28.html" target="_blank">Robot+ 应用行动资料</a></p></div>
-
-          <div class="card fade"><h3>人民日报海外版 / 世界机器人大会资料</h3><p>用于中国机器人产量、工业机器人应用覆盖、机器人专利申请占比、商用服务机器人出货占比等数据。</p><p class="small"><a href="https://paper.people.com.cn/rmrbhwb/pc/content/202508/04/content_30092740.html" target="_blank">中国连续 12 年保持全球最大工业机器人市场</a></p></div>
-          <div class="card fade"><h3>“机器人+”应用行动实施方案</h3><p>用于政策支持栏目，包括制造业机器人密度提升、服务机器人与特种机器人应用拓展等内容。</p><p class="small"><a href="https://www.beijing.gov.cn/ywdt/zybwdt/202301/t20230120_2906082.html" target="_blank">新华社 / 北京市政府转载资料</a></p></div>
-
         </div>
       </div>
     </section>
@@ -1661,6 +1792,33 @@
       });
     },{threshold:.12});
     document.querySelectorAll('.reveal-up').forEach(el=>revealObserver.observe(el));
+
+  
+    const countObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          if(el.dataset.done === '1') return;
+          el.dataset.done = '1';
+          const target = parseFloat(el.dataset.target || '0');
+          const duration = 1200;
+          const start = performance.now();
+          const decimals = String(target).includes('.') ? String(target).split('.')[1].length : 0;
+          function update(now){
+            const progress = Math.min((now - start) / duration, 1);
+            const value = target * (1 - Math.pow(1 - progress, 3));
+            el.textContent = value.toFixed(decimals);
+            if(progress < 1){
+              requestAnimationFrame(update);
+            }else{
+              el.classList.add('ready');
+            }
+          }
+          requestAnimationFrame(update);
+        }
+      });
+    },{threshold:.5});
+    document.querySelectorAll('.count-up').forEach(el=>countObserver.observe(el));
 
   </script>
 </body>
