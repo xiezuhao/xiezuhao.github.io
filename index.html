@@ -3,49 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>机器人智能调研网站</title>
-  <meta name="description" content="机器人智能发展调研平台：展示全球与中国机器人产业数据、核心技术、应用场景、产业关键指标、挑战与未来趋势。" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js">
-    document.querySelectorAll('.reveal-up').forEach((el, idx) => {
-      el.style.transitionDelay = Math.min(idx * 0.06, 0.42) + 's';
-    });
-    const revealObserver = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('show');
-        }
-      });
-    },{threshold:.12});
-    document.querySelectorAll('.reveal-up').forEach(el=>revealObserver.observe(el));
-
-  
-    const countObserver = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          const el = entry.target;
-          if(el.dataset.done === '1') return;
-          el.dataset.done = '1';
-          const target = parseFloat(el.dataset.target || '0');
-          const duration = 1200;
-          const start = performance.now();
-          const decimals = String(target).includes('.') ? String(target).split('.')[1].length : 0;
-          function update(now){
-            const progress = Math.min((now - start) / duration, 1);
-            const value = target * (1 - Math.pow(1 - progress, 3));
-            el.textContent = value.toFixed(decimals);
-            if(progress < 1){
-              requestAnimationFrame(update);
-            }else{
-              el.classList.add('ready');
-            }
-          }
-          requestAnimationFrame(update);
-        }
-      });
-    },{threshold:.5});
-    document.querySelectorAll('.count-up').forEach(el=>countObserver.observe(el));
-
-  </script>
+  <title>机器人智能发展调研平台</title>
+  <meta name="description" content="机器人智能发展调研平台：围绕产业数据、核心技术、典型应用、代表企业、发展趋势与研究结论进行系统展示。" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root{
       --bg:#07111f;
@@ -1565,27 +1525,39 @@
 
   </style>
 
-  <style>
-    .metric{
-      white-space:nowrap;
-      letter-spacing:.2px;
-    }
-    @media (max-width: 520px){
-      .metric{
-        font-size: clamp(22px, 7vw, 34px) !important;
-      }
-      .hero-lead{
-        max-width: 100% !important;
-      }
-    }
-  </style>
+<style>
+  .metric{white-space:nowrap;letter-spacing:.2px;}
+  .eyebrow{text-transform:none !important;}
+  @media (max-width: 520px){
+    .metric{font-size: clamp(22px, 7vw, 34px) !important;}
+  }
+</style>
+
+
+<style>
+  .cards4{grid-template-columns:repeat(4,1fr);}
+  .section-title h2{letter-spacing:.2px;}
+  .card h3,.atlas-body h3,.entity-card h3,.enterprise-card h3{letter-spacing:.2px;}
+  .hero-lead{font-size:15.5px!important;}
+  .note b,.hero-card b{font-size:18px;}
+  .metric{white-space:nowrap;}
+  .eyebrow{text-transform:none!important;}
+  @media(max-width:1000px){
+    .cards4{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:640px){
+    .cards4{grid-template-columns:1fr;}
+    .hero-lead{font-size:14px!important;}
+  }
+</style>
 
 </head>
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="#home"><span class="brand-mark"></span><span>智械未来</span></a>
+      <a class="brand" href="#home"><span class="brand-mark"></span><span>机器人智能调研</span></a>
       <nav class="links">
+        <a href="#highlights">项目亮点</a>
         <a href="#background">行业背景</a>
         <a href="#overview">核心数据</a>
         <a href="#robotAtlas">机器人图鉴</a>
@@ -1604,12 +1576,11 @@
     <section class="hero" id="home" style="min-height:0!important;height:auto!important;max-height:none!important;">
       <div class="container hero-grid">
         <div>
-          <div class="badge"><span class="pulse"></span>Robot Intelligence Research Platform</div>
-          <h1>机器人智能<br><span class="gradient">发展调研平台</span></h1>
-          <p class="hero-lead">聚焦机器人产业发展、核心技术、典型应用与未来趋势，系统展示机器人智能化的发展现状、产业价值与应用前景，适用于课程汇报、项目展示、调研成果展示与答辩演示。</p>
+<h1>机器人智能<br><span class="gradient">发展调研平台</span></h1>
+          <p class="hero-lead">本平台围绕机器人智能化发展展开调研，综合产业数据、技术体系、应用场景、代表企业与未来趋势，系统呈现机器人从自动化执行设备向智能化系统演进的过程，为课程汇报、项目展示与调研成果说明提供可视化支撑。</p>
           <div class="btns">
-            <a class="btn primary" href="#conclusion">查看结论</a>
-            <a class="btn ghost" href="#robotAtlas">查看图鉴</a>
+            <a class="btn primary" href="#conclusion">研究结论</a>
+            <a class="btn ghost" href="#robotAtlas">类型图鉴</a>
           </div>
           <div class="hero-notes">
             <div class="note"><b>产业数据</b><span>IFR / 国家统计局</span></div>
@@ -1632,11 +1603,28 @@
       </div>
     </section>
 
-    <section id="background">
+    
+
+    <section id="highlights">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">项目亮点</div>
+          <h2>展示重点与研究思路</h2>
+          <p>本平台以“数据支撑、技术梳理、场景分析、趋势判断”为主线，形成结构清晰、内容完整、适合汇报展示的调研页面。</p>
+        </div>
+        <div class="grid cards4">
+          <div class="card"><h3>数据支撑</h3><p>通过公开统计数据和行业资料，展示机器人产业规模、市场分布和发展趋势。</p></div>
+          <div class="card"><h3>技术梳理</h3><p>围绕感知、决策、控制、执行和人机交互，梳理智能机器人的关键技术框架。</p></div>
+          <div class="card"><h3>场景分析</h3><p>结合工业制造、物流仓储、医疗康复、养老服务和特种作业，说明机器人落地价值。</p></div>
+          <div class="card"><h3>趋势判断</h3><p>从人工智能、具身智能、人形机器人和人机协同角度，分析未来发展方向。</p></div>
+        </div>
+      </div>
+    </section>
+<section id="background">
       <div class="container">
         <div class="section-title fade">
-          <div class="eyebrow">Industry Background</div>
-          <h2>行业背景：机器人智能化为什么重要</h2>
+          <div class="eyebrow">行业背景</div>
+          <h2>行业背景：机器人智能化的发展意义</h2>
           <p>机器人正在从传统自动化设备发展为能够感知环境、理解任务、规划行动并进行反馈优化的智能系统。</p>
         </div>
         <div class="split">
@@ -1653,10 +1641,10 @@
             </ul>
           </div>
           <div class="grid cards2">
-            <div class="card fade"><span class="tag">Industrial</span><h3>工业机器人</h3><p>用于焊接、搬运、装配、喷涂、分拣和检测，是当前应用最成熟的机器人类型。</p></div>
-            <div class="card fade"><span class="tag">Service</span><h3>服务机器人</h3><p>进入物流、酒店、清洁、医疗、养老与家庭场景，服务机器人开始面向社会生活。</p></div>
-            <div class="card fade"><span class="tag">Medical</span><h3>医疗机器人</h3><p>包括手术辅助、康复训练、诊断实验室和医院配送，对稳定性与安全性要求极高。</p></div>
-            <div class="card fade"><span class="tag">Embodied AI</span><h3>人形与具身智能</h3><p>人形机器人是 AI 与真实物理世界交互的重要载体，也是机器人智能化的重要趋势。</p></div>
+            <div class="card fade"><span class="tag">工业机器人</span><h3>工业机器人</h3><p>用于焊接、搬运、装配、喷涂、分拣和检测，是当前应用最成熟的机器人类型。</p></div>
+            <div class="card fade"><span class="tag">服务机器人</span><h3>服务机器人</h3><p>进入物流、酒店、清洁、医疗、养老与家庭场景，服务机器人开始面向社会生活。</p></div>
+            <div class="card fade"><span class="tag">医疗机器人</span><h3>医疗机器人</h3><p>包括手术辅助、康复训练、诊断实验室和医院配送，对稳定性与安全性要求极高。</p></div>
+            <div class="card fade"><span class="tag">具身智能</span><h3>人形与具身智能</h3><p>人形机器人是 AI 与真实物理世界交互的重要载体，也是机器人智能化的重要趋势。</p></div>
           </div>
         </div>
       </div>
@@ -1665,7 +1653,7 @@
     <section id="overview">
       <div class="container">
         <div class="section-title fade">
-          <div class="eyebrow">Core Data</div>
+          <div class="eyebrow">核心数据</div>
           <h2>核心数据概览</h2>
           
         </div>
@@ -1677,7 +1665,7 @@
           <div class="card fade"><div class="icon">⚙️</div><div class="metric">77.3 万套</div><div class="label">中国工业机器人产量</div><p>2025 年中国工业机器人产量约 77.3 万套，同比增长 28.0%。</p></div>
           <div class="card fade"><div class="icon">🧹</div><div class="metric">1051.9 万套</div><div class="label">中国服务机器人产量</div><p>2024 年中国服务机器人产量约 1051.9 万套，同比增长 15.6%。</p></div>
           <div class="card fade"><div class="icon">🚚</div><div class="metric">20 万台</div><div class="label">专业服务机器人销量</div><p>2024 年全球专业服务机器人销量接近 200,000 台，同比增长 9%。</p></div>
-          <div class="card fade"><div class="icon">🧠</div><div class="metric">近 90%</div><div class="label">AI 模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界，AI 正在加速赋能机器人智能化。</p></div>
+          <div class="card fade"><div class="icon">🧠</div><div class="metric">近 90%</div><div class="label">人工智能模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界，AI 正在加速赋能机器人智能化。</p></div>
         </div>
       </div>
     </section>
@@ -1685,7 +1673,7 @@
     <section id="robotAtlas">
       <div class="container">
         <div class="section-title fade">
-          <div class="eyebrow">Robot Atlas</div>
+          <div class="eyebrow">机器人图鉴</div>
           <h2>机器人图鉴：典型机器人类型与功能介绍</h2>
           <p>本模块按照“工业—服务—医疗—养老—人形—特种”的逻辑展示典型机器人类型，并配套贴合场景的示意插图、功能说明与应用价值。</p>
         </div>
@@ -1800,9 +1788,9 @@
     <section id="robotShowcase">
       <div class="container">
         <div class="section-title fade reveal-up">
-          <div class="eyebrow">Robot Entity Gallery</div>
+          <div class="eyebrow">实体机器人展示</div>
           <h2>实体机器人展馆：更像真实设备的展示版本</h2>
-          <p>这一版进一步强化机器人“实体感”，通过金属质感、设备舱体、发光状态灯、机械结构与动态演示，让页面更接近正式科技官网和比赛答辩展示页。</p>
+          <p>本模块集中展示典型机器人设备的外观特征、功能定位与应用价值。</p>
         </div>
 
         <div class="entity-grid">
@@ -1886,7 +1874,7 @@
               <div class="entity-badge-row">
                 <span>导航移动</span><span>楼宇配送</span><span>底盘驱动</span>
               </div>
-              <p>相比普通示意图，这一版更强调移动底盘、机身舱体和运行状态，让配送机器人看起来更接近真实设备。</p>
+              <p>相比普通示意图，本模块更强调移动底盘、机身舱体和运行状态，让配送机器人看起来更接近真实设备。</p>
               <div class="status-strip">
                 <span class="status-chip"><span class="status-dot"></span>自动导航中</span>
                 <span class="status-chip">避障模块开启</span>
@@ -2023,7 +2011,7 @@
       <div class="container">
         <div class="section-title fade">
           <div class="eyebrow">Application</div>
-          <h2>应用场景：机器人正在改变哪些行业</h2>
+          <h2>应用场景：机器人智能化的落地领域</h2>
           <p>机器人应用正在从工厂生产线扩展到物流、医疗、养老、教育、公共服务和特殊环境作业。</p>
         </div>
         <div class="grid cards3">
@@ -2041,7 +2029,7 @@
       <div class="container">
         <div class="section-title fade">
           <div class="eyebrow">Representative Companies</div>
-          <h2>代表企业：机器人产业链观察</h2>
+          <h2>代表企业：机器人产业生态观察</h2>
           <p>本栏目按应用方向展示国内外代表性企业，帮助网站从“数据介绍”进一步延伸到“产业生态分析”。</p>
         </div>
         <div class="enterprise-grid">
@@ -2064,9 +2052,9 @@
     <section id="charts">
       <div class="container">
         <div class="section-title fade">
-          <div class="eyebrow">Data Visualization</div>
-          <h2>数据分析：机器人发展趋势可视化</h2>
-          <p>本部分已使用公开数据替换原先的示例图表，包含全球安装量、区域结构、机器人密度、服务机器人和 AI 技术趋势。</p>
+          <div class="eyebrow">数据分析</div>
+          <h2>数据分析：机器人发展趋势图表展示</h2>
+          <p>本部分通过图表呈现全球安装量、区域结构、机器人密度、服务机器人应用结构以及人工智能技术趋势。</p>
         </div>
         <div class="chart-grid">
           <div class="chart-card fade"><h3>全球主要市场工业机器人安装量</h3><canvas id="marketChart"></canvas><p>单位：台。中国、全球及主要国家安装量对比。</p></div>
@@ -2074,7 +2062,7 @@
           <div class="chart-card fade"><h3>主要国家机器人密度</h3><canvas id="densityChart"></canvas><p>单位：台 / 每万名制造业员工。机器人密度反映制造业自动化水平。</p></div>
           <div class="chart-card fade"><h3>工业机器人重点行业安装量</h3><canvas id="industryChart"></canvas><p>电子行业 2024 年重新成为工业机器人最大应用部门。</p></div>
           <div class="chart-card fade"><h3>专业服务机器人应用结构</h3><canvas id="serviceChart"></canvas><p>单位：台。运输与物流是专业服务机器人最大应用类别。</p></div>
-          <div class="chart-card fade"><h3>AI 模型产业来源变化</h3><canvas id="aiChart"></canvas><p>AI 正在加快从研究走向产业应用，为具身智能和机器人决策系统提供技术基础。</p></div>
+          <div class="chart-card fade"><h3>人工智能模型产业来源变化</h3><canvas id="aiChart"></canvas><p>人工智能技术正在加快从研究走向产业应用，为具身智能和机器人决策系统提供技术基础。</p></div>
         </div>
       </div>
     </section>
@@ -2083,7 +2071,7 @@
       <div class="container">
         <div class="section-title fade">
           <div class="eyebrow">Future Trend</div>
-          <h2>未来展望：具身智能与人机协同</h2>
+          <h2>未来展望：具身智能与人机协同发展</h2>
           <p>未来机器人将从“机器设备”走向“智能体”，在制造业、医疗、养老、物流和家庭服务中发挥更大作用。</p>
         </div>
         <div class="timeline">
@@ -2099,9 +2087,9 @@
     <section id="conclusion">
       <div class="container">
         <div class="section-title fade">
-          <div class="eyebrow">Research Conclusion</div>
-          <h2>研究结论：机器人智能化的核心判断</h2>
-          <p>结合产业数据、技术结构、应用场景和发展趋势，可以形成以下四点结论，适合放在答辩或汇报结尾。</p>
+          <div class="eyebrow">研究结论</div>
+          <h2>研究结论：机器人智能化的发展判断</h2>
+          <p>结合产业数据、技术结构、应用场景和发展趋势，可以形成以下四点研究结论。</p>
         </div>
         <div class="conclusion-grid">
           <div class="conclusion-card fade"><b>结论一：产业规模持续扩大</b><p>全球工业机器人安装量保持高位，中国已经成为全球最大的工业机器人应用市场之一。</p></div>
@@ -2167,7 +2155,7 @@
 
     new Chart(document.getElementById('aiChart'),{
       type:'line',
-      data:{labels:['2023','2024'],datasets:[{label:'知名 AI 模型来自产业界比例',data:[60,90],borderColor:'rgba(41,234,215,1)',backgroundColor:'rgba(41,234,215,.16)',fill:true,tension:.35,pointRadius:6,pointBackgroundColor:'rgba(41,234,215,1)'}]},
+      data:{labels:['2023','2024'],datasets:[{label:'知名人工智能模型来自产业界比例',data:[60,90],borderColor:'rgba(41,234,215,1)',backgroundColor:'rgba(41,234,215,.16)',fill:true,tension:.35,pointRadius:6,pointBackgroundColor:'rgba(41,234,215,1)'}]},
       options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
     });
 
