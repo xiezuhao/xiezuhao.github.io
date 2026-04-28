@@ -253,8 +253,8 @@
     @media(max-width:1000px){.atlas-grid,.mini-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:640px){.atlas-grid,.mini-grid{grid-template-columns:1fr}}
     .footer b{display:block;color:white;font-size:22px;margin-bottom:6px}
-    .fade{opacity:0;transform:translateY(24px);transition:.7s ease}
-    .fade.show{opacity:1;transform:translateY(0)}
+    .fade{opacity:1!important;transform:none!important;}
+    .fade.show{opacity:1!important;transform:none!important;}
     @media(max-width:1000px){
       .links{display:none}.hero-grid,.split{grid-template-columns:1fr}
       .stats,.cards3,.chart-grid{grid-template-columns:repeat(2,1fr)}
@@ -367,11 +367,7 @@
       from{transform:rotate(0deg)}
       to{transform:rotate(360deg)}
     }
-    .reveal-up{
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .7s ease, transform .7s ease;
-    }
+    .reveal-up{opacity:1!important;transform:none!important;}
     .reveal-up.show{
       opacity:1;
       transform:translateY(0);
@@ -1156,6 +1152,417 @@
       display:none!important;
     }
 
+  
+    /* chart ratio final fix */
+    #charts{
+      overflow:hidden;
+    }
+    #charts .container{
+      max-width:1180px;
+    }
+    .chart-grid{
+      display:grid!important;
+      grid-template-columns:repeat(2, minmax(0, 1fr))!important;
+      gap:22px!important;
+      align-items:stretch;
+    }
+    .chart-card{
+      width:100%!important;
+      min-width:0!important;
+      min-height:auto!important;
+      padding:22px!important;
+      border-radius:24px!important;
+      overflow:hidden!important;
+    }
+    .chart-card h3{
+      font-size:19px!important;
+      line-height:1.35!important;
+      margin-bottom:12px!important;
+    }
+    .chart-card p{
+      font-size:13px!important;
+      line-height:1.6!important;
+      margin-top:10px!important;
+    }
+    .chart-card canvas{
+      display:block!important;
+      width:100%!important;
+      height:260px!important;
+      max-height:260px!important;
+    }
+
+    @media(max-width:900px){
+      .chart-grid{
+        grid-template-columns:1fr!important;
+        gap:18px!important;
+      }
+      .chart-card{
+        padding:18px!important;
+      }
+      .chart-card canvas{
+        height:245px!important;
+        max-height:245px!important;
+      }
+    }
+
+    @media(max-width:640px){
+      #charts .container{
+        width:min(100% - 28px, 520px)!important;
+      }
+      .chart-grid{
+        grid-template-columns:1fr!important;
+        gap:16px!important;
+      }
+      .chart-card{
+        padding:16px!important;
+        border-radius:20px!important;
+      }
+      .chart-card h3{
+        font-size:17px!important;
+      }
+      .chart-card canvas{
+        height:220px!important;
+        max-height:220px!important;
+      }
+    }
+
+    @media(max-width:420px){
+      .chart-card canvas{
+        height:200px!important;
+        max-height:200px!important;
+      }
+    }
+
+  
+    html,body{
+      max-width:100%;
+      overflow-x:hidden!important;
+    }
+
+  
+    /* ===== mobile content visibility & layout fix ===== */
+    .fade,
+    .reveal-up{
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    .hero{
+      min-height:auto!important;
+      padding:76px 0 56px!important;
+      display:block!important;
+    }
+
+    .hero-grid{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) minmax(280px,0.9fr)!important;
+      gap:28px!important;
+      align-items:center!important;
+    }
+
+    .hero-copy{
+      align-self:center!important;
+    }
+
+    .hero-title,
+    h1{
+      font-size:clamp(34px,4.6vw,58px)!important;
+      line-height:1.14!important;
+      margin-bottom:16px!important;
+    }
+
+    .hero-lead{
+      font-size:15px!important;
+      line-height:1.72!important;
+      max-width:680px!important;
+      margin-bottom:18px!important;
+    }
+
+    .hero-kpis,
+    .hero-notes{
+      margin-top:16px!important;
+    }
+
+    .tech-hero-stage,
+    .visual-panel{
+      min-height:360px!important;
+      max-height:430px!important;
+    }
+
+    .robot-3d-card{
+      min-height:290px!important;
+    }
+
+    /* Make sections appear immediately and avoid huge empty vertical blocks */
+    section{
+      padding:54px 0!important;
+    }
+
+    .section-title{
+      margin-bottom:28px!important;
+    }
+
+    /* Safer mobile / narrow-screen behavior */
+    @media(max-width:980px){
+      .hero{
+        padding:64px 0 42px!important;
+      }
+      .hero-grid{
+        grid-template-columns:1fr!important;
+        gap:22px!important;
+      }
+      .tech-hero-stage,
+      .visual-panel{
+        min-height:330px!important;
+        max-height:none!important;
+      }
+      .robot-3d-card{
+        width:92%!important;
+        min-height:270px!important;
+      }
+      .hero-kpis,
+      .hero-notes{
+        grid-template-columns:repeat(3,minmax(0,1fr))!important;
+      }
+    }
+
+    @media(max-width:640px){
+      .container{
+        width:calc(100% - 28px)!important;
+      }
+      .hero{
+        padding:54px 0 34px!important;
+      }
+      .hero-grid{
+        grid-template-columns:1fr!important;
+      }
+      .hero-title,
+      h1{
+        font-size:34px!important;
+      }
+      .hero-lead{
+        font-size:14px!important;
+      }
+      .hero-kpis,
+      .hero-notes{
+        grid-template-columns:1fr!important;
+        gap:10px!important;
+      }
+      .tech-hero-stage,
+      .visual-panel{
+        min-height:300px!important;
+      }
+      .robot-3d-card{
+        width:94%!important;
+        min-height:250px!important;
+        transform:none!important;
+      }
+      section{
+        padding:44px 0!important;
+      }
+      .section-title{
+        margin-bottom:24px!important;
+      }
+      .nav-inner{
+        height:56px!important;
+      }
+      .links{
+        display:none!important;
+      }
+    }
+
+  
+    /* ===== final no-blank hero fix ===== */
+    html, body{
+      width:100%!important;
+      max-width:100%!important;
+      overflow-x:hidden!important;
+    }
+
+    .hero{
+      min-height:0!important;
+      height:auto!important;
+      max-height:none!important;
+      padding:42px 0 34px!important;
+      display:block!important;
+      align-items:initial!important;
+    }
+
+    .hero-grid{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) minmax(260px,.82fr)!important;
+      gap:24px!important;
+      align-items:center!important;
+      min-height:0!important;
+    }
+
+    .hero-copy{
+      min-height:0!important;
+    }
+
+    .visual-panel,
+    .tech-hero-stage{
+      min-height:300px!important;
+      height:auto!important;
+      max-height:330px!important;
+    }
+
+    .robot-card{
+      min-height:300px!important;
+      max-height:330px!important;
+    }
+
+    .robot-3d-card{
+      min-height:240px!important;
+      height:auto!important;
+      max-height:280px!important;
+      transform:none!important;
+    }
+
+    .robot-3d-svg{
+      min-height:150px!important;
+      margin-top:18px!important;
+    }
+
+    .robot-3d-svg svg{
+      max-height:160px!important;
+    }
+
+    .robot-3d-base{
+      position:static!important;
+      margin-top:8px!important;
+    }
+
+    .data-strip{
+      position:static!important;
+      margin:0 18px 18px!important;
+    }
+
+    .orbit{
+      width:260px!important;
+      height:260px!important;
+    }
+
+    .robot-visual{
+      transform:translate(-50%,-50%) scale(.72)!important;
+    }
+
+    section{
+      min-height:0!important;
+    }
+
+    #background,
+    #overview,
+    #robotAtlas,
+    #robotShowcase,
+    #tech,
+    #application,
+    #enterprise,
+    #charts,
+    #future,
+    #conclusion{
+      display:block!important;
+      visibility:visible!important;
+      opacity:1!important;
+    }
+
+    .fade,
+    .reveal-up{
+      display:block!important;
+      visibility:visible!important;
+      opacity:1!important;
+      transform:none!important;
+    }
+
+    @media(max-width:900px){
+      .nav-inner{
+        height:52px!important;
+      }
+
+      .links{
+        display:none!important;
+      }
+
+      .hero{
+        padding:32px 0 28px!important;
+      }
+
+      .hero-grid{
+        grid-template-columns:1fr!important;
+        gap:18px!important;
+      }
+
+      .hero-title,
+      h1{
+        font-size:32px!important;
+        line-height:1.12!important;
+        margin-bottom:12px!important;
+      }
+
+      .hero-lead{
+        font-size:14px!important;
+        line-height:1.65!important;
+        margin-bottom:14px!important;
+      }
+
+      .hero-actions,
+      .btns{
+        margin-bottom:14px!important;
+      }
+
+      .hero-mini,
+      .hero-notes,
+      .hero-kpis{
+        grid-template-columns:1fr!important;
+        gap:10px!important;
+      }
+
+      .visual-panel,
+      .tech-hero-stage,
+      .robot-card{
+        min-height:260px!important;
+        max-height:290px!important;
+      }
+
+      .robot-3d-card{
+        min-height:220px!important;
+        max-height:250px!important;
+        width:94%!important;
+      }
+
+      .robot-3d-panel,
+      .robot-3d-base{
+        display:none!important;
+      }
+    }
+
+    @media(max-width:480px){
+      .container{
+        width:calc(100% - 24px)!important;
+      }
+
+      .hero{
+        padding:26px 0 24px!important;
+      }
+
+      .visual-panel,
+      .tech-hero-stage,
+      .robot-card{
+        min-height:230px!important;
+        max-height:250px!important;
+      }
+
+      .robot-3d-card{
+        min-height:200px!important;
+        max-height:230px!important;
+      }
+
+      .hero-title,
+      h1{
+        font-size:30px!important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1178,7 +1585,7 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
+    <section class="hero" id="home" style="min-height:0!important;height:auto!important;max-height:none!important;">
       <div class="container hero-grid">
         <div>
           <div class="badge"><span class="pulse"></span>Robot Intelligence Research Platform</div>
@@ -1715,37 +2122,37 @@
         labels:['全球','中国','日本','美国','韩国','德国','印度'],
         datasets:[{label:'2024 工业机器人安装量',data:[542000,295000,44500,34200,30600,26982,9100],backgroundColor:[colors.blue,colors.cyan,colors.violet,colors.gold,colors.green,colors.red,'rgba(255,255,255,.35)'],borderRadius:10}]
       },
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('regionChart'),{
       type:'doughnut',
       data:{labels:['亚洲','欧洲','美洲','其他'],datasets:[{data:[74,16,9,1],backgroundColor:[colors.cyan,colors.blue,colors.violet,colors.gold],borderWidth:0}]},
-      options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom'}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,cutout:'62%',plugins:{legend:{position:'bottom'}}}
     });
 
     new Chart(document.getElementById('densityChart'),{
       type:'bar',
       data:{labels:['韩国','新加坡','中国','德国','日本'],datasets:[{label:'机器人密度',data:[1220,818,567,449,446],backgroundColor:colors.blue,borderRadius:10}]},
-      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true},y:{grid:{display:false}}}}
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true},y:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('industryChart'),{
       type:'bar',
       data:{labels:['电子行业','汽车行业'],datasets:[{label:'2024 安装量',data:[128899,126088],backgroundColor:[colors.cyan,colors.violet],borderRadius:10}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('serviceChart'),{
       type:'bar',
       data:{labels:['运输物流','酒店服务','专业清洁','农业机器人','安防救援','医疗机器人'],datasets:[{label:'2024 销量',data:[102900,42000,25000,19500,3100,16700],backgroundColor:[colors.cyan,colors.blue,colors.green,colors.gold,colors.violet,colors.red],borderRadius:10}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('aiChart'),{
       type:'line',
       data:{labels:['2023','2024'],datasets:[{label:'知名 AI 模型来自产业界比例',data:[60,90],borderColor:'rgba(41,234,215,1)',backgroundColor:'rgba(41,234,215,.16)',fill:true,tension:.35,pointRadius:6,pointBackgroundColor:'rgba(41,234,215,1)'}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
     });
 
 
@@ -1755,7 +2162,7 @@
         labels:['工业机器人 2024','工业机器人 2025','服务机器人 2024'],
         datasets:[{label:'产量（万套）',data:[55.6,77.3,1051.9],backgroundColor:[colors.blue,colors.cyan,colors.violet],borderRadius:10}]
       },
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' 万'}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+' 万'}},x:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('coverageChart'),{
@@ -1764,7 +2171,7 @@
         labels:['行业大类','行业中类'],
         datasets:[{label:'覆盖数量',data:[71,236],backgroundColor:[colors.cyan,colors.gold],borderRadius:10}]
       },
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true},x:{grid:{display:false}}}}
     });
 
     new Chart(document.getElementById('chinaInfluenceChart'),{
@@ -1773,7 +2180,7 @@
         labels:['机器人专利申请占比','商用服务机器人出货占比'],
         datasets:[{label:'占比',data:[66.7,84.7],backgroundColor:[colors.green,colors.blue],borderRadius:10}]
       },
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
+      options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
     });
 
     const observer = new IntersectionObserver((entries)=>{

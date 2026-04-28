@@ -1,20 +1,13 @@
 # 机器人智能调研网站
 
-这是清理后的最终版静态网站，可直接用于 GitHub Pages 部署。
+这是修复首页下方大面积留白后的版本。
 
-## 文件
-- index.html
-- .nojekyll
-- README.md
+## 修复内容
+- 强制取消首页 100vh / 大高度占位
+- 移动端首屏高度收紧
+- 内容区立即跟在首页后面显示
+- 小屏隐藏过长导航，避免挤压布局
+- 保留图表比例修复
 
-## 部署方法
-1. 将以上文件上传到 GitHub 仓库根目录
-2. 打开仓库 `Settings → Pages`
-3. 选择 `Deploy from a branch`
-4. Branch 选择 `main`，目录选择 `/root`
-5. 保存并等待部署完成
-
-## 说明
-- 纯静态网站，无需后端
-- 图表依赖 Chart.js CDN
-- 机器人插图为内置 SVG
+## 部署
+把 `index.html`、`.nojekyll`、`README.md` 上传到 GitHub 仓库根目录，并在 Settings → Pages 中启用部署。
