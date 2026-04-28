@@ -58,10 +58,6 @@
     .links{display:flex;align-items:center;gap:18px;font-size:14px;color:var(--muted)}
     .links a{transition:.2s ease;white-space:nowrap}
     .links a:hover{color:white}
-    .data-time{
-      padding:6px 12px;border:1px solid rgba(41,234,215,.26);border-radius:999px;
-      color:#dffcff;background:rgba(41,234,215,.08);font-size:12px;
-    }
 
     .hero{
       min-height:100vh;
@@ -216,8 +212,6 @@
     .mini-photo .caption span{display:block;font-size:12px;color:var(--muted);font-weight:normal;margin-top:4px}
     @media(max-width:1000px){.atlas-grid,.mini-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:640px){.atlas-grid,.mini-grid{grid-template-columns:1fr}}
-
-    .footer{padding:44px 0;text-align:center;background:#040a13;border-top:1px solid rgba(255,255,255,.08);color:var(--muted)}
     .footer b{display:block;color:white;font-size:22px;margin-bottom:6px}
     .fade{opacity:0;transform:translateY(24px);transition:.7s ease}
     .fade.show{opacity:1;transform:translateY(0)}
@@ -249,7 +243,6 @@
         <a href="#charts">数据分析</a>
         <a href="#conclusion">研究结论</a>
       </nav>
-      <span class="data-time">最终强化版：2026.04</span>
     </div>
   </header>
 
@@ -322,7 +315,7 @@
         <div class="section-title fade">
           <div class="eyebrow">Core Data</div>
           <h2>核心数据概览</h2>
-          <p>以下数据均来自公开资料，已经替换掉原先的示例数据，适合直接用于正式网站展示。</p>
+          
         </div>
         <div class="grid stats">
           <div class="card fade"><div class="icon">🌐</div><div class="metric">54.2 万台</div><div class="label">全球工业机器人安装量</div><p>2024 年全球工业机器人安装量约 542,000 台，连续第四年超过 50 万台。</p></div>
@@ -778,15 +771,7 @@
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="container">
-      <b>智械未来——机器人智能发展调研平台</b>
-      <p>正式版单页网站 · 删除问卷模块 · 新增产业关键指标 · 可继续拓展多页面版本</p>
-    </div>
-  </footer>
-
-  <script>
+<script>
     const textColor = '#c7d9ec';
     const gridColor = 'rgba(255,255,255,.09)';
     Chart.defaults.color = textColor;
