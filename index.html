@@ -5,7 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>智械未来——机器人智能发展调研平台</title>
   <meta name="description" content="机器人智能发展调研平台：展示全球与中国机器人产业数据、核心技术、应用场景、产业关键指标、挑战与未来趋势。" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    document.querySelectorAll('.reveal-up').forEach((el, idx) => {
+      el.style.transitionDelay = Math.min(idx * 0.06, 0.42) + 's';
+    });
+    const revealObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal-up').forEach(el=>revealObserver.observe(el));
+
+  </script>
   <style>
     :root{
       --bg:#07111f;
@@ -297,6 +310,501 @@
       canvas{height:220px!important;}
     }
 
+  
+    /* ===== enhanced robot animation & showcase ===== */
+    @keyframes floatY{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 0 0 rgba(41,234,215,0)}
+      50%{box-shadow:0 0 28px rgba(41,234,215,.18)}
+    }
+    @keyframes scanMove{
+      0%{transform:translateY(-110%)}
+      100%{transform:translateY(210%)}
+    }
+    @keyframes shineSweep{
+      0%{transform:translateX(-130%) skewX(-22deg)}
+      100%{transform:translateX(210%) skewX(-22deg)}
+    }
+    @keyframes armSwing{
+      0%,100%{transform:rotate(0deg)}
+      50%{transform:rotate(10deg)}
+    }
+    @keyframes headNod{
+      0%,100%{transform:rotate(0deg)}
+      50%{transform:rotate(5deg)}
+    }
+    @keyframes wheelRoll{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    .reveal-up{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    .reveal-up.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .card,.atlas-card,.chart-card,.enterprise-card,.conclusion-card,.policy-item{
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after,.atlas-card::after,.enterprise-card::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0; left:-40%;
+      width:22%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.13), transparent);
+      pointer-events:none;
+      opacity:0;
+    }
+    .card:hover::after,.atlas-card:hover::after,.enterprise-card:hover::after{
+      opacity:1;
+      animation:shineSweep 1.05s ease;
+    }
+    .atlas-illust, .visual-panel{
+      position:relative;
+      overflow:hidden;
+    }
+    .atlas-illust::before, .visual-panel::before{
+      content:"";
+      position:absolute;
+      inset:-10% 0 auto 0;
+      height:34%;
+      background:linear-gradient(180deg, rgba(41,234,215,.08), rgba(41,234,215,0));
+      pointer-events:none;
+    }
+    .atlas-illust::after, .visual-panel::after{
+      content:"";
+      position:absolute;
+      left:0; right:0;
+      height:28px;
+      background:linear-gradient(180deg, rgba(41,234,215,0), rgba(41,234,215,.1), rgba(41,234,215,0));
+      animation:scanMove 4.2s linear infinite;
+      opacity:.6;
+      pointer-events:none;
+    }
+    .floating-robot{
+      animation:floatY 3.8s ease-in-out infinite;
+      transform-origin:center;
+    }
+    .anim-arm{
+      transform-origin:150px 96px;
+      animation:armSwing 2.4s ease-in-out infinite;
+    }
+    .anim-head{
+      transform-origin:160px 66px;
+      animation:headNod 2.6s ease-in-out infinite;
+    }
+    .anim-wheel{
+      transform-origin:center;
+      animation:wheelRoll 6s linear infinite;
+    }
+    .robot-showcase-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .robot-showcase-card{
+      position:relative;
+      display:grid;
+      grid-template-columns:210px 1fr;
+      gap:16px;
+      align-items:center;
+      padding:18px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.1);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(54,185,255,.14), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(142,124,255,.12), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.045));
+      box-shadow:0 12px 34px rgba(0,0,0,.18);
+    }
+    .robot-showcase-card:hover{
+      transform:translateY(-4px);
+      transition:.25s ease;
+      border-color:rgba(41,234,215,.25);
+      animation:pulseGlow 1.6s ease-in-out infinite;
+    }
+    .robot-figure{
+      min-height:180px;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(11,24,41,.95), rgba(15,33,54,.95));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .robot-figure svg{
+      width:86%;
+      max-width:190px;
+      height:auto;
+      filter:drop-shadow(0 12px 24px rgba(0,0,0,.32));
+    }
+    .showcase-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:8px 0 12px;
+    }
+    .showcase-meta span{
+      display:inline-flex;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      color:#ecf7ff;
+      background:rgba(54,185,255,.1);
+      border:1px solid rgba(54,185,255,.22);
+    }
+    .showcase-spec{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .showcase-spec div{
+      padding:10px 10px 8px;
+      border-radius:16px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .showcase-spec b{
+      display:block;
+      font-size:14px;
+      margin-bottom:3px;
+    }
+    .showcase-spec small{
+      color:var(--muted);
+      font-size:12px;
+    }
+    .showcase-tips{
+      margin-top:18px;
+      padding:18px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(54,185,255,.08), rgba(41,234,215,.08));
+      border:1px solid rgba(41,234,215,.16);
+    }
+    .showcase-tips h3{
+      font-size:20px;
+      margin-bottom:8px;
+    }
+    .showcase-tips p{
+      color:var(--muted);
+      font-size:14px;
+      margin:0;
+    }
+    @media(max-width:980px){
+      .robot-showcase-grid{
+        grid-template-columns:1fr;
+      }
+      .robot-showcase-card{
+        grid-template-columns:1fr;
+      }
+      .showcase-spec{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+    @media(max-width:640px){
+      .robot-figure{
+        min-height:160px;
+      }
+      .showcase-spec{
+        grid-template-columns:1fr 1fr 1fr;
+        gap:8px;
+      }
+      .robot-showcase-card{
+        padding:16px;
+        border-radius:22px;
+      }
+    }
+
+  
+    /* ===== entity robot v2 ===== */
+    @keyframes breatheGlow{
+      0%,100%{filter:drop-shadow(0 0 0 rgba(41,234,215,.0))}
+      50%{filter:drop-shadow(0 0 18px rgba(41,234,215,.22))}
+    }
+    @keyframes eyeBlink{
+      0%,46%,100%{transform:scaleY(1)}
+      48%,50%{transform:scaleY(.18)}
+      52%{transform:scaleY(1)}
+    }
+    @keyframes chestPulse{
+      0%,100%{opacity:.55; transform:scale(1)}
+      50%{opacity:1; transform:scale(1.08)}
+    }
+    @keyframes hoverFloat{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+    @keyframes legShift{
+      0%,100%{transform:rotate(0deg)}
+      50%{transform:rotate(5deg)}
+    }
+    @keyframes radarSweep{
+      0%{transform:rotate(0deg)}
+      100%{transform:rotate(360deg)}
+    }
+    @keyframes lineFlow{
+      0%{background-position:0 0}
+      100%{background-position:120px 0}
+    }
+    .entity-stage{
+      position:relative;
+      padding:18px;
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(circle at 18% 16%, rgba(54,185,255,.18), transparent 24%),
+        radial-gradient(circle at 82% 14%, rgba(41,234,215,.14), transparent 22%),
+        linear-gradient(180deg, rgba(11,20,36,.98), rgba(7,15,28,.98));
+      overflow:hidden;
+      box-shadow:0 18px 46px rgba(0,0,0,.24);
+    }
+    .entity-stage::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:24px 24px;
+      mask-image:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.2));
+      pointer-events:none;
+    }
+    .entity-stage::after{
+      content:"";
+      position:absolute;
+      left:-10%; right:-10%; bottom:-16px;
+      height:44px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(41,234,215,.16), rgba(41,234,215,0) 70%);
+      pointer-events:none;
+    }
+    .entity-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .entity-card{
+      position:relative;
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:18px;
+      align-items:center;
+      padding:18px;
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.045)),
+        radial-gradient(circle at 15% 18%, rgba(54,185,255,.10), transparent 22%);
+      backdrop-filter: blur(6px);
+      box-shadow:0 16px 38px rgba(0,0,0,.18);
+      transition:transform .26s ease, border-color .26s ease, box-shadow .26s ease;
+      overflow:hidden;
+    }
+    .entity-card:hover{
+      transform:translateY(-5px) scale(1.01);
+      border-color:rgba(41,234,215,.24);
+      box-shadow:0 20px 48px rgba(0,0,0,.24);
+    }
+    .entity-card::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0; left:-36%;
+      width:18%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      transform:skewX(-20deg);
+      opacity:0;
+    }
+    .entity-card:hover::after{
+      opacity:1;
+      animation:shineSweep 1.05s ease;
+    }
+    .entity-figure{
+      position:relative;
+      min-height:210px;
+      border-radius:22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(41,234,215,.12), transparent 30%),
+        linear-gradient(180deg, rgba(17,31,51,.95), rgba(10,20,35,.95));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .entity-figure svg{
+      width:88%;
+      max-width:205px;
+      height:auto;
+      animation:breatheGlow 3.4s ease-in-out infinite;
+    }
+    .entity-badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:8px 0 12px;
+    }
+    .entity-badge-row span{
+      display:inline-flex;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      color:#eef8ff;
+      background:rgba(54,185,255,.10);
+      border:1px solid rgba(54,185,255,.20);
+    }
+    .entity-specs{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    .entity-specs div{
+      padding:10px 10px 9px;
+      border-radius:16px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .entity-specs b{
+      display:block;
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    .entity-specs small{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+    .status-strip{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .status-dot{
+      width:10px; height:10px; border-radius:50%;
+      background:#29ead7;
+      box-shadow:0 0 10px rgba(41,234,215,.7);
+      animation:chestPulse 2.4s ease-in-out infinite;
+    }
+    .status-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:#dff3ff;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+    }
+    .entity-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:22px;
+      border:1px solid rgba(41,234,215,.16);
+      background:
+        linear-gradient(135deg, rgba(54,185,255,.08), rgba(41,234,215,.08));
+    }
+    .entity-panel h3{
+      font-size:20px;
+      margin-bottom:8px;
+    }
+    .entity-panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+    }
+    .scan-radar{
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      position:absolute;
+      right:14px;
+      top:14px;
+      border:1px solid rgba(41,234,215,.22);
+      background:radial-gradient(circle, rgba(41,234,215,.08), transparent 66%);
+      opacity:.8;
+    }
+    .scan-radar::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius:50%;
+      border:1px solid rgba(41,234,215,.22);
+    }
+    .scan-radar::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:28px;
+      height:2px;
+      transform-origin:left center;
+      background:linear-gradient(90deg, rgba(41,234,215,.9), rgba(41,234,215,0));
+      animation:radarSweep 3.2s linear infinite;
+    }
+    .entity-floor-line{
+      height:8px;
+      border-radius:99px;
+      background:linear-gradient(90deg, rgba(41,234,215,.18), rgba(54,185,255,.4), rgba(41,234,215,.18));
+      background-size:120px 100%;
+      animation:lineFlow 3s linear infinite;
+      margin-top:12px;
+      opacity:.8;
+    }
+    .entity-robot{
+      animation:hoverFloat 3.6s ease-in-out infinite;
+      transform-origin:center;
+    }
+    .entity-head{
+      transform-origin:120px 54px;
+      animation:headNod 2.7s ease-in-out infinite;
+    }
+    .entity-eye{
+      transform-origin:center;
+      animation:eyeBlink 5s infinite;
+    }
+    .entity-leg-left{
+      transform-origin:102px 150px;
+      animation:legShift 2.7s ease-in-out infinite;
+    }
+    .entity-leg-right{
+      transform-origin:138px 150px;
+      animation:legShift 2.7s ease-in-out infinite reverse;
+    }
+    @media(max-width:980px){
+      .entity-grid{
+        grid-template-columns:1fr;
+      }
+      .entity-card{
+        grid-template-columns:1fr;
+      }
+    }
+    @media(max-width:640px){
+      .entity-figure{
+        min-height:190px;
+      }
+      .entity-specs{
+        grid-template-columns:1fr 1fr 1fr;
+        gap:8px;
+      }
+      .scan-radar{
+        width:62px; height:62px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -308,6 +816,7 @@
         <a href="#overview">核心数据</a>
         <a href="#policy">政策支持</a>
         <a href="#robotAtlas">机器人图鉴</a>
+        <a href="#robotShowcase">实体展馆</a>
         <a href="#tech">核心技术</a>
         <a href="#application">应用场景</a>
         <a href="#industryData">实用数据</a>
@@ -544,7 +1053,217 @@
       </div>
     </section>
 
-    <section id="tech">
+    
+
+    
+    <section id="robotShowcase">
+      <div class="container">
+        <div class="section-title fade reveal-up">
+          <div class="eyebrow">Robot Entity Gallery</div>
+          <h2>实体机器人展馆：更像真实设备的展示版本</h2>
+          <p>这一版进一步强化机器人“实体感”，通过金属质感、设备舱体、发光状态灯、机械结构与动态演示，让页面更接近正式科技官网和比赛答辩展示页。</p>
+        </div>
+
+        <div class="entity-grid">
+          <div class="entity-card fade reveal-up">
+            <div class="entity-figure entity-stage">
+              <div class="scan-radar"></div>
+              <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="m1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#dffcff"/>
+                    <stop offset="50%" stop-color="#7cdfff"/>
+                    <stop offset="100%" stop-color="#37b8ff"/>
+                  </linearGradient>
+                  <linearGradient id="m2" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#9db7d8"/>
+                    <stop offset="100%" stop-color="#ecf8ff"/>
+                  </linearGradient>
+                </defs>
+                <g class="entity-robot">
+                  <rect x="20" y="182" width="200" height="16" rx="8" fill="#1e314c"/>
+                  <rect x="82" y="130" width="72" height="28" rx="12" fill="url(#m2)"/>
+                  <rect x="112" y="78" width="14" height="54" rx="7" fill="url(#m1)"/>
+                  <circle cx="119" cy="70" r="22" fill="#203551" stroke="#7cdfff" stroke-width="5"/>
+                  <circle cx="119" cy="70" r="6" fill="#29ead7" class="entity-eye"/>
+                  <g transform="rotate(-20 126 70)">
+                    <rect x="126" y="66" width="66" height="12" rx="6" fill="url(#m1)"/>
+                    <circle cx="197" cy="72" r="12" fill="url(#m2)"/>
+                  </g>
+                  <g transform="rotate(22 95 100)">
+                    <rect x="68" y="95" width="44" height="12" rx="6" fill="url(#m1)"/>
+                    <circle cx="62" cy="117" r="10" fill="url(#m2)"/>
+                  </g>
+                  <rect x="40" y="102" width="26" height="40" rx="6" fill="#dffcff"/>
+                  <rect x="172" y="86" width="22" height="56" rx="6" fill="#dffcff"/>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <h3>工业机械臂 · 设备舱体展示</h3>
+              <div class="entity-badge-row">
+                <span>高精度执行</span><span>金属结构</span><span>产线自动化</span>
+              </div>
+              <p>通过更接近实体设备的舱体结构与机械关节演示，强化工业机械臂在抓取、焊接、搬运和装配场景中的专业感。</p>
+              <div class="status-strip">
+                <span class="status-chip"><span class="status-dot"></span>运行状态正常</span>
+                <span class="status-chip">伺服控制在线</span>
+                <span class="status-chip">路径规划已启用</span>
+              </div>
+              <div class="entity-specs">
+                <div><b>重点展示</b><small>机械关节与执行末端</small></div>
+                <div><b>适用领域</b><small>汽车 / 电子 / 新能源</small></div>
+                <div><b>页面作用</b><small>增强工业感与专业性</small></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="entity-card fade reveal-up">
+            <div class="entity-figure entity-stage">
+              <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="d1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#dffcff"/>
+                    <stop offset="100%" stop-color="#8ec9ff"/>
+                  </linearGradient>
+                </defs>
+                <g class="entity-robot">
+                  <rect x="44" y="170" width="152" height="14" rx="7" fill="#1e314c"/>
+                  <rect x="62" y="70" width="116" height="80" rx="22" fill="url(#d1)"/>
+                  <rect x="78" y="88" width="84" height="28" rx="10" fill="#203551"/>
+                  <rect x="90" y="126" width="60" height="14" rx="7" fill="#7cdfff"/>
+                  <circle cx="90" cy="184" r="16" fill="#8e7cff" class="anim-wheel"/>
+                  <circle cx="150" cy="184" r="16" fill="#8e7cff" class="anim-wheel"/>
+                  <circle cx="103" cy="102" r="5" fill="#29ead7" class="entity-eye"/>
+                  <circle cx="137" cy="102" r="5" fill="#37b8ff" class="entity-eye"/>
+                </g>
+              </svg>
+              <div class="entity-floor-line"></div>
+            </div>
+            <div>
+              <h3>配送机器人 · 真实移动底盘展示</h3>
+              <div class="entity-badge-row">
+                <span>导航移动</span><span>楼宇配送</span><span>底盘驱动</span>
+              </div>
+              <p>相比普通示意图，这一版更强调移动底盘、机身舱体和运行状态，让配送机器人看起来更接近真实设备。</p>
+              <div class="status-strip">
+                <span class="status-chip"><span class="status-dot"></span>自动导航中</span>
+                <span class="status-chip">避障模块开启</span>
+                <span class="status-chip">电量 82%</span>
+              </div>
+              <div class="entity-specs">
+                <div><b>重点展示</b><small>轮组 / 舱体 / 屏幕</small></div>
+                <div><b>适用领域</b><small>酒店 / 医院 / 园区</small></div>
+                <div><b>页面作用</b><small>增强“可落地”观感</small></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="entity-card fade reveal-up">
+            <div class="entity-figure entity-stage">
+              <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="h1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#eefbff"/>
+                    <stop offset="100%" stop-color="#9ad8ff"/>
+                  </linearGradient>
+                </defs>
+                <g class="entity-robot">
+                  <g class="entity-head">
+                    <rect x="92" y="26" width="56" height="52" rx="20" fill="url(#h1)"/>
+                    <circle cx="110" cy="50" r="6" fill="#203551" class="entity-eye"/>
+                    <circle cx="130" cy="50" r="6" fill="#203551" class="entity-eye"/>
+                    <rect x="104" y="61" width="32" height="6" rx="3" fill="#7cdfff"/>
+                  </g>
+                  <rect x="82" y="84" width="76" height="66" rx="22" fill="#203551"/>
+                  <circle cx="120" cy="116" r="8" fill="#29ead7" style="animation:chestPulse 2.2s ease-in-out infinite"/>
+                  <rect x="44" y="95" width="34" height="12" rx="6" fill="#7cdfff"/>
+                  <rect x="162" y="95" width="34" height="12" rx="6" fill="#7cdfff"/>
+                  <rect x="56" y="106" width="10" height="46" rx="5" fill="#8e7cff"/>
+                  <rect x="174" y="106" width="10" height="46" rx="5" fill="#8e7cff"/>
+                  <g class="entity-leg-left">
+                    <rect x="97" y="150" width="12" height="42" rx="6" fill="#29ead7"/>
+                    <rect x="91" y="189" width="24" height="8" rx="4" fill="#1e314c"/>
+                  </g>
+                  <g class="entity-leg-right">
+                    <rect x="131" y="150" width="12" height="42" rx="6" fill="#29ead7"/>
+                    <rect x="125" y="189" width="24" height="8" rx="4" fill="#1e314c"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <h3>人形机器人 · 具身智能展品展示</h3>
+              <div class="entity-badge-row">
+                <span>具身智能</span><span>人机交互</span><span>展陈感更强</span>
+              </div>
+              <p>加入头部、胸腔与腿部的微动作后，人形机器人更有“实体展品”的感觉，更适合作为整站视觉亮点。</p>
+              <div class="status-strip">
+                <span class="status-chip"><span class="status-dot"></span>交互模式开启</span>
+                <span class="status-chip">视觉识别在线</span>
+                <span class="status-chip">语音反馈待命</span>
+              </div>
+              <div class="entity-specs">
+                <div><b>重点展示</b><small>头部 / 胸腔 / 机身比例</small></div>
+                <div><b>适用领域</b><small>展厅 / 教育 / 服务</small></div>
+                <div><b>页面作用</b><small>强化未来科技感</small></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="entity-card fade reveal-up">
+            <div class="entity-figure entity-stage">
+              <div class="scan-radar"></div>
+              <svg viewBox="0 0 240 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="q1" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#eefbff"/>
+                    <stop offset="100%" stop-color="#8ddcff"/>
+                  </linearGradient>
+                </defs>
+                <g class="entity-robot">
+                  <rect x="56" y="100" width="128" height="46" rx="18" fill="#203551"/>
+                  <rect x="76" y="66" width="88" height="40" rx="14" fill="url(#q1)"/>
+                  <circle cx="104" cy="84" r="7" fill="#29ead7" class="entity-eye"/>
+                  <circle cx="136" cy="84" r="7" fill="#37b8ff" class="entity-eye"/>
+                  <rect x="68" y="144" width="12" height="34" rx="6" fill="#8e7cff"/>
+                  <rect x="94" y="144" width="12" height="34" rx="6" fill="#8e7cff"/>
+                  <rect x="134" y="144" width="12" height="34" rx="6" fill="#29ead7"/>
+                  <rect x="160" y="144" width="12" height="34" rx="6" fill="#29ead7"/>
+                  <path d="M38 92 L64 108" stroke="#29ead7" stroke-width="6" stroke-linecap="round"/>
+                  <circle cx="32" cy="88" r="10" fill="#29ead7"/>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <h3>四足 / 巡检机器人 · 特种设备展示</h3>
+              <div class="entity-badge-row">
+                <span>复杂环境</span><span>特种巡检</span><span>安防巡逻</span>
+              </div>
+              <p>特种机器人更适合采用“设备类”表达方式，能更清楚展示巡检、搜救和复杂环境作业的能力特征。</p>
+              <div class="status-strip">
+                <span class="status-chip"><span class="status-dot"></span>巡检中</span>
+                <span class="status-chip">环境扫描开启</span>
+                <span class="status-chip">远程控制连接稳定</span>
+              </div>
+              <div class="entity-specs">
+                <div><b>重点展示</b><small>机身稳定性与扫描感</small></div>
+                <div><b>适用领域</b><small>电力 / 消防 / 安防</small></div>
+                <div><b>页面作用</b><small>体现复杂场景价值</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="entity-panel fade reveal-up">
+          <h3>下一步还可以继续升级</h3>
+          <p>如果你还想继续往“高级官网风”推进，下一版我还可以继续帮你加入：首页主视觉大机器人、鼠标悬停视差、滚动视差光效、分屏展示、数字跳动效果，以及更像真实设备宣传页的 3D 科技插画风格。</p>
+        </div>
+      </div>
+    </section>
+
+
+<section id="tech">
       <div class="container">
         <div class="section-title fade">
           <div class="eyebrow">Core Technology</div>
@@ -930,6 +1649,19 @@
       entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('show'); });
     },{threshold:.12});
     document.querySelectorAll('.fade').forEach(el=>observer.observe(el));
+  
+    document.querySelectorAll('.reveal-up').forEach((el, idx) => {
+      el.style.transitionDelay = Math.min(idx * 0.06, 0.42) + 's';
+    });
+    const revealObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal-up').forEach(el=>revealObserver.observe(el));
+
   </script>
 </body>
 </html>

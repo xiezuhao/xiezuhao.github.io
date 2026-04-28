@@ -1,17 +1,17 @@
-# 机器人智能调研网站
+# 机器人智能调研网站（实体机器人 2.0 版）
 
-清理并美化后的正式版静态网站，可直接部署到 GitHub Pages。
+这是在动画增强版基础上继续升级的下一版。
 
-## 部署
+## 本版重点升级
+- 将“实体展示”升级为“实体机器人展馆”
+- 机器人形象更偏真实设备风格
+- 增加金属质感、舱体结构、状态灯、扫描雷达、设备地台线
+- 人形机器人、工业机械臂、配送机器人、巡检机器人均做了更强的实体化表达
+- 继续保留滚动出现与卡片微动效
 
-1. 上传 `index.html`、`.nojekyll`、`README.md` 到 GitHub 仓库根目录
-2. Settings → Pages
-3. Source 选择 Deploy from a branch
-4. Branch 选择 main，目录选择 /root
-5. 保存并等待部署完成
-
-## 说明
-
-- 纯静态页面，无需后端。
-- 机器人配图为内置 SVG。
-- 图表使用 Chart.js CDN，需要联网加载。
+## GitHub Pages 部署
+1. 上传 `index.html`、`.nojekyll`、`README.md` 到仓库根目录
+2. 进入 Settings → Pages
+3. 选择 `Deploy from a branch`
+4. 选择 `main` 与 `/root`
+5. 保存等待部署完成
