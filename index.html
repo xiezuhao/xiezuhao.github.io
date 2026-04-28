@@ -5,7 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>机器人智能调研网站</title>
   <meta name="description" content="机器人智能调研网站：展示机器人产业数据、核心技术、应用场景、机器人图鉴、实体展示、数据分析与未来趋势。" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    (function(){
+      const counters = document.querySelectorAll('.count-num[data-target]');
+      if(!counters.length) return;
+
+      const runCounter = (el) => {
+        if(el.dataset.done === '1') return;
+        el.dataset.done = '1';
+        const target = parseFloat(el.dataset.target || '0');
+        const suffix = el.dataset.suffix || '';
+        const decimals = String(target).includes('.') ? String(target).split('.')[1].length : 0;
+        const start = performance.now();
+        const duration = 1100;
+
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const value = target * eased;
+          if (suffix === '%' && target === 90) {
+            el.textContent = '近 ' + value.toFixed(0) + suffix;
+          } else {
+            el.textContent = value.toFixed(decimals) + suffix;
+          }
+          if(p < 1) requestAnimationFrame(tick);
+          else {
+            if (suffix === '%' && target === 90) el.textContent = '近 90%';
+            else el.textContent = target.toFixed(decimals) + suffix;
+          }
+        }
+        requestAnimationFrame(tick);
+      };
+
+      if('IntersectionObserver' in window){
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach(entry=>{
+            if(entry.isIntersecting) runCounter(entry.target);
+          });
+        },{threshold:.35});
+        counters.forEach(el=>observer.observe(el));
+      }else{
+        counters.forEach(runCounter);
+      }
+    })();
+
+  </script>
   <style>
     :root{
       --bg:#06101d;
@@ -639,6 +683,214 @@
       .entity-figure{min-height:150px}
       canvas{height:200px!important;max-height:200px!important}
     }
+  
+    /* ===== safe animation upgrade v2 ===== */
+    @keyframes safeFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes safeGlow {
+      0%,100% { box-shadow: 0 0 0 rgba(41,234,215,0); }
+      50% { box-shadow: 0 0 28px rgba(41,234,215,.22); }
+    }
+    @keyframes scanLine {
+      0% { transform: translateY(-140%); opacity:.12; }
+      50% { opacity:.55; }
+      100% { transform: translateY(220%); opacity:.12; }
+    }
+    @keyframes shineMove {
+      0% { transform: translateX(-140%) skewX(-22deg); opacity:0; }
+      18% { opacity:.8; }
+      100% { transform: translateX(240%) skewX(-22deg); opacity:0; }
+    }
+    @keyframes armMove {
+      0%,100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
+    }
+    @keyframes wheelSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes radarRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes breathe {
+      0%,100% { transform: scale(1); opacity:.72; }
+      50% { transform: scale(1.08); opacity:1; }
+    }
+    @keyframes dataPulse {
+      0%,100% { border-color: rgba(41,234,215,.12); background: rgba(255,255,255,.055); }
+      50% { border-color: rgba(41,234,215,.36); background: rgba(41,234,215,.08); }
+    }
+
+    .robot-stage {
+      isolation:isolate;
+    }
+    .robot-stage::after,
+    .atlas-illust::after,
+    .entity-figure::after {
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:34px;
+      background:linear-gradient(180deg, rgba(41,234,215,0), rgba(41,234,215,.12), rgba(41,234,215,0));
+      animation:scanLine 4.6s linear infinite;
+      pointer-events:none;
+      z-index:1;
+    }
+    .robot-stage,
+    .atlas-illust,
+    .entity-figure {
+      position:relative;
+      overflow:hidden;
+    }
+    .robot-main {
+      animation: safeFloat 3.4s ease-in-out infinite !important;
+    }
+    .robot-body::after {
+      animation: breathe 2.4s ease-in-out infinite !important;
+    }
+    .orbit {
+      animation-duration: 14s !important;
+    }
+
+    .card,
+    .atlas-card,
+    .entity-card,
+    .enterprise-card,
+    .chart-card,
+    .conclusion-card {
+      position:relative;
+      overflow:hidden;
+      will-change: transform;
+    }
+    .card::after,
+    .atlas-card::after,
+    .entity-card::after,
+    .enterprise-card::after,
+    .chart-card::after {
+      content:"";
+      position:absolute;
+      top:-10%;
+      bottom:-10%;
+      left:-45%;
+      width:24%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+      transform:skewX(-22deg);
+      opacity:0;
+      pointer-events:none;
+    }
+    .card:hover::after,
+    .atlas-card:hover::after,
+    .entity-card:hover::after,
+    .enterprise-card:hover::after,
+    .chart-card:hover::after {
+      animation:shineMove 1.05s ease;
+    }
+    .card:hover,
+    .atlas-card:hover,
+    .entity-card:hover,
+    .enterprise-card:hover,
+    .chart-card:hover,
+    .conclusion-card:hover {
+      animation:safeGlow 1.8s ease-in-out infinite;
+    }
+
+    .atlas-card:hover .atlas-svg,
+    .entity-card:hover svg {
+      animation:safeFloat 2.8s ease-in-out infinite;
+    }
+
+    .entity-card:nth-child(1) .entity-figure svg rect[transform],
+    .atlas-card:nth-child(1) .atlas-illust svg rect[transform] {
+      transform-origin: 150px 90px;
+      animation: armMove 2.6s ease-in-out infinite;
+    }
+    .entity-card:nth-child(2) .entity-figure svg circle,
+    .atlas-card:nth-child(2) .atlas-illust svg circle {
+      transform-origin:center;
+      animation: wheelSpin 7s linear infinite;
+    }
+    .entity-card:nth-child(3) .entity-figure svg rect:first-child,
+    .atlas-card:nth-child(5) .atlas-illust svg rect:first-child {
+      transform-origin:center;
+      animation:safeFloat 3.2s ease-in-out infinite;
+    }
+
+    .status span::before {
+      animation:breathe 2s ease-in-out infinite;
+    }
+
+    .metric {
+      transition: transform .25s ease, color .25s ease;
+    }
+    .card:hover .metric {
+      transform: translateY(-2px) scale(1.03);
+      color:#dffcff;
+    }
+
+    .hero-card {
+      animation:dataPulse 4s ease-in-out infinite;
+    }
+    .hero-card:nth-child(2){ animation-delay:.45s; }
+    .hero-card:nth-child(3){ animation-delay:.9s; }
+
+    .btn.primary {
+      position:relative;
+      overflow:hidden;
+    }
+    .btn.primary::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform:translateX(-120%) skewX(-22deg);
+      animation:shineMove 3.2s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .robot-stage .radar-ring {
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:210px;
+      height:210px;
+      border-radius:50%;
+      border:1px solid rgba(41,234,215,.14);
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+    }
+    .robot-stage .radar-ring::after {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:70px;
+      height:2px;
+      transform-origin:left center;
+      background:linear-gradient(90deg, rgba(41,234,215,.9), rgba(41,234,215,0));
+      animation:radarRotate 3.6s linear infinite;
+    }
+
+    .count-num {
+      display:inline-block;
+      min-width:1ch;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration:.001ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.001ms!important;
+        scroll-behavior:auto!important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -679,6 +931,7 @@
         </div>
         <div class="robot-stage">
           <div class="orbit"></div>
+          <div class="radar-ring"></div>
           <div class="robot-main">
             <div class="robot-head"><div class="antenna"></div></div>
             <div class="robot-body"></div>
@@ -727,14 +980,14 @@
           <h2>核心数据概览</h2>
         </div>
         <div class="grid stats">
-          <div class="card"><div class="icon">🌐</div><div class="metric">54.2 万台</div><div class="label">全球工业机器人安装量</div><p>2024 年全球工业机器人安装量约 542,000 台。</p></div>
-          <div class="card"><div class="icon">🏭</div><div class="metric">466.4 万台</div><div class="label">全球在役工业机器人</div><p>2024 年全球在役工业机器人约 4,664,000 台。</p></div>
-          <div class="card"><div class="icon">🇨🇳</div><div class="metric">29.5 万台</div><div class="label">中国工业机器人安装量</div><p>2024 年中国安装工业机器人约 295,000 台。</p></div>
-          <div class="card"><div class="icon">📈</div><div class="metric">57%</div><div class="label">中国国产品牌份额</div><p>2024 年中国工业机器人国产品牌份额约 57%。</p></div>
-          <div class="card"><div class="icon">⚙️</div><div class="metric">77.3 万套</div><div class="label">中国工业机器人产量</div><p>2025 年中国工业机器人产量约 77.3 万套。</p></div>
-          <div class="card"><div class="icon">🤖</div><div class="metric">1051.9 万套</div><div class="label">中国服务机器人产量</div><p>2024 年中国服务机器人产量约 1051.9 万套。</p></div>
-          <div class="card"><div class="icon">🚚</div><div class="metric">20 万台</div><div class="label">专业服务机器人销量</div><p>2024 年全球专业服务机器人销量接近 200,000 台。</p></div>
-          <div class="card"><div class="icon">🧠</div><div class="metric">近 90%</div><div class="label">AI 模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界。</p></div>
+          <div class="card"><div class="icon">🌐</div><div class="metric"><span class="count-num" data-target="54.2" data-suffix=" 万台">0 万台</span></div><div class="label">全球工业机器人安装量</div><p>2024 年全球工业机器人安装量约 542,000 台。</p></div>
+          <div class="card"><div class="icon">🏭</div><div class="metric"><span class="count-num" data-target="466.4" data-suffix=" 万台">0 万台</span></div><div class="label">全球在役工业机器人</div><p>2024 年全球在役工业机器人约 4,664,000 台。</p></div>
+          <div class="card"><div class="icon">🇨🇳</div><div class="metric"><span class="count-num" data-target="29.5" data-suffix=" 万台">0 万台</span></div><div class="label">中国工业机器人安装量</div><p>2024 年中国安装工业机器人约 295,000 台。</p></div>
+          <div class="card"><div class="icon">📈</div><div class="metric"><span class="count-num" data-target="57" data-suffix="%">0%</span></div><div class="label">中国国产品牌份额</div><p>2024 年中国工业机器人国产品牌份额约 57%。</p></div>
+          <div class="card"><div class="icon">⚙️</div><div class="metric"><span class="count-num" data-target="77.3" data-suffix=" 万套">0 万套</span></div><div class="label">中国工业机器人产量</div><p>2025 年中国工业机器人产量约 77.3 万套。</p></div>
+          <div class="card"><div class="icon">🤖</div><div class="metric"><span class="count-num" data-target="1051.9" data-suffix=" 万套">0 万套</span></div><div class="label">中国服务机器人产量</div><p>2024 年中国服务机器人产量约 1051.9 万套。</p></div>
+          <div class="card"><div class="icon">🚚</div><div class="metric"><span class="count-num" data-target="20" data-suffix=" 万台">0 万台</span></div><div class="label">专业服务机器人销量</div><p>2024 年全球专业服务机器人销量接近 200,000 台。</p></div>
+          <div class="card"><div class="icon">🧠</div><div class="metric"><span class="count-num" data-target="90" data-suffix="%">0%</span></div><div class="label">AI 模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界。</p></div>
         </div>
       </div>
     </section>
