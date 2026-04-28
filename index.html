@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机器人智能调研网站</title>
+  <meta name="description" content="机器人智能调研网站：展示机器人产业数据、核心技术、应用场景、机器人图鉴、实体展示、数据分析与未来趋势。" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg:#06101d;
+      --bg2:#0b1728;
+      --card:#132235;
+      --card2:#182a40;
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(41,234,215,.25);
+      --text:#eef7ff;
+      --muted:#a7bdd5;
+      --sub:#7d95ad;
+      --blue:#36b9ff;
+      --cyan:#29ead7;
+      --violet:#8e7cff;
+      --gold:#ffcf72;
+      --green:#64f0a4;
+      --red:#ff748e;
+      --shadow:0 14px 40px rgba(0,0,0,.24);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;width:100%;overflow-x:hidden}
+    body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 12%, rgba(54,185,255,.16), transparent 26%),
+        radial-gradient(circle at 84% 10%, rgba(41,234,215,.13), transparent 24%),
+        linear-gradient(180deg,#06101d 0%,#081426 45%,#050b14 100%);
+      line-height:1.68;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1180px,calc(100% - 36px));margin:0 auto}
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:rgba(5,13,24,.88);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      box-shadow:0 8px 26px rgba(0,0,0,.22);
+    }
+    .nav-inner{
+      min-height:58px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .brand-mark{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--blue),var(--cyan),var(--violet));
+      position:relative;
+      box-shadow:0 0 22px rgba(41,234,215,.24);
+    }
+    .brand-mark::after{
+      content:"";
+      position:absolute;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:#06101d;
+      left:10px;
+      top:10px;
+    }
+    .links{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:13px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .links a{transition:.2s ease}
+    .links a:hover{color:#fff}
+
+    section{padding:54px 0}
+    .section-title{
+      max-width:860px;
+      margin:0 auto 30px;
+      text-align:center;
+    }
+    .eyebrow{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:2.4px;
+      color:var(--cyan);
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    h1,h2,h3{line-height:1.24}
+    h2{font-size:clamp(28px,3.8vw,44px);margin-bottom:12px}
+    .section-title p{color:var(--muted);font-size:15px}
+
+    .hero{
+      padding:64px 0 42px;
+      position:relative;
+      overflow:hidden;
+      min-height:0;
+      height:auto;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:28px 28px;
+      opacity:.65;
+      pointer-events:none;
+    }
+    .hero-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);
+      gap:36px;
+      align-items:center;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid var(--line2);
+      background:rgba(41,234,215,.08);
+      color:#e9ffff;
+      font-size:13px;
+      margin-bottom:18px;
+    }
+    .pulse{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 12px var(--cyan);
+    }
+    h1{
+      font-size:clamp(36px,5.4vw,64px);
+      margin-bottom:16px;
+      letter-spacing:-1px;
+    }
+    .gradient{
+      background:linear-gradient(90deg,#ffffff,#91ebff,var(--cyan));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero-lead{
+      max-width:720px;
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:18px;
+    }
+    .btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:900;
+      font-size:14px;
+      transition:.22s ease;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg,var(--blue),var(--cyan));
+      color:#05101b;
+      box-shadow:0 10px 28px rgba(41,234,215,.20);
+    }
+    .btn.ghost{background:rgba(255,255,255,.06);color:#e8f4ff}
+    .btn:hover{transform:translateY(-2px)}
+    .hero-cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    .hero-card{
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 10px 26px rgba(0,0,0,.16);
+    }
+    .hero-card b{display:block;font-size:18px;margin-bottom:4px}
+    .hero-card span{display:block;font-size:12px;color:var(--muted)}
+
+    .robot-stage{
+      min-height:300px;
+      border-radius:28px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(54,185,255,.18), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(41,234,215,.14), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+    }
+    .robot-stage::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:22px 22px;
+      pointer-events:none;
+      opacity:.45;
+    }
+    .orbit{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      border:1px dashed rgba(41,234,215,.34);
+      transform:translate(-50%,-50%);
+      animation:spin 18s linear infinite;
+    }
+    .orbit::before,.orbit::after{
+      content:"";
+      position:absolute;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 14px var(--cyan);
+    }
+    .orbit::before{left:46px;top:26px}
+    .orbit::after{right:44px;bottom:34px;background:var(--blue)}
+    @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+    @keyframes floatY{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-8px)}}
+    .robot-main{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:205px;
+      height:240px;
+      transform:translate(-50%,-50%);
+      animation:floatY 3.8s ease-in-out infinite;
+    }
+    .robot-head{
+      width:110px;
+      height:78px;
+      margin:0 auto;
+      border-radius:28px;
+      background:linear-gradient(135deg,#dffcff,#63b9ff,#8e7cff);
+      position:relative;
+      box-shadow:0 10px 30px rgba(54,185,255,.24);
+    }
+    .robot-head::before,.robot-head::after{
+      content:"";
+      position:absolute;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:#07111f;
+      top:35px;
+    }
+    .robot-head::before{left:32px}
+    .robot-head::after{right:32px}
+    .antenna{
+      position:absolute;
+      left:50%;
+      top:-30px;
+      width:2px;
+      height:30px;
+      background:var(--cyan);
+    }
+    .antenna::before{
+      content:"";
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--cyan);
+      top:-8px;
+      left:-4px;
+      box-shadow:0 0 12px var(--cyan);
+    }
+    .robot-body{
+      width:140px;
+      height:120px;
+      margin:18px auto 0;
+      border-radius:34px;
+      background:linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,.07));
+      border:1px solid rgba(255,255,255,.16);
+      position:relative;
+    }
+    .robot-body::after{
+      content:"AI";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(41,234,215,.12);
+      border:1px solid rgba(41,234,215,.32);
+      font-weight:900;
+      color:#eaffff;
+      animation:pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse{50%{box-shadow:0 0 22px rgba(41,234,215,.22)}}
+    .robot-data{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .robot-data div{
+      padding:10px;
+      border-radius:14px;
+      background:rgba(5,13,24,.58);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .robot-data b{display:block;font-size:16px;margin-bottom:2px}
+    .robot-data span{font-size:11px;color:var(--muted)}
+
+    .grid{display:grid;gap:16px}
+    .stats{grid-template-columns:repeat(4,1fr)}
+    .cards2{grid-template-columns:repeat(2,1fr)}
+    .cards3{grid-template-columns:repeat(3,1fr)}
+    .card,.atlas-card,.entity-card,.enterprise-card,.chart-card,.conclusion-card{
+      background:rgba(255,255,255,.075);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:var(--shadow);
+      transition:.22s ease;
+      overflow:hidden;
+    }
+    .card:hover,.atlas-card:hover,.entity-card:hover,.enterprise-card:hover,.chart-card:hover,.conclusion-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(41,234,215,.25);
+      background:rgba(255,255,255,.095);
+    }
+    .icon{
+      width:38px;
+      height:38px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(54,185,255,.13);
+      border:1px solid rgba(54,185,255,.26);
+      margin-bottom:12px;
+    }
+    .metric{font-size:28px;font-weight:950;line-height:1.18;margin-bottom:6px}
+    .label{font-weight:900;margin-bottom:6px}
+    .card p,.card li,.atlas-card p,.atlas-card li,.entity-card p,.enterprise-card p,.conclusion-card p{
+      color:var(--muted);
+      font-size:14px;
+    }
+    ul{list-style:none;display:grid;gap:7px;margin-top:10px}
+    li::before{content:"•";color:var(--cyan);font-weight:900;margin-right:7px}
+
+    .split{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .tag{
+      display:inline-flex;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(41,234,215,.10);
+      color:#e8ffff;
+      border:1px solid rgba(41,234,215,.22);
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    .atlas-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .atlas-card{padding:0}
+    .atlas-illust{
+      height:185px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(41,234,215,.14), transparent 28%),
+        linear-gradient(180deg, rgba(15,30,50,.95), rgba(9,18,32,.95));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .atlas-svg{width:82%;max-width:220px;filter:drop-shadow(0 10px 22px rgba(0,0,0,.28))}
+    .atlas-body{padding:18px}
+    .atlas-body h3{font-size:20px;margin-bottom:8px}
+    .pill{
+      display:inline-flex;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(54,185,255,.10);
+      border:1px solid rgba(54,185,255,.22);
+      font-size:12px;
+      color:#e8f7ff;
+      margin:0 6px 8px 0;
+      font-weight:800;
+    }
+
+    .entity-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+    .entity-card{
+      display:grid;
+      grid-template-columns:190px minmax(0,1fr);
+      gap:16px;
+      align-items:center;
+      padding:18px;
+    }
+    .entity-figure{
+      min-height:170px;
+      border-radius:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(41,234,215,.12), transparent 32%),
+        linear-gradient(180deg, rgba(17,31,51,.95), rgba(10,20,35,.95));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .entity-figure svg{width:86%;max-width:180px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.30))}
+    .entity-card h3{font-size:20px;margin-bottom:8px}
+    .entity-badges{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+    .entity-badges span{
+      padding:4px 9px;
+      border-radius:999px;
+      background:rgba(54,185,255,.10);
+      border:1px solid rgba(54,185,255,.22);
+      font-size:12px;
+      color:#e8f7ff;
+      font-weight:800;
+    }
+    .status{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .status span{
+      padding:5px 9px;
+      border-radius:999px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.08);
+      color:#dff3ff;
+      font-size:12px;
+    }
+    .status span::before{
+      content:"";
+      display:inline-block;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--cyan);
+      margin-right:6px;
+      box-shadow:0 0 8px var(--cyan);
+    }
+
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:12px;
+      margin-bottom:22px;
+    }
+    .flow div{
+      padding:14px 10px;
+      border-radius:16px;
+      text-align:center;
+      font-weight:900;
+      background:rgba(41,234,215,.08);
+      border:1px solid rgba(41,234,215,.20);
+      color:#e8ffff;
+      position:relative;
+    }
+    .flow div:not(:last-child)::after{
+      content:"→";
+      position:absolute;
+      right:-10px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--cyan);
+    }
+
+    .enterprise-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .enterprise-card{min-height:150px}
+    .enterprise-logo{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,var(--gold),var(--cyan));
+      color:#06101d;
+      font-weight:950;
+      margin-bottom:10px;
+    }
+    .enterprise-card h3{font-size:19px;margin-bottom:8px}
+
+    .chart-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .chart-card{
+      min-width:0;
+      padding:18px;
+    }
+    .chart-card h3{font-size:18px;margin-bottom:10px}
+    .chart-card p{font-size:13px;color:var(--muted);margin-top:8px}
+    canvas{display:block;width:100%!important;height:240px!important;max-height:240px!important}
+
+    .timeline{
+      max-width:900px;
+      margin:0 auto;
+      display:grid;
+      gap:16px;
+      position:relative;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:17px;
+      top:8px;
+      bottom:8px;
+      width:2px;
+      background:linear-gradient(var(--blue),var(--cyan),var(--violet));
+    }
+    .time-item{position:relative;padding-left:54px}
+    .dot{
+      position:absolute;
+      left:6px;
+      top:10px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 18px rgba(41,234,215,.65);
+    }
+    .conclusion-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .conclusion-card b{display:block;margin-bottom:8px}
+
+    .source-links{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+    .source-links a{
+      display:block;
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.09);
+      color:#dbf8ff;
+      font-size:14px;
+    }
+
+    @media(max-width:960px){
+      .links{display:none}
+      .hero{padding:34px 0 30px}
+      .hero-grid,.split{grid-template-columns:1fr}
+      .hero-cards,.stats,.cards3,.atlas-grid,.entity-grid,.enterprise-grid,.chart-grid,.conclusion-grid,.source-links{
+        grid-template-columns:1fr;
+      }
+      .cards2{grid-template-columns:1fr}
+      .entity-card{grid-template-columns:1fr}
+      .flow{grid-template-columns:1fr}
+      .flow div:not(:last-child)::after{content:"↓";right:50%;top:auto;bottom:-22px;transform:translateX(50%)}
+      .robot-stage{min-height:250px}
+      .robot-data{display:none}
+      canvas{height:220px!important;max-height:220px!important}
+      section{padding:42px 0}
+    }
+    @media(max-width:520px){
+      .container{width:calc(100% - 24px)}
+      .nav-inner{min-height:52px}
+      .brand span:last-child{font-size:15px}
+      .hero{padding:26px 0 24px}
+      h1{font-size:32px}
+      .hero-lead{font-size:14px}
+      .robot-stage{min-height:225px}
+      .robot-main{transform:translate(-50%,-50%) scale(.86)}
+      .atlas-illust{height:170px}
+      .entity-figure{min-height:150px}
+      canvas{height:200px!important;max-height:200px!important}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home"><span class="brand-mark"></span><span>智械未来</span></a>
+      <nav class="links">
+        <a href="#background">行业背景</a>
+        <a href="#overview">核心数据</a>
+        <a href="#robotAtlas">机器人图鉴</a>
+        <a href="#robotShowcase">实体展馆</a>
+        <a href="#tech">核心技术</a>
+        <a href="#application">应用场景</a>
+        <a href="#enterprise">代表企业</a>
+        <a href="#charts">数据分析</a>
+        <a href="#future">未来趋势</a>
+        <a href="#conclusion">研究结论</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge"><span class="pulse"></span>Robot Intelligence Research Platform</div>
+          <h1>机器人智能<br><span class="gradient">发展调研平台</span></h1>
+          <p class="hero-lead">聚焦机器人产业发展、核心技术、典型应用与未来趋势，系统展示机器人智能化的发展现状与行业价值，适用于课程汇报、项目展示与 GitHub 静态部署。</p>
+          <div class="btns">
+            <a class="btn primary" href="#conclusion">查看结论</a>
+            <a class="btn ghost" href="#robotAtlas">查看图鉴</a>
+          </div>
+          <div class="hero-cards">
+            <div class="hero-card"><b>产业数据</b><span>IFR / 国家统计局</span></div>
+            <div class="hero-card"><b>技术分析</b><span>感知、决策、控制、执行</span></div>
+            <div class="hero-card"><b>实体展示</b><span>动态图形与机器人展馆</span></div>
+          </div>
+        </div>
+        <div class="robot-stage">
+          <div class="orbit"></div>
+          <div class="robot-main">
+            <div class="robot-head"><div class="antenna"></div></div>
+            <div class="robot-body"></div>
+          </div>
+          <div class="robot-data">
+            <div><b>542,000</b><span>2024 全球安装量</span></div>
+            <div><b>295,000</b><span>2024 中国安装量</span></div>
+            <div><b>77.3 万套</b><span>2025 中国产量</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="background">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Industry Background</div>
+          <h2>行业背景：机器人智能化为什么重要</h2>
+          <p>机器人正在从传统自动化设备发展为能够感知环境、理解任务、规划行动并进行反馈优化的智能系统。</p>
+        </div>
+        <div class="split">
+          <div class="card">
+            <h3>网站研究主线</h3>
+            <p>本平台以“机器人智能发展调研”为主题，围绕产业规模、核心技术、应用场景、数据趋势与未来发展展开。</p>
+            <ul>
+              <li>产业层面：机器人安装量、密度、产量和应用结构。</li>
+              <li>技术层面：感知、决策、控制、执行与人机交互。</li>
+              <li>社会层面：就业、养老、医疗、教育和公共服务。</li>
+              <li>未来层面：具身智能、人形机器人与人机协同。</li>
+            </ul>
+          </div>
+          <div class="grid cards2">
+            <div class="card"><span class="tag">Industrial</span><h3>工业机器人</h3><p>用于焊接、搬运、装配、喷涂、分拣和检测，是当前应用最成熟的机器人类型。</p></div>
+            <div class="card"><span class="tag">Service</span><h3>服务机器人</h3><p>进入物流、酒店、清洁、医疗、养老与家庭场景，开始面向社会生活。</p></div>
+            <div class="card"><span class="tag">Medical</span><h3>医疗机器人</h3><p>包括手术辅助、康复训练、诊断实验室和医院配送，对稳定性与安全性要求极高。</p></div>
+            <div class="card"><span class="tag">Embodied AI</span><h3>人形与具身智能</h3><p>人形机器人是 AI 与真实物理世界交互的重要载体，也是未来趋势。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Core Data</div>
+          <h2>核心数据概览</h2>
+        </div>
+        <div class="grid stats">
+          <div class="card"><div class="icon">🌐</div><div class="metric">54.2 万台</div><div class="label">全球工业机器人安装量</div><p>2024 年全球工业机器人安装量约 542,000 台。</p></div>
+          <div class="card"><div class="icon">🏭</div><div class="metric">466.4 万台</div><div class="label">全球在役工业机器人</div><p>2024 年全球在役工业机器人约 4,664,000 台。</p></div>
+          <div class="card"><div class="icon">🇨🇳</div><div class="metric">29.5 万台</div><div class="label">中国工业机器人安装量</div><p>2024 年中国安装工业机器人约 295,000 台。</p></div>
+          <div class="card"><div class="icon">📈</div><div class="metric">57%</div><div class="label">中国国产品牌份额</div><p>2024 年中国工业机器人国产品牌份额约 57%。</p></div>
+          <div class="card"><div class="icon">⚙️</div><div class="metric">77.3 万套</div><div class="label">中国工业机器人产量</div><p>2025 年中国工业机器人产量约 77.3 万套。</p></div>
+          <div class="card"><div class="icon">🤖</div><div class="metric">1051.9 万套</div><div class="label">中国服务机器人产量</div><p>2024 年中国服务机器人产量约 1051.9 万套。</p></div>
+          <div class="card"><div class="icon">🚚</div><div class="metric">20 万台</div><div class="label">专业服务机器人销量</div><p>2024 年全球专业服务机器人销量接近 200,000 台。</p></div>
+          <div class="card"><div class="icon">🧠</div><div class="metric">近 90%</div><div class="label">AI 模型产业来源</div><p>2024 年知名 AI 模型近 90% 来自产业界。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="robotAtlas">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Robot Atlas</div>
+          <h2>机器人图鉴：典型机器人类型与功能介绍</h2>
+          <p>按照“工业—服务—医疗—养老—人形—特种”的逻辑展示典型机器人类型。</p>
+        </div>
+        <div class="atlas-grid">
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><defs><linearGradient id="a1" x1="0" x2="1"><stop offset="0%" stop-color="#37b8ff"/><stop offset="100%" stop-color="#29ead7"/></linearGradient></defs><rect x="30" y="180" width="260" height="26" rx="10" fill="#1e314c"/><rect x="52" y="92" width="56" height="62" rx="8" fill="#dffcff"/><rect x="212" y="78" width="42" height="76" rx="8" fill="#dffcff"/><rect x="132" y="160" width="54" height="18" rx="8" fill="#7cdfff"/><rect x="151" y="98" width="14" height="64" rx="7" fill="url(#a1)"/><circle cx="158" cy="90" r="20" fill="#203551" stroke="#7cdfff" stroke-width="5"/><rect x="165" y="84" width="70" height="12" rx="6" fill="url(#a1)" transform="rotate(-25 165 84)"/><circle cx="239" cy="56" r="14" fill="#dffcff"/></svg>
+            </div>
+            <div class="atlas-body"><h3>工业机械臂</h3><span class="pill">高精度</span><span class="pill">制造装备</span><p>广泛用于汽车、电子、新能源等行业，完成焊接、装配、搬运和检测任务。</p></div>
+          </div>
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><rect x="48" y="176" width="224" height="18" rx="9" fill="#1e314c"/><rect x="88" y="72" width="144" height="92" rx="24" fill="#dffcff"/><rect x="106" y="92" width="108" height="38" rx="12" fill="#203551"/><circle cx="128" cy="194" r="18" fill="#8e7cff"/><circle cx="192" cy="194" r="18" fill="#8e7cff"/><rect x="122" y="140" width="76" height="18" rx="9" fill="#7cdfff"/></svg>
+            </div>
+            <div class="atlas-body"><h3>配送机器人</h3><span class="pill">自主导航</span><span class="pill">室内配送</span><p>常见于酒店、医院和楼宇，可完成餐饮配送、药品配送和文件传递。</p></div>
+          </div>
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><rect x="36" y="182" width="248" height="18" rx="9" fill="#1e314c"/><rect x="60" y="48" width="88" height="112" rx="16" fill="#dffcff"/><rect x="172" y="78" width="76" height="44" rx="14" fill="#203551"/><rect x="136" y="158" width="48" height="20" rx="8" fill="#7cdfff"/><circle cx="157" cy="96" r="18" fill="#203551" stroke="#8e7cff" stroke-width="5"/></svg>
+            </div>
+            <div class="atlas-body"><h3>医疗机器人</h3><span class="pill">高精度</span><span class="pill">医疗辅助</span><p>可用于手术辅助、康复训练、医院配送和实验室自动化等场景。</p></div>
+          </div>
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><rect x="110" y="42" width="100" height="82" rx="28" fill="#dffcff"/><circle cx="142" cy="82" r="9" fill="#203551"/><circle cx="178" cy="82" r="9" fill="#203551"/><rect x="126" y="124" width="68" height="54" rx="20" fill="#203551"/><rect x="82" y="136" width="44" height="12" rx="6" fill="#8e7cff"/><rect x="194" y="136" width="44" height="12" rx="6" fill="#8e7cff"/></svg>
+            </div>
+            <div class="atlas-body"><h3>养老陪护机器人</h3><span class="pill">健康监测</span><span class="pill">语音交互</span><p>提供健康监测、用药提醒、紧急呼救和情感陪伴等辅助服务。</p></div>
+          </div>
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><rect x="114" y="28" width="92" height="76" rx="24" fill="#dffcff"/><circle cx="144" cy="65" r="8" fill="#203551"/><circle cx="176" cy="65" r="8" fill="#203551"/><rect x="124" y="110" width="72" height="64" rx="22" fill="#203551"/><rect x="136" y="174" width="12" height="44" rx="6" fill="#29ead7"/><rect x="172" y="174" width="12" height="44" rx="6" fill="#29ead7"/></svg>
+            </div>
+            <div class="atlas-body"><h3>人形机器人</h3><span class="pill">具身智能</span><span class="pill">人机协同</span><p>是具身智能的重要载体，考验感知、运动控制、AI 决策和交互能力。</p></div>
+          </div>
+          <div class="atlas-card">
+            <div class="atlas-illust">
+              <svg class="atlas-svg" viewBox="0 0 320 240"><rect x="78" y="136" width="164" height="56" rx="20" fill="#203551"/><rect x="106" y="92" width="108" height="54" rx="16" fill="#dffcff"/><circle cx="142" cy="120" r="9" fill="#29ead7"/><circle cx="178" cy="120" r="9" fill="#37b8ff"/><rect x="94" y="184" width="28" height="14" rx="7" fill="#8e7cff"/><rect x="198" y="184" width="28" height="14" rx="7" fill="#8e7cff"/></svg>
+            </div>
+            <div class="atlas-body"><h3>巡检与特种机器人</h3><span class="pill">高危作业</span><span class="pill">远程监测</span><p>常用于电力、消防、石化、地下管网和应急救援等复杂环境。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="robotShowcase">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Robot Entity Gallery</div>
+          <h2>实体机器人展馆</h2>
+          <p>通过更具实体感的机器人展示模块，增强网站视觉表现力和答辩展示效果。</p>
+        </div>
+        <div class="entity-grid">
+          <div class="entity-card">
+            <div class="entity-figure">
+              <svg viewBox="0 0 240 220"><defs><linearGradient id="e1" x1="0" x2="1"><stop offset="0%" stop-color="#dffcff"/><stop offset="100%" stop-color="#37b8ff"/></linearGradient></defs><rect x="20" y="182" width="200" height="16" rx="8" fill="#1e314c"/><rect x="82" y="130" width="72" height="28" rx="12" fill="#dffcff"/><rect x="112" y="78" width="14" height="54" rx="7" fill="url(#e1)"/><circle cx="119" cy="70" r="22" fill="#203551" stroke="#7cdfff" stroke-width="5"/><rect x="126" y="66" width="66" height="12" rx="6" fill="url(#e1)" transform="rotate(-20 126 70)"/></svg>
+            </div>
+            <div><h3>工业机械臂</h3><div class="entity-badges"><span>高精度执行</span><span>产线自动化</span></div><p>用于展示抓取、搬运、焊接和装配等工业场景。</p><div class="status"><span>运行正常</span><span>伺服在线</span></div></div>
+          </div>
+          <div class="entity-card">
+            <div class="entity-figure">
+              <svg viewBox="0 0 240 220"><rect x="44" y="170" width="152" height="14" rx="7" fill="#1e314c"/><rect x="62" y="70" width="116" height="80" rx="22" fill="#dffcff"/><rect x="78" y="88" width="84" height="28" rx="10" fill="#203551"/><rect x="90" y="126" width="60" height="14" rx="7" fill="#7cdfff"/><circle cx="90" cy="184" r="16" fill="#8e7cff"/><circle cx="150" cy="184" r="16" fill="#8e7cff"/></svg>
+            </div>
+            <div><h3>配送机器人</h3><div class="entity-badges"><span>自主导航</span><span>楼宇服务</span></div><p>适合酒店、医院、园区、办公楼等室内服务场景。</p><div class="status"><span>导航中</span><span>避障开启</span></div></div>
+          </div>
+          <div class="entity-card">
+            <div class="entity-figure">
+              <svg viewBox="0 0 240 220"><rect x="92" y="26" width="56" height="52" rx="20" fill="#dffcff"/><circle cx="110" cy="50" r="6" fill="#203551"/><circle cx="130" cy="50" r="6" fill="#203551"/><rect x="82" y="84" width="76" height="66" rx="22" fill="#203551"/><circle cx="120" cy="116" r="8" fill="#29ead7"/><rect x="97" y="150" width="12" height="42" rx="6" fill="#29ead7"/><rect x="131" y="150" width="12" height="42" rx="6" fill="#29ead7"/></svg>
+            </div>
+            <div><h3>人形机器人</h3><div class="entity-badges"><span>具身智能</span><span>人机交互</span></div><p>适用于展厅接待、教育展示、巡检和服务场景。</p><div class="status"><span>交互开启</span><span>视觉在线</span></div></div>
+          </div>
+          <div class="entity-card">
+            <div class="entity-figure">
+              <svg viewBox="0 0 240 220"><rect x="56" y="100" width="128" height="46" rx="18" fill="#203551"/><rect x="76" y="66" width="88" height="40" rx="14" fill="#dffcff"/><circle cx="104" cy="84" r="7" fill="#29ead7"/><circle cx="136" cy="84" r="7" fill="#37b8ff"/><rect x="68" y="144" width="12" height="34" rx="6" fill="#8e7cff"/><rect x="160" y="144" width="12" height="34" rx="6" fill="#29ead7"/></svg>
+            </div>
+            <div><h3>巡检机器人</h3><div class="entity-badges"><span>复杂环境</span><span>特种巡检</span></div><p>适合电力巡检、消防救援、安防巡逻与复杂环境检测。</p><div class="status"><span>巡检中</span><span>远程连接</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Core Technology</div>
+          <h2>核心技术：机器人如何感知、思考与行动</h2>
+          <p>智能机器人是人工智能、传感器、自动控制、电机驱动和机械结构共同融合的结果。</p>
+        </div>
+        <div class="flow">
+          <div>环境感知</div><div>数据处理</div><div>智能决策</div><div>运动控制</div><div>反馈优化</div>
+        </div>
+        <div class="grid cards3">
+          <div class="card"><h3>感知系统</h3><p>相当于机器人的“眼睛、耳朵和皮肤”。</p><ul><li>机器视觉与摄像头</li><li>激光雷达与超声波传感器</li><li>力觉、触觉和多传感器融合</li></ul></div>
+          <div class="card"><h3>决策系统</h3><p>负责理解环境、规划任务和选择行动方案。</p><ul><li>机器学习与深度学习</li><li>强化学习与路径规划</li><li>大模型与自然语言交互</li></ul></div>
+          <div class="card"><h3>控制系统</h3><p>将智能决策转化为稳定、精准、安全的运动。</p><ul><li>PID 控制与闭环反馈</li><li>伺服控制与电机驱动</li><li>机械臂轨迹控制</li></ul></div>
+          <div class="card"><h3>执行机构</h3><p>负责完成抓取、移动、加工和检测等动作。</p><ul><li>机械臂、夹爪、吸盘</li><li>轮式、履带式和腿式结构</li><li>末端执行器</li></ul></div>
+          <div class="card"><h3>能源与驱动</h3><p>影响机器人的功率、续航、载荷和运动能力。</p><ul><li>锂电池与电源管理</li><li>电机、驱动器与减速器</li><li>轻量化与散热设计</li></ul></div>
+          <div class="card"><h3>人机交互</h3><p>让机器人理解人的语言、动作和使用意图。</p><ul><li>语音识别与语义理解</li><li>表情、姿态和行为识别</li><li>安全协同机制</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="application">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Application</div>
+          <h2>应用场景：机器人正在改变哪些行业</h2>
+          <p>机器人应用正在从工厂生产线扩展到物流、医疗、养老、教育、公共服务和特殊环境作业。</p>
+        </div>
+        <div class="grid cards3">
+          <div class="card"><h3>工业制造</h3><p>用于焊接、装配、喷涂、搬运、分拣和质量检测。</p></div>
+          <div class="card"><h3>物流仓储</h3><p>用于 AGV / AMR 移动机器人、智能分拣和无人配送。</p></div>
+          <div class="card"><h3>医疗康复</h3><p>用于手术辅助、康复训练、外骨骼和医院配送。</p></div>
+          <div class="card"><h3>养老陪护</h3><p>用于健康监测、用药提醒、紧急呼救和情感陪伴。</p></div>
+          <div class="card"><h3>教育与校园</h3><p>用于编程教育、校园导览、科普展示和创新实践。</p></div>
+          <div class="card"><h3>特种作业</h3><p>用于消防、排爆、巡检、水下作业和应急救援。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="enterprise">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Representative Companies</div>
+          <h2>代表企业：机器人产业链观察</h2>
+          <p>代表企业展示有助于从“数据介绍”延伸到“产业生态分析”。</p>
+        </div>
+        <div class="enterprise-grid">
+          <div class="enterprise-card"><div class="enterprise-logo">ABB</div><h3>ABB</h3><p>国际工业机器人代表企业，覆盖机械臂和智能制造解决方案。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">F</div><h3>FANUC</h3><p>日本工业机器人和数控系统代表企业。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">Y</div><h3>Yaskawa</h3><p>在伺服驱动、运动控制和工业机器人领域积累深厚。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">K</div><h3>KUKA</h3><p>德国工业机器人品牌，常见于汽车制造和智能工厂场景。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">E</div><h3>埃斯顿</h3><p>中国工业机器人与自动化企业。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">S</div><h3>新松机器人</h3><p>覆盖工业机器人、移动机器人和智能制造装备。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">U</div><h3>优必选</h3><p>在人形机器人、教育机器人和服务机器人领域受关注。</p></div>
+          <div class="enterprise-card"><div class="enterprise-logo">G</div><h3>宇树科技</h3><p>四足机器人和人形机器人方向展示度较高。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="charts">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Data Visualization</div>
+          <h2>数据分析：机器人发展趋势可视化</h2>
+          <p>使用公开数据构建图表，展示全球安装量、区域结构、机器人密度、服务机器人和 AI 技术趋势。</p>
+        </div>
+        <div class="chart-grid">
+          <div class="chart-card"><h3>全球主要市场工业机器人安装量</h3><canvas id="marketChart"></canvas><p>单位：台。中国、全球及主要国家安装量对比。</p></div>
+          <div class="chart-card"><h3>全球工业机器人区域分布</h3><canvas id="regionChart"></canvas><p>2024 年亚洲占全球新增部署 74%，欧洲 16%，美洲 9%。</p></div>
+          <div class="chart-card"><h3>主要国家机器人密度</h3><canvas id="densityChart"></canvas><p>单位：台 / 每万名制造业员工。</p></div>
+          <div class="chart-card"><h3>重点行业机器人安装量</h3><canvas id="industryChart"></canvas><p>电子与汽车行业是工业机器人重要应用领域。</p></div>
+          <div class="chart-card"><h3>专业服务机器人应用结构</h3><canvas id="serviceChart"></canvas><p>运输与物流是专业服务机器人最大应用类别。</p></div>
+          <div class="chart-card"><h3>AI 模型产业来源变化</h3><canvas id="aiChart"></canvas><p>AI 正在加快从研究走向产业应用。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="future">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Future Trend</div>
+          <h2>未来展望：具身智能与人机协同</h2>
+          <p>未来机器人将从“机器设备”走向“智能体”，在制造业、医疗、养老、物流和家庭服务中发挥更大作用。</p>
+        </div>
+        <div class="timeline">
+          <div class="time-item"><span class="dot"></span><div class="card"><h3>AI 与机器人深度融合</h3><p>大模型、机器视觉和强化学习将提高机器人对环境和任务的理解能力。</p></div></div>
+          <div class="time-item"><span class="dot"></span><div class="card"><h3>具身智能成为重点方向</h3><p>AI 通过机器人身体与真实世界交互，是未来机器人发展的关键方向。</p></div></div>
+          <div class="time-item"><span class="dot"></span><div class="card"><h3>人形机器人逐步试点应用</h3><p>可能先在展示、巡检、简单搬运、教育和服务接待等场景落地。</p></div></div>
+          <div class="time-item"><span class="dot"></span><div class="card"><h3>社会服务机器人应用扩展</h3><p>医院配送、养老陪护、校园服务、社区巡检将成为重要应用方向。</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusion">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Research Conclusion</div>
+          <h2>研究结论：机器人智能化的核心判断</h2>
+        </div>
+        <div class="conclusion-grid">
+          <div class="conclusion-card"><b>产业规模持续扩大</b><p>全球工业机器人安装量保持高位，中国是重要应用市场。</p></div>
+          <div class="conclusion-card"><b>应用场景更加多元</b><p>机器人正在进入物流、医疗、养老、教育和特种作业场景。</p></div>
+          <div class="conclusion-card"><b>AI 推动机器人升级</b><p>机器视觉、大模型和具身智能正在提升机器人能力。</p></div>
+          <div class="conclusion-card"><b>挑战与机遇并存</b><p>成本、续航、安全和伦理仍需解决，但长期趋势明确。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="container">
+        <div class="section-title">
+          <div class="eyebrow">Sources</div>
+          <h2>数据来源</h2>
+        </div>
+        <div class="source-links">
+          <a href="https://ifr.org/ifr-press-releases/news/global-robot-demand-in-factories-doubles-over-10-years" target="_blank">International Federation of Robotics：工业机器人报告</a>
+          <a href="https://ifr.org/ifr-press-releases/news/service-robots-see-global-growth-boom" target="_blank">International Federation of Robotics：服务机器人报告</a>
+          <a href="https://www.stats.gov.cn/" target="_blank">国家统计局：机器人产量相关数据</a>
+          <a href="https://hai.stanford.edu/ai-index/2025-ai-index-report" target="_blank">Stanford HAI：2025 AI Index Report</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const textColor = '#c7d9ec';
+    const gridColor = 'rgba(255,255,255,.09)';
+    if (window.Chart) {
+      Chart.defaults.color = textColor;
+      Chart.defaults.borderColor = gridColor;
+      Chart.defaults.font.family = 'Microsoft YaHei, Arial, sans-serif';
+
+      const colors = {
+        blue:'rgba(54,185,255,.76)',
+        cyan:'rgba(41,234,215,.78)',
+        violet:'rgba(142,124,255,.78)',
+        gold:'rgba(255,207,114,.78)',
+        red:'rgba(255,116,142,.78)',
+        green:'rgba(100,240,164,.78)'
+      };
+
+      new Chart(document.getElementById('marketChart'),{
+        type:'bar',
+        data:{labels:['全球','中国','日本','美国','韩国','德国','印度'],datasets:[{data:[542000,295000,44500,34200,30600,26982,9100],backgroundColor:[colors.blue,colors.cyan,colors.violet,colors.gold,colors.green,colors.red,'rgba(255,255,255,.35)'],borderRadius:8}]},
+        options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      });
+
+      new Chart(document.getElementById('regionChart'),{
+        type:'doughnut',
+        data:{labels:['亚洲','欧洲','美洲','其他'],datasets:[{data:[74,16,9,1],backgroundColor:[colors.cyan,colors.blue,colors.violet,colors.gold],borderWidth:0}]},
+        options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,cutout:'62%',plugins:{legend:{position:'bottom'}}}
+      });
+
+      new Chart(document.getElementById('densityChart'),{
+        type:'bar',
+        data:{labels:['韩国','新加坡','中国','德国','日本'],datasets:[{data:[1220,818,567,449,446],backgroundColor:colors.blue,borderRadius:8}]},
+        options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true},y:{grid:{display:false}}}}
+      });
+
+      new Chart(document.getElementById('industryChart'),{
+        type:'bar',
+        data:{labels:['电子行业','汽车行业'],datasets:[{data:[128899,126088],backgroundColor:[colors.cyan,colors.violet],borderRadius:8}]},
+        options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      });
+
+      new Chart(document.getElementById('serviceChart'),{
+        type:'bar',
+        data:{labels:['运输物流','酒店服务','专业清洁','农业机器人','安防救援','医疗机器人'],datasets:[{data:[102900,42000,25000,19500,3100,16700],backgroundColor:[colors.cyan,colors.blue,colors.green,colors.gold,colors.violet,colors.red],borderRadius:8}]},
+        options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=10000?(v/10000)+'万':v}},x:{grid:{display:false}}}}
+      });
+
+      new Chart(document.getElementById('aiChart'),{
+        type:'line',
+        data:{labels:['2023','2024'],datasets:[{label:'知名 AI 模型来自产业界比例',data:[60,90],borderColor:'rgba(41,234,215,1)',backgroundColor:'rgba(41,234,215,.16)',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:'rgba(41,234,215,1)'}]},
+        options:{responsive:true,maintainAspectRatio:false,resizeDelay:120,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
+      });
+    }
+  </script>
+</body>
+</html>
