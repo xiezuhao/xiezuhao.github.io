@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>机器人智能介绍馆</title>
-  <meta name="description" content="一个面向展示与汇报的高级机器人介绍网站，覆盖机器人类型、核心技术、应用场景、产业数据、未来趋势与资料来源。" />
+  <title>机器人智能发展研究</title>
+  <meta name="description" content="机器人智能发展研究：系统呈现机器人产业数据、技术架构、类型体系、应用场景、能力对比与未来趋势。" />
   <style>
     :root {
       --bg: #071019;
-      --bg-soft: #0c1723;
+      --bg2: #0b1622;
       --panel: rgba(255,255,255,.075);
-      --panel-strong: rgba(255,255,255,.11);
+      --panel2: rgba(255,255,255,.11);
       --line: rgba(255,255,255,.12);
-      --line-strong: rgba(108,221,255,.34);
+      --line2: rgba(69,224,213,.34);
       --text: #f3f8ff;
-      --muted: #b8c9dc;
-      --dim: #8298ad;
+      --muted: #b9c9da;
+      --dim: #8498aa;
       --cyan: #35e4d4;
-      --blue: #42a5ff;
-      --green: #7cf29c;
+      --blue: #45a7ff;
       --gold: #ffd166;
-      --rose: #ff718d;
+      --green: #83f28f;
+      --rose: #ff728d;
       --violet: #a78bfa;
       --shadow: 0 28px 80px rgba(0,0,0,.34);
-      --radius: 8px;
+      --radius: 10px;
     }
 
     * { box-sizing: border-box; }
@@ -32,44 +32,69 @@
       margin: 0;
       font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
       color: var(--text);
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
-        linear-gradient(180deg, #050b12 0%, #071019 42%, #060b10 100%);
-      background-size: 42px 42px, 42px 42px, 100% 100%;
-      overflow-x: hidden;
       line-height: 1.72;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.034) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(180deg, #050b12 0%, #071019 46%, #050a10 100%);
+      background-size: 44px 44px, 44px 44px, 100% 100%;
+      overflow-x: hidden;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
+      z-index: -2;
       pointer-events: none;
       background:
-        linear-gradient(120deg, rgba(53,228,212,.11), transparent 28%),
-        linear-gradient(260deg, rgba(255,209,102,.08), transparent 24%),
-        linear-gradient(180deg, transparent 70%, rgba(53,228,212,.06));
-      z-index: -2;
+        radial-gradient(circle at 8% 10%, rgba(53,228,212,.13), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(255,209,102,.10), transparent 24%),
+        radial-gradient(circle at 60% 88%, rgba(69,167,255,.10), transparent 28%);
     }
 
     a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
+    button, input { font: inherit; }
     .container { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+
+    .progress {
+      position: fixed;
+      top: 66px;
+      left: 0;
+      height: 2px;
+      width: 0;
+      z-index: 30;
+      background: linear-gradient(90deg, var(--cyan), var(--gold), var(--green));
+    }
+
+    .cursor-light {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .38;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      background: radial-gradient(circle, rgba(53,228,212,.16), rgba(255,209,102,.06) 38%, transparent 68%);
+    }
 
     .topbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 20;
-      background: rgba(5, 11, 18, .78);
+      z-index: 28;
+      background: rgba(5,11,18,.82);
       border-bottom: 1px solid rgba(255,255,255,.09);
       backdrop-filter: blur(18px);
     }
 
     .nav {
-      height: 64px;
+      height: 66px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -80,42 +105,38 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-weight: 900;
-      letter-spacing: .3px;
+      font-weight: 950;
+      white-space: nowrap;
     }
 
     .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius);
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
       position: relative;
-      background:
-        linear-gradient(135deg, var(--cyan), var(--blue) 46%, var(--gold));
+      background: linear-gradient(135deg, var(--cyan), var(--blue) 46%, var(--gold));
       box-shadow: 0 0 28px rgba(53,228,212,.22);
     }
 
     .brand-mark::before {
       content: "";
       position: absolute;
-      left: 9px;
-      top: 9px;
-      width: 18px;
-      height: 18px;
-      border-radius: 5px;
+      inset: 10px;
+      border-radius: 6px;
       background: #071019;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 15px;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       white-space: nowrap;
     }
 
     .nav-links a {
-      padding: 7px 2px;
+      padding: 7px 0;
       border-bottom: 1px solid transparent;
       transition: color .2s ease, border-color .2s ease;
     }
@@ -126,14 +147,25 @@
       border-color: var(--cyan);
     }
 
+    .menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: #fff;
+      background: rgba(255,255,255,.07);
+      cursor: pointer;
+    }
+
     .hero {
       min-height: 100svh;
       display: flex;
       align-items: center;
-      padding: 94px 0 48px;
+      padding: 100px 0 54px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
       position: relative;
       isolation: isolate;
-      border-bottom: 1px solid rgba(255,255,255,.08);
     }
 
     .hero::after {
@@ -142,29 +174,30 @@
       left: 0;
       right: 0;
       bottom: 0;
-      height: 160px;
-      background: linear-gradient(180deg, transparent, rgba(7,16,25,.96));
+      height: 150px;
       z-index: -1;
+      background: linear-gradient(180deg, transparent, rgba(7,16,25,.97));
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(420px, .92fr);
-      gap: 34px;
+      gap: 36px;
       align-items: center;
     }
 
     .kicker {
       display: inline-flex;
-      align-items: center;
       gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 8px 13px;
+      border: 1px solid rgba(53,228,212,.24);
+      border-radius: 999px;
       color: #ddfbff;
       background: rgba(53,228,212,.08);
-      border: 1px solid rgba(53,228,212,.22);
-      border-radius: 999px;
-      padding: 8px 13px;
       font-size: 13px;
-      margin-bottom: 20px;
+      font-weight: 800;
     }
 
     .kicker i {
@@ -177,21 +210,21 @@
 
     h1 {
       margin: 0 0 20px;
-      font-size: clamp(42px, 6.2vw, 82px);
-      line-height: 1.05;
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 1.06;
       letter-spacing: 0;
       max-width: 780px;
     }
 
-    .gradient-text {
+    .gradient {
       color: transparent;
-      background: linear-gradient(90deg, #fff, #9eefff 42%, #ffe49a 78%, #7cf29c);
+      background: linear-gradient(90deg, #fff, #a7f7ff 42%, #ffe49a 78%, #90f6a0);
       -webkit-background-clip: text;
       background-clip: text;
     }
 
     .lead {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 0 26px;
       color: var(--muted);
       font-size: 16px;
@@ -212,14 +245,23 @@
       padding: 10px 18px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
-      color: #edf8ff;
       background: rgba(255,255,255,.07);
-      transition: transform .22s ease, background .22s ease, border-color .22s ease;
+      color: #edf8ff;
       cursor: pointer;
-      font-weight: 800;
+      font-weight: 850;
       position: relative;
       overflow: hidden;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
     }
+
+    .btn.primary {
+      color: #041016;
+      border: 0;
+      background: linear-gradient(135deg, var(--cyan), var(--gold));
+      box-shadow: 0 16px 44px rgba(53,228,212,.16);
+    }
+
+    .btn:hover { transform: translateY(-2px); border-color: var(--line2); }
 
     .btn::after {
       content: "";
@@ -233,36 +275,24 @@
       opacity: 0;
     }
 
-    .btn.ripple::after {
-      animation: ripple .58s ease;
-    }
-
+    .btn.ripple::after { animation: ripple .58s ease; }
     @keyframes ripple {
       0% { width: 0; height: 0; opacity: .36; }
       100% { width: 220px; height: 220px; opacity: 0; }
     }
 
-    .btn.primary {
-      color: #041016;
-      background: linear-gradient(135deg, var(--cyan), var(--gold));
-      border: 0;
-      box-shadow: 0 16px 44px rgba(53,228,212,.16);
-    }
-
-    .btn:hover { transform: translateY(-2px); border-color: var(--line-strong); }
-
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      max-width: 760px;
+      max-width: 780px;
     }
 
     .hero-stat {
-      padding: 14px 14px 12px;
+      padding: 14px;
       border-radius: var(--radius);
-      background: var(--panel);
       border: 1px solid var(--line);
+      background: var(--panel);
       box-shadow: 0 14px 34px rgba(0,0,0,.16);
     }
 
@@ -270,8 +300,8 @@
       display: block;
       font-size: 24px;
       line-height: 1.1;
-      color: #fff;
       margin-bottom: 6px;
+      color: #fff;
       white-space: nowrap;
     }
 
@@ -283,43 +313,42 @@
     }
 
     .stage {
-      position: relative;
       min-height: 530px;
       border: 1px solid rgba(255,255,255,.12);
       background:
         linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
-        linear-gradient(135deg, rgba(66,165,255,.12), transparent 42%),
+        linear-gradient(135deg, rgba(69,167,255,.12), transparent 42%),
         linear-gradient(225deg, rgba(255,209,102,.08), transparent 34%);
       box-shadow: var(--shadow);
+      position: relative;
       overflow: hidden;
-      transform-style: preserve-3d;
+      border-radius: var(--radius);
+    }
+
+    .stage-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.075) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.18));
     }
 
     .stage::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
       transform: translateX(-120%);
       animation: sweep 7s ease-in-out infinite;
-      pointer-events: none;
     }
 
     @keyframes sweep {
       0%, 28% { transform: translateX(-120%); }
       52%, 100% { transform: translateX(120%); }
-    }
-
-    .stage-grid {
-      position: absolute;
-      inset: 0;
-      opacity: .36;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.075) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px);
-      background-size: 26px 26px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.18));
     }
 
     #heroParticles {
@@ -331,7 +360,7 @@
 
     .robot-wrap {
       position: absolute;
-      inset: 48px 28px 90px;
+      inset: 48px 28px 92px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -357,11 +386,7 @@
       filter: drop-shadow(0 28px 32px rgba(0,0,0,.38));
     }
 
-    .eye {
-      transform-origin: center;
-      animation: blink 5.6s infinite;
-    }
-
+    .eye { transform-origin: center; animation: blink 5.6s infinite; }
     @keyframes blink {
       0%, 46%, 100% { transform: scaleY(1); }
       48%, 50% { transform: scaleY(.12); }
@@ -378,10 +403,10 @@
       left: 18px;
       right: 18px;
       bottom: 18px;
+      z-index: 2;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      z-index: 2;
     }
 
     .hud-item {
@@ -396,22 +421,22 @@
     .hud-item span { color: var(--dim); font-size: 12px; }
 
     section {
-      padding: 76px 0;
       position: relative;
+      padding: 76px 0;
     }
 
     .section-title {
-      max-width: 820px;
+      max-width: 860px;
       margin: 0 auto 32px;
       text-align: center;
     }
 
     .eyebrow {
-      color: var(--cyan);
-      font-size: 12px;
-      letter-spacing: 2.4px;
-      font-weight: 900;
       margin-bottom: 8px;
+      color: var(--cyan);
+      letter-spacing: 2.4px;
+      font-size: 12px;
+      font-weight: 950;
     }
 
     h2 {
@@ -434,12 +459,12 @@
 
     .card {
       position: relative;
+      overflow: hidden;
       padding: 18px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
       background: var(--panel);
       box-shadow: 0 16px 42px rgba(0,0,0,.18);
-      overflow: hidden;
       transition: transform .22s ease, border-color .22s ease, background .22s ease;
     }
 
@@ -450,33 +475,20 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), transparent);
       opacity: 0;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), transparent);
       transition: opacity .22s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
       border-color: rgba(53,228,212,.28);
-      background: var(--panel-strong);
+      background: var(--panel2);
     }
 
     .card:hover::before { opacity: 1; }
 
-    .card[data-tilt] {
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    .card[data-tilt] > * {
-      transform: translateZ(18px);
-    }
-
-    .spot-card {
-      --mx: 50%;
-      --my: 50%;
-    }
-
+    .spot-card { --mx: 50%; --my: 50%; }
     .spot-card::after {
       content: "";
       position: absolute;
@@ -486,20 +498,19 @@
       opacity: 0;
       transition: opacity .2s ease;
     }
-
     .spot-card:hover::after { opacity: 1; }
 
     .icon-box {
       width: 42px;
       height: 42px;
-      border-radius: var(--radius);
       display: grid;
       place-items: center;
       margin-bottom: 12px;
+      border-radius: var(--radius);
       color: #061019;
       background: linear-gradient(135deg, var(--cyan), var(--gold));
-      font-weight: 900;
-      font-size: 20px;
+      font-weight: 950;
+      font-size: 18px;
     }
 
     h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.35; }
@@ -531,6 +542,13 @@
       box-shadow: 0 0 10px rgba(53,228,212,.7);
     }
 
+    .split {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
     .metric {
       font-size: 30px;
       font-weight: 950;
@@ -539,169 +557,22 @@
       white-space: nowrap;
     }
 
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0 12px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      min-height: 25px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      color: #eafcff;
-      border: 1px solid rgba(53,228,212,.22);
-      background: rgba(53,228,212,.08);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .strategy-board {
-      display: grid;
-      grid-template-columns: 1.02fr .98fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .signal-card {
-      min-height: 100%;
-      background:
-        linear-gradient(135deg, rgba(53,228,212,.08), transparent 38%),
-        linear-gradient(225deg, rgba(255,209,102,.07), transparent 32%),
-        var(--panel);
-    }
-
-    .signal-line {
-      display: grid;
-      gap: 11px;
-      margin-top: 14px;
-    }
-
-    .signal-line div {
-      display: grid;
-      grid-template-columns: 108px minmax(0,1fr);
-      gap: 12px;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.045);
-      border-radius: var(--radius);
-    }
-
-    .signal-line b {
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .signal-line span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .maturity {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .maturity-row {
-      display: grid;
-      grid-template-columns: 94px minmax(0,1fr) 46px;
-      gap: 10px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .track {
-      height: 9px;
-      border-radius: 99px;
-      overflow: hidden;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .track i {
-      display: block;
-      height: 100%;
-      width: var(--value);
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--cyan), var(--gold));
-      box-shadow: 0 0 18px rgba(53,228,212,.28);
-    }
-
-    .quote-panel {
-      margin-top: 16px;
-      padding: 20px;
-      border: 1px solid rgba(53,228,212,.2);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(90deg, rgba(53,228,212,.08), rgba(255,209,102,.06)),
-        rgba(255,255,255,.045);
-    }
-
-    .quote-panel b {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 18px;
-    }
-
-    .quote-panel p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .competition-grid {
+    .framework-board {
       display: grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 18px;
       align-items: stretch;
     }
 
-    .award-panel {
-      position: relative;
-      min-height: 420px;
-      overflow: hidden;
+    .framework-main {
+      min-height: 390px;
       background:
         linear-gradient(135deg, rgba(53,228,212,.10), transparent 38%),
-        linear-gradient(245deg, rgba(255,209,102,.10), transparent 30%),
+        linear-gradient(245deg, rgba(255,209,102,.08), transparent 30%),
         rgba(255,255,255,.07);
     }
 
-    .award-panel::after {
-      content: "";
-      position: absolute;
-      left: -20%;
-      top: 18%;
-      width: 140%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(53,228,212,.9), rgba(255,209,102,.85), transparent);
-      animation: awardLine 4.8s ease-in-out infinite;
-      opacity: .76;
-    }
-
-    @keyframes awardLine {
-      0%, 100% { transform: translateY(0) rotate(-8deg); }
-      50% { transform: translateY(180px) rotate(-8deg); }
-    }
-
-    .award-title {
-      position: relative;
-      z-index: 1;
-      max-width: 620px;
-    }
-
-    .award-title strong {
+    .framework-main strong {
       display: inline-flex;
       margin-bottom: 14px;
       padding: 6px 11px;
@@ -712,53 +583,48 @@
       font-weight: 950;
     }
 
-    .award-title h3 {
+    .framework-main h3 {
       font-size: clamp(28px, 4vw, 44px);
       line-height: 1.16;
       margin-bottom: 12px;
+      max-width: 720px;
     }
 
-    .award-title p {
-      color: var(--muted);
+    .framework-main p {
+      max-width: 760px;
       font-size: 15px;
     }
 
-    .award-metrics {
-      position: relative;
-      z-index: 1;
+    .framework-metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
       gap: 12px;
       margin-top: 34px;
     }
 
-    .award-metrics div {
+    .framework-metrics div {
       padding: 14px;
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,.11);
       background: rgba(4,10,16,.38);
-      border-radius: var(--radius);
       backdrop-filter: blur(10px);
     }
 
-    .award-metrics b {
+    .framework-metrics b {
       display: block;
       color: #fff;
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.1;
       margin-bottom: 5px;
     }
 
-    .award-metrics span {
+    .framework-metrics span {
       color: var(--dim);
       font-size: 12px;
       line-height: 1.45;
     }
 
-    .micro-list {
-      display: grid;
-      gap: 12px;
-    }
-
+    .micro-list { display: grid; gap: 12px; }
     .micro-item {
       display: grid;
       grid-template-columns: 42px minmax(0,1fr);
@@ -782,167 +648,37 @@
       background: linear-gradient(135deg, var(--cyan), var(--gold));
     }
 
-    .micro-item b {
-      display: block;
-      margin-bottom: 3px;
-    }
+    .micro-item b { display: block; margin-bottom: 3px; }
+    .micro-item span { color: var(--muted); font-size: 13px; line-height: 1.6; }
 
-    .micro-item span {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .capability-stage {
+    .chart-board {
       display: grid;
-      grid-template-columns: 420px minmax(0,1fr);
-      gap: 18px;
-      align-items: stretch;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 16px;
     }
 
-    .radar-panel {
-      min-height: 440px;
-      position: relative;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        rgba(255,255,255,.06);
-      background-size: 26px 26px, 26px 26px, 100% 100%;
-    }
+    .chart-card { min-height: 360px; }
+    .chart-wrap { height: 250px; margin-top: 10px; }
+    .chart-wrap canvas { width: 100%; height: 100%; display: block; }
 
-    #radarCanvas {
-      width: 100%;
-      height: 100%;
-      min-height: 390px;
-      display: block;
-    }
-
-    .capability-menu {
-      display: grid;
-      gap: 10px;
-    }
-
-    .capability-btn {
-      width: 100%;
-      text-align: left;
-      padding: 15px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.11);
-      background: rgba(255,255,255,.055);
-      color: var(--muted);
-      cursor: pointer;
-      transition: transform .2s ease, border-color .2s ease, background .2s ease;
-    }
-
-    .capability-btn:hover,
-    .capability-btn.active {
-      transform: translateX(4px);
-      border-color: rgba(53,228,212,.35);
-      background: rgba(53,228,212,.09);
-      color: #fff;
-    }
-
-    .capability-btn b {
-      display: block;
-      color: #fff;
-      margin-bottom: 4px;
-      font-size: 16px;
-    }
-
-    .capability-btn span {
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 28px;
-      z-index: 40;
-      transform: translate(-50%, 22px);
-      opacity: 0;
-      pointer-events: none;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(53,228,212,.28);
-      background: rgba(5,11,18,.86);
-      color: #eaffff;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      transition: opacity .25s ease, transform .25s ease;
-      font-size: 13px;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    .console {
-      min-height: 100%;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .console-top {
+    .tag-row {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.055);
-      color: var(--dim);
-      font-size: 13px;
+      margin: 10px 0 12px;
     }
 
-    .console-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--rose);
-    }
-
-    .console-dot:nth-child(2) { background: var(--gold); }
-    .console-dot:nth-child(3) { background: var(--green); }
-
-    .console-body {
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0,1fr));
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .flow-step {
-      position: relative;
-      min-height: 82px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 12px;
-      border: 1px solid rgba(53,228,212,.2);
-      background: rgba(53,228,212,.065);
-      border-radius: var(--radius);
-      font-weight: 900;
-      color: #eaffff;
-    }
-
-    .flow-step:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      right: -15px;
-      top: 50%;
-      width: 16px;
-      height: 2px;
-      background: var(--cyan);
-      transform: translateY(-50%);
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      color: #eafcff;
+      border: 1px solid rgba(53,228,212,.22);
+      background: rgba(53,228,212,.08);
+      font-size: 12px;
+      font-weight: 850;
     }
 
     .atlas {
@@ -951,10 +687,7 @@
       gap: 16px;
     }
 
-    .robot-card {
-      padding: 0;
-    }
-
+    .robot-card { padding: 0; }
     .robot-art {
       height: 210px;
       display: grid;
@@ -988,102 +721,113 @@
       width: 78%;
       max-width: 230px;
       height: auto;
-      filter: drop-shadow(0 15px 22px rgba(0,0,0,.32));
       z-index: 1;
+      filter: drop-shadow(0 15px 22px rgba(0,0,0,.32));
     }
 
     .robot-card .card-body { padding: 17px; }
 
-    .lab {
+    .flow {
       display: grid;
-      grid-template-columns: 360px minmax(0,1fr);
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 82px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px;
+      border: 1px solid rgba(53,228,212,.2);
+      background: rgba(53,228,212,.065);
+      border-radius: var(--radius);
+      font-weight: 950;
+      color: #eaffff;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      width: 16px;
+      height: 2px;
+      background: var(--cyan);
+      transform: translateY(-50%);
+    }
+
+    .capability-stage {
+      display: grid;
+      grid-template-columns: 420px minmax(0,1fr);
       gap: 18px;
       align-items: stretch;
     }
 
-    .lab-controls {
+    .radar-panel {
+      min-height: 440px;
       display: grid;
-      gap: 12px;
-      align-content: start;
-    }
-
-    .control {
-      padding: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.055);
-      border-radius: var(--radius);
-    }
-
-    .control label {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--cyan);
-    }
-
-    .lab-screen {
-      position: relative;
-      min-height: 430px;
-      border: 1px solid var(--line);
+      place-items: center;
       background:
         linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
         linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(7,17,27,.96), rgba(4,10,16,.96));
+        rgba(255,255,255,.06);
       background-size: 26px 26px, 26px 26px, 100% 100%;
-      border-radius: var(--radius);
-      overflow: hidden;
     }
 
-    #labCanvas {
-      position: absolute;
-      inset: 0;
+    #radarCanvas {
       width: 100%;
       height: 100%;
+      min-height: 390px;
+      display: block;
     }
 
-    .lab-caption {
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      pointer-events: none;
-    }
-
-    .lab-caption div {
-      padding: 11px;
+    .capability-menu { display: grid; gap: 10px; margin-top: 16px; }
+    .capability-btn {
+      width: 100%;
+      padding: 15px;
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(3,9,15,.58);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.055);
+      color: var(--muted);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
 
-    .lab-caption b { display: block; font-size: 14px; }
-    .lab-caption small { color: var(--dim); font-size: 12px; }
+    .capability-btn:hover,
+    .capability-btn.active {
+      transform: translateX(4px);
+      border-color: rgba(53,228,212,.35);
+      background: rgba(53,228,212,.09);
+      color: #fff;
+    }
+
+    .capability-btn b {
+      display: block;
+      color: #fff;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .capability-btn span { font-size: 13px; line-height: 1.55; }
 
     .tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
       justify-content: center;
+      gap: 10px;
       margin-bottom: 18px;
     }
 
     .tab-btn {
-      border: 1px solid var(--line);
+      padding: 8px 13px;
       border-radius: 999px;
+      border: 1px solid var(--line);
       color: var(--muted);
       background: rgba(255,255,255,.06);
-      padding: 8px 13px;
       cursor: pointer;
       transition: .2s ease;
     }
@@ -1093,7 +837,7 @@
       color: #061019;
       background: linear-gradient(135deg, var(--cyan), var(--gold));
       border-color: transparent;
-      font-weight: 900;
+      font-weight: 950;
     }
 
     .scenario-panel {
@@ -1126,56 +870,50 @@
       filter: drop-shadow(0 18px 26px rgba(0,0,0,.28));
     }
 
-    .chart-board {
+    .lab {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 16px;
+      grid-template-columns: 360px minmax(0,1fr);
+      gap: 18px;
+      align-items: stretch;
     }
 
-    .chart-card {
-      min-height: 360px;
+    .lab-controls { display: grid; gap: 12px; align-content: start; }
+    .control {
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      border-radius: var(--radius);
     }
 
-    .chart-wrap {
-      height: 250px;
-      margin-top: 10px;
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
     }
 
-    .chart-wrap canvas {
+    input[type="range"] { width: 100%; accent-color: var(--cyan); }
+
+    .lab-screen {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(7,17,27,.96), rgba(4,10,16,.96));
+      background-size: 26px 26px, 26px 26px, 100% 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    #labCanvas {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      display: block;
-    }
-
-    .source-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .source-item {
-      display: grid;
-      grid-template-columns: 132px minmax(0,1fr);
-      gap: 14px;
-      padding: 16px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.065);
-      border: 1px solid var(--line);
-    }
-
-    .source-item b {
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .source-item a {
-      color: #bdf7ff;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .source-item p {
-      color: var(--muted);
-      font-size: 14px;
     }
 
     .timeline {
@@ -1213,30 +951,51 @@
       box-shadow: 0 0 18px rgba(53,228,212,.64);
     }
 
-    .reveal {
+    .source-list { display: grid; gap: 12px; }
+    .source-item {
+      display: grid;
+      grid-template-columns: 150px minmax(0,1fr);
+      gap: 14px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.065);
+      border: 1px solid var(--line);
+    }
+
+    .source-item b { color: #fff; font-size: 14px; }
+    .source-item a {
+      color: #bdf7ff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .source-item p { color: var(--muted); font-size: 14px; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 40;
+      transform: translate(-50%, 22px);
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .footer {
-      padding: 30px 0 38px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      color: var(--dim);
+      pointer-events: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(53,228,212,.28);
+      background: rgba(5,11,18,.86);
+      color: #eaffff;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      transition: opacity .25s ease, transform .25s ease;
       font-size: 13px;
-      text-align: center;
     }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
     .assist {
       position: fixed;
       right: 18px;
       bottom: 18px;
-      z-index: 19;
+      z-index: 27;
       display: grid;
       gap: 10px;
     }
@@ -1245,82 +1004,59 @@
     .assist a {
       width: 44px;
       height: 44px;
+      display: grid;
+      place-items: center;
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(7,16,25,.76);
       color: #fff;
-      display: grid;
-      place-items: center;
       cursor: pointer;
       backdrop-filter: blur(12px);
-      transition: transform .2s ease, border-color .2s ease;
     }
 
-    .assist button:hover,
-    .assist a:hover {
-      transform: translateY(-2px);
-      border-color: rgba(53,228,212,.4);
+    .footer {
+      padding: 30px 0 38px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--dim);
+      text-align: center;
+      font-size: 13px;
     }
 
-    .progress {
-      position: fixed;
-      top: 64px;
-      left: 0;
-      height: 2px;
-      width: 0;
-      background: linear-gradient(90deg, var(--cyan), var(--gold), var(--green));
-      z-index: 21;
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
     }
 
-    .cursor-light {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: .42;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(53,228,212,.16), rgba(255,209,102,.06) 35%, transparent 68%);
-      mix-blend-mode: screen;
-      transition: opacity .2s ease;
-    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
 
-    .mobile-menu {
-      display: none;
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.07);
-      color: #fff;
-      cursor: pointer;
+    .motion-paused *,
+    .motion-paused *::before,
+    .motion-paused *::after {
+      animation-play-state: paused !important;
     }
 
     @media (max-width: 1060px) {
       .nav-links { display: none; }
-      .mobile-menu { display: grid; place-items: center; }
+      .menu-btn { display: grid; place-items: center; }
       .nav-links.open {
         position: absolute;
         display: grid;
         right: 18px;
-        top: 70px;
-        width: min(280px, calc(100vw - 36px));
+        top: 72px;
+        width: min(290px, calc(100vw - 36px));
         padding: 14px;
+        border-radius: var(--radius);
         border: 1px solid var(--line);
         background: rgba(5,11,18,.96);
-        border-radius: var(--radius);
         box-shadow: var(--shadow);
       }
       .hero-grid,
       .split,
-      .competition-grid,
-      .strategy-board,
+      .framework-board,
       .capability-stage,
-      .lab,
-      .scenario-panel { grid-template-columns: 1fr; }
+      .scenario-panel,
+      .lab { grid-template-columns: 1fr; }
       .stage { min-height: 470px; }
       .atlas,
       .grid-3,
@@ -1339,29 +1075,27 @@
 
     @media (max-width: 720px) {
       .container { width: calc(100% - 28px); }
-      .hero { min-height: auto; padding: 88px 0 40px; }
+      .hero { min-height: auto; padding: 88px 0 42px; }
       h1 { font-size: 38px; }
       .lead { font-size: 14.5px; }
       .hero-stats,
       .hud,
-      .lab-caption,
       .chart-board,
       .grid-2,
       .grid-3,
       .grid-4,
-      .atlas { grid-template-columns: 1fr; }
+      .atlas,
+      .framework-metrics { grid-template-columns: 1fr; }
       .stage { min-height: 390px; }
       .robot-wrap { inset: 24px 18px 94px; }
       .hud-item:nth-child(2),
       .hud-item:nth-child(3) { display: none; }
       section { padding: 54px 0; }
       .metric { font-size: 26px; }
-      .source-item { grid-template-columns: 1fr; }
-      .award-metrics { grid-template-columns: 1fr; }
+      .source-item,
+      .micro-item { grid-template-columns: 1fr; }
       .radar-panel { min-height: 360px; }
       #radarCanvas { min-height: 330px; }
-      .signal-line div,
-      .maturity-row { grid-template-columns: 1fr; }
       .assist { display: none; }
     }
 
@@ -1373,36 +1107,29 @@
         scroll-behavior: auto !important;
       }
     }
-
-    .motion-paused *,
-    .motion-paused *::before,
-    .motion-paused *::after {
-      animation-play-state: paused !important;
-    }
   </style>
 </head>
 <body>
   <div class="cursor-light" id="cursorLight" aria-hidden="true"></div>
   <div class="progress" id="progress"></div>
+
   <header class="topbar">
     <div class="container nav">
       <a class="brand" href="#home" aria-label="返回首页">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>机器人智能介绍馆</span>
+        <span>机器人智能发展研究</span>
       </a>
-      <button class="mobile-menu" id="menuBtn" aria-label="打开导航">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="打开导航">☰</button>
       <nav class="nav-links" id="navLinks" aria-label="页面导航">
-        <a href="#overview">认知入口</a>
-        <a href="#competition">比赛亮点</a>
+        <a href="#overview">发展概览</a>
+        <a href="#framework">研究框架</a>
         <a href="#data">产业数据</a>
-        <a href="#strategy">战略观察</a>
-        <a href="#capability">能力雷达</a>
-        <a href="#types">类型图鉴</a>
-        <a href="#tech">核心技术</a>
+        <a href="#types">类型体系</a>
+        <a href="#tech">技术架构</a>
+        <a href="#capability">能力对比</a>
         <a href="#scenes">应用场景</a>
-        <a href="#lab">交互实验</a>
-        <a href="#future">未来趋势</a>
-        <a href="#summary">总结判断</a>
+        <a href="#lab">任务模拟</a>
+        <a href="#future">发展趋势</a>
         <a href="#sources">资料来源</a>
       </nav>
     </div>
@@ -1412,20 +1139,20 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div class="reveal show">
-          <div class="kicker"><i></i><span>AI × 机器人 × 真实世界</span></div>
-          <h1>机器人不只是机器，<span class="gradient-text">它是会感知、思考与行动的智能体</span></h1>
+          <div class="kicker"><i></i><span>人工智能与实体装备融合</span></div>
+          <h1>机器人智能：<span class="gradient">连接数字智能与真实世界</span></h1>
           <p class="lead">
-            这个网站以展馆式方式介绍机器人：从工业机械臂、服务机器人、人形机器人到医疗与特种设备，串联产业数据、技术闭环、典型场景与未来趋势，适合课堂展示、项目汇报和科普介绍。
+            机器人智能的发展正在推动制造、医疗、物流、养老和特种作业发生变化。它不仅依赖人工智能算法，也依赖传感器、控制系统、机械结构、能源管理和安全机制的协同进步。
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="#types">进入机器人图鉴</a>
-            <a class="btn" href="#lab">体验交互实验</a>
-            <button class="btn" id="tourBtn" type="button">一键演示</button>
+            <a class="btn primary" href="#overview">开始浏览</a>
+            <a class="btn" href="#capability">查看能力对比</a>
+            <a class="btn" href="#lab">进入任务模拟</a>
           </div>
           <div class="hero-stats" aria-label="核心数据">
-            <div class="hero-stat"><strong data-count="542000">0</strong><span>2024 年全球工业机器人新增安装量，连续第四年超过 50 万台</span></div>
-            <div class="hero-stat"><strong data-count="295045">0</strong><span>2024 年中国工业机器人安装量，约占全球新增部署 54%</span></div>
-            <div class="hero-stat"><strong data-count="199000">0</strong><span>2024 年专业服务机器人销量，物流、酒店与清洁位列前列</span></div>
+            <div class="hero-stat"><strong data-count="542000">0</strong><span>2024 年全球工业机器人新增安装量</span></div>
+            <div class="hero-stat"><strong data-count="295045">0</strong><span>2024 年中国工业机器人安装量</span></div>
+            <div class="hero-stat"><strong data-count="4664000">0</strong><span>2024 年全球在役工业机器人数量</span></div>
           </div>
         </div>
 
@@ -1434,7 +1161,7 @@
           <canvas id="heroParticles" aria-hidden="true"></canvas>
           <div class="robot-wrap">
             <div class="robot-shell" id="robotShell">
-              <svg class="robot-svg" viewBox="0 0 330 365" role="img" aria-label="动态机器人示意图">
+              <svg class="robot-svg" viewBox="0 0 330 365" role="img" aria-label="智能机器人示意图">
                 <defs>
                   <linearGradient id="metal" x1="0" x2="1">
                     <stop offset="0" stop-color="#ecfbff"/>
@@ -1472,9 +1199,9 @@
             </div>
           </div>
           <div class="hud">
-            <div class="hud-item"><b>感知在线</b><span>视觉、力觉、距离传感</span></div>
-            <div class="hud-item"><b>规划中</b><span>路径、任务、避障策略</span></div>
-            <div class="hud-item"><b>闭环控制</b><span>反馈修正与稳定执行</span></div>
+            <div class="hud-item"><b>环境感知</b><span>视觉、距离、力觉与触觉信息</span></div>
+            <div class="hud-item"><b>任务规划</b><span>目标理解、路径规划与动作分解</span></div>
+            <div class="hud-item"><b>闭环控制</b><span>反馈修正、稳定执行与安全约束</span></div>
           </div>
         </div>
       </div>
@@ -1483,128 +1210,94 @@
     <section id="overview">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">认知入口</div>
-          <h2>机器人到底是什么</h2>
-          <p>机器人是由机械结构、驱动系统、传感器、控制算法和智能软件组成的综合系统。它的关键价值，不是“像人”，而是能够在真实环境中稳定完成任务。</p>
+          <div class="eyebrow">发展概览</div>
+          <h2>从自动化设备到智能实体</h2>
+          <p>机器人正在从固定程序控制的自动化设备，发展为能够感知环境、理解任务、规划动作并进行反馈修正的智能实体。</p>
         </div>
         <div class="split">
-          <div class="card console reveal">
-            <div class="console-top">
-              <span class="console-dot"></span><span class="console-dot"></span><span class="console-dot"></span>
-              <span>robot-intelligence / system view</span>
-            </div>
-            <div class="console-body">
-              <h3>从自动化设备到智能体</h3>
-              <p>传统自动化更依赖固定程序和稳定环境，智能机器人则要面对不确定性：物体位置会变化，人的指令会模糊，环境会突然出现障碍。智能化的核心，就是让机器人具备感知、理解、规划、行动和自我修正的能力。</p>
-              <ul>
-                <li>感知：识别物体、空间、距离、力和接触状态。</li>
-                <li>决策：理解任务目标，选择动作顺序与路径。</li>
-                <li>控制：把计划转化成稳定、精准、安全的运动。</li>
-                <li>执行：通过机械臂、底盘、夹爪、轮足结构完成工作。</li>
-                <li>协同：与人、产线、医院、仓库或家庭系统共同运行。</li>
-              </ul>
-            </div>
+          <div class="card reveal">
+            <div class="icon-box">核</div>
+            <h3>机器人智能的核心内涵</h3>
+            <p>机器人智能强调机器在真实物理环境中的自主能力。它不同于纯软件系统，需要同时处理环境不确定性、机械误差、能耗限制、安全边界和人机协同。</p>
+            <ul>
+              <li>感知外部环境和自身状态。</li>
+              <li>根据目标进行任务分解和路径规划。</li>
+              <li>将决策转化为稳定、精准的物理动作。</li>
+              <li>通过反馈不断调整执行过程。</li>
+            </ul>
           </div>
           <div class="grid grid-2">
-            <div class="card reveal"><div class="icon-box">01</div><h3>工业机器人</h3><p>服务于制造过程，典型任务包括焊接、搬运、装配、喷涂、检测和上下料。它们追求高精度、高速度和高可靠性。</p></div>
-            <div class="card reveal"><div class="icon-box">02</div><h3>服务机器人</h3><p>面向物流、酒店、清洁、导览、家庭与公共服务，需要更好的移动能力、交互体验和环境适应性。</p></div>
-            <div class="card reveal"><div class="icon-box">03</div><h3>医疗机器人</h3><p>用于手术辅助、康复训练、医院配送、诊断和实验室自动化，强调安全、稳定、可验证和人机协同。</p></div>
-            <div class="card reveal"><div class="icon-box">04</div><h3>具身智能</h3><p>让 AI 通过身体与现实世界互动，是人形机器人、四足机器人和通用机器人发展的重要方向。</p></div>
+            <div class="card reveal"><div class="icon-box">工</div><h3>制造升级</h3><p>工业机器人提升生产效率、质量稳定性和安全水平，是智能制造的重要基础。</p></div>
+            <div class="card reveal"><div class="icon-box">服</div><h3>服务延伸</h3><p>服务机器人进入物流、医疗、养老、公共服务和家庭场景，扩展机器人应用边界。</p></div>
+            <div class="card reveal"><div class="icon-box">智</div><h3>AI 赋能</h3><p>大模型、机器视觉和强化学习提升机器人理解环境与执行复杂任务的能力。</p></div>
+            <div class="card reveal"><div class="icon-box">协</div><h3>人机协同</h3><p>协作机器人和智能交互系统让机器人更适合与人共享工作空间。</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="competition">
+    <section id="framework">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">比赛亮点</div>
-          <h2>让评委一眼记住的四个亮点</h2>
-          <p>比赛网站最重要的是“完整度”和“体验感”。这个版本把内容、数据、动画、交互和叙事节奏整合为一个可演示作品。</p>
+          <div class="eyebrow">研究框架</div>
+          <h2>理解机器人智能的四个维度</h2>
+          <p>机器人智能的发展不是单一技术突破，而是产业需求、技术体系、应用场景和社会影响共同作用的结果。</p>
         </div>
-        <div class="competition-grid">
-          <div class="card award-panel spot-card reveal" data-tilt>
-            <div class="award-title">
-              <strong>Competition Edition</strong>
-              <h3>不是普通网页，而是一座可交互的机器人智能展馆</h3>
-              <p>从首页动态机器人到能力雷达、场景切换、任务模拟和产业图表，页面形成完整参观路线，适合现场讲解、课堂答辩与项目展示。</p>
-            </div>
-            <div class="award-metrics">
-              <div><b>10+</b><span>完整内容模块</span></div>
-              <div><b>6</b><span>典型机器人类型</span></div>
-              <div><b>5</b><span>真实应用场景</span></div>
-              <div><b>4</b><span>数据图表支撑</span></div>
+        <div class="framework-board">
+          <div class="card framework-main spot-card reveal">
+            <strong>Research Framework</strong>
+            <h3>机器人智能是人工智能走向物理世界的重要路径</h3>
+            <p>当人工智能从文本、图像和数据分析走向真实任务，机器人便成为连接数字智能与物理世界的关键载体。它既需要算法理解世界，也需要硬件稳定执行动作。</p>
+            <div class="framework-metrics">
+              <div><b>产业</b><span>制造升级与服务自动化</span></div>
+              <div><b>技术</b><span>AI、控制与传感融合</span></div>
+              <div><b>场景</b><span>工厂、医院、家庭与特种环境</span></div>
+              <div><b>社会</b><span>效率、安全、养老与就业转型</span></div>
             </div>
           </div>
           <div class="micro-list">
-            <div class="micro-item reveal"><i>动</i><div><b>开场有记忆点</b><span>首页粒子网络、悬浮机器人、扫描光效和鼠标视差，让第一屏具备比赛展示的冲击力。</span></div></div>
-            <div class="micro-item reveal"><i>交</i><div><b>交互有参与感</b><span>能力雷达、场景标签、任务模拟器、按钮涟漪和卡片倾斜，让观众不只是阅读。</span></div></div>
-            <div class="micro-item reveal"><i>据</i><div><b>数据有可信度</b><span>引入 IFR 与 Stanford AI Index 的公开材料，避免页面停留在空泛介绍。</span></div></div>
-            <div class="micro-item reveal"><i>讲</i><div><b>叙事有逻辑</b><span>先讲概念，再讲产业，再讲类型、技术、场景和未来，符合汇报表达习惯。</span></div></div>
+            <div class="micro-item reveal"><i>产</i><div><b>产业升级需求</b><span>机器人适合承担重复、危险、高精度和高强度任务，是智能制造和现代服务体系的重要支撑。</span></div></div>
+            <div class="micro-item reveal"><i>智</i><div><b>人工智能落地</b><span>大模型、机器视觉和强化学习正在提升机器人理解环境、分解任务和自主规划的能力。</span></div></div>
+            <div class="micro-item reveal"><i>体</i><div><b>实体世界交互</b><span>机器人必须面对摩擦、重量、碰撞、能耗、误差和安全边界，这是物理智能的重要挑战。</span></div></div>
+            <div class="micro-item reveal"><i>用</i><div><b>社会应用价值</b><span>机器人将在医疗康复、养老陪护、物流仓储、公共服务和高危作业中发挥更大作用。</span></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="strategy">
+    <section id="data">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">战略观察</div>
-          <h2>用一个框架看懂机器人高级感</h2>
-          <p>高级机器人不是单个零件先进，而是“智能算法、可靠硬件、场景工程、商业闭环”同时成立。这个模块把机器人从玩具式想象拉回真实产业判断。</p>
+          <div class="eyebrow">产业数据</div>
+          <h2>机器人产业规模持续扩大</h2>
+          <p>公开行业数据表明，工业机器人保持高位部署，服务机器人和医疗机器人在多类场景中持续增长。</p>
         </div>
-        <div class="strategy-board">
-          <div class="card signal-card reveal">
-            <div class="icon-box">架</div>
-            <h3>机器人智能三层架构</h3>
-            <p>介绍机器人时，可以按三层结构展开：底层是硬件，中层是控制，上层是智能。每一层都决定机器人能否真正落地。</p>
-            <div class="signal-line">
-              <div><b>物理层</b><span>机械结构、关节、电机、减速器、电池、传感器，决定负载、速度、续航和可靠性。</span></div>
-              <div><b>控制层</b><span>伺服控制、轨迹规划、闭环反馈、安全策略，决定动作是否精准、稳定、可预测。</span></div>
-              <div><b>智能层</b><span>视觉识别、任务理解、大模型交互、强化学习和场景记忆，决定机器人是否会适应变化。</span></div>
-            </div>
-          </div>
-          <div class="card reveal">
-            <div class="icon-box">级</div>
-            <h3>典型方向成熟度</h3>
-            <p>不同机器人方向的成熟度差异很大。工业机器人最成熟，人形机器人最具想象力，但也最考验成本、能耗和泛化能力。</p>
-            <div class="maturity">
-              <div class="maturity-row"><span>工业机械臂</span><div class="track"><i style="--value:92%"></i></div><b>高</b></div>
-              <div class="maturity-row"><span>仓储移动</span><div class="track"><i style="--value:82%"></i></div><b>高</b></div>
-              <div class="maturity-row"><span>医疗辅助</span><div class="track"><i style="--value:68%"></i></div><b>中</b></div>
-              <div class="maturity-row"><span>养老陪护</span><div class="track"><i style="--value:52%"></i></div><b>中</b></div>
-              <div class="maturity-row"><span>人形通用</span><div class="track"><i style="--value:38%"></i></div><b>早</b></div>
-            </div>
-            <div class="quote-panel">
-              <b>展示重点</b>
-              <p>如果用于汇报，建议把“人形机器人”作为未来趋势和视觉亮点，把“工业、物流、医疗”作为现实落地依据，这样内容既有想象力，也站得稳。</p>
-            </div>
-          </div>
+        <div class="grid grid-4">
+          <div class="card reveal"><div class="metric">54.2 万台</div><h3>全球安装量</h3><p>2024 年全球工业机器人安装量约 542,000 台。</p></div>
+          <div class="card reveal"><div class="metric">466.4 万台</div><h3>全球在役量</h3><p>2024 年全球工厂在役工业机器人约 4,664,000 台。</p></div>
+          <div class="card reveal"><div class="metric">74%</div><h3>亚洲占比</h3><p>2024 年全球新增工业机器人部署中，亚洲占 74%。</p></div>
+          <div class="card reveal"><div class="metric">91%</div><h3>医疗机器人增长</h3><p>2024 年医疗机器人销量同比增长约 91%。</p></div>
         </div>
-      </div>
-    </section>
-
-    <section id="capability">
-      <div class="container">
-        <div class="section-title reveal">
-          <div class="eyebrow">能力雷达</div>
-          <h2>点击查看不同机器人能力画像</h2>
-          <p>不同机器人看似都叫机器人，实际能力侧重点完全不同。能力雷达把“感知、决策、控制、交互、适应性、商业成熟度”放在同一张图里比较。</p>
-        </div>
-        <div class="capability-stage">
-          <div class="card radar-panel reveal">
-            <canvas id="radarCanvas" aria-label="机器人能力雷达图"></canvas>
+        <div class="chart-board" style="margin-top:16px">
+          <div class="card chart-card reveal">
+            <h3>主要市场工业机器人安装量</h3>
+            <div class="chart-wrap"><canvas id="barMarket"></canvas></div>
+            <p>单位：台。中国、日本、美国、韩国、德国和印度是主要工业机器人市场。</p>
           </div>
-          <div class="card reveal">
-            <h3 id="capabilityTitle">工业机械臂</h3>
-            <p id="capabilityText">工业机械臂在控制精度、重复稳定性和商业成熟度方面最强，是机器人产业落地最成熟的方向。</p>
-            <div class="capability-menu" style="margin-top:16px">
-              <button class="capability-btn active" data-kind="arm"><b>工业机械臂</b><span>高精度、高稳定、高成熟，适合制造产线。</span></button>
-              <button class="capability-btn" data-kind="amr"><b>移动服务机器人</b><span>强调导航、避障、调度和人机交互。</span></button>
-              <button class="capability-btn" data-kind="medical"><b>医疗机器人</b><span>强调安全、精细控制和流程合规。</span></button>
-              <button class="capability-btn" data-kind="humanoid"><b>人形机器人</b><span>具备未来想象力，挑战在成本、能耗与泛化。</span></button>
-              <button class="capability-btn" data-kind="special"><b>特种机器人</b><span>强调复杂环境适应、远程控制和可靠通信。</span></button>
-            </div>
+          <div class="card chart-card reveal">
+            <h3>全球新增部署区域结构</h3>
+            <div class="chart-wrap"><canvas id="donutRegion"></canvas></div>
+            <p>亚洲占比领先，反映机器人部署与制造业自动化程度密切相关。</p>
+          </div>
+          <div class="card chart-card reveal">
+            <h3>专业服务机器人应用结构</h3>
+            <div class="chart-wrap"><canvas id="barService"></canvas></div>
+            <p>运输物流、酒店服务、专业清洁、农业和医疗是重要应用方向。</p>
+          </div>
+          <div class="card chart-card reveal">
+            <h3>AI 模型产业来源变化</h3>
+            <div class="chart-wrap"><canvas id="lineAI"></canvas></div>
+            <p>产业界正在成为知名 AI 模型的重要来源，推动机器人智能能力提升。</p>
           </div>
         </div>
       </div>
@@ -1613,9 +1306,9 @@
     <section id="types">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">类型图鉴</div>
-          <h2>六类典型机器人</h2>
-          <p>不同机器人不是简单换外形，而是在任务、环境、传感器、执行机构与安全要求上有完全不同的设计逻辑。</p>
+          <div class="eyebrow">类型体系</div>
+          <h2>典型机器人类型</h2>
+          <p>不同机器人类型对应不同任务、环境和技术要求。理解类型差异，有助于判断机器人的落地价值。</p>
         </div>
         <div class="atlas">
           <article class="card robot-card reveal">
@@ -1633,16 +1326,11 @@
                 <circle cx="96" cy="128" r="13" fill="#ecfbff"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>工业机械臂</h3>
-              <div class="tag-row"><span class="tag">高精度</span><span class="tag">制造业</span><span class="tag">重复作业</span></div>
-              <p>最成熟的机器人形态之一，用于汽车、电子、新能源、金属加工等领域。它的优势是稳定、快速、可连续作业。</p>
-            </div>
+            <div class="card-body"><h3>工业机械臂</h3><div class="tag-row"><span class="tag">高精度</span><span class="tag">制造业</span><span class="tag">稳定作业</span></div><p>广泛应用于焊接、搬运、装配、喷涂和检测，是当前最成熟的机器人形态之一。</p></div>
           </article>
-
           <article class="card robot-card reveal">
             <div class="robot-art">
-              <svg viewBox="0 0 320 240" aria-label="移动配送机器人">
+              <svg viewBox="0 0 320 240" aria-label="移动服务机器人">
                 <rect x="50" y="178" width="220" height="18" rx="9" fill="#1d3448"/>
                 <rect x="86" y="72" width="148" height="96" rx="24" fill="#ecfbff"/>
                 <rect x="106" y="92" width="108" height="40" rx="12" fill="#14283a"/>
@@ -1651,17 +1339,10 @@
                 <rect x="122" y="142" width="76" height="18" rx="9" fill="#76e5f2"/>
                 <circle cx="132" cy="112" r="6" fill="#35e4d4"/>
                 <circle cx="188" cy="112" r="6" fill="#ffd166"/>
-                <path d="M60 125 C72 100, 85 88, 108 88" fill="none" stroke="#35e4d4" stroke-width="7" stroke-linecap="round"/>
-                <circle cx="58" cy="128" r="10" fill="#35e4d4"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>配送机器人</h3>
-              <div class="tag-row"><span class="tag">自主导航</span><span class="tag">楼宇服务</span><span class="tag">避障</span></div>
-              <p>常见于酒店、医院、写字楼、商场和园区，用于送餐、送物、药品配送与文件传递，强调路线规划和交互体验。</p>
-            </div>
+            <div class="card-body"><h3>移动服务机器人</h3><div class="tag-row"><span class="tag">自主导航</span><span class="tag">避障</span><span class="tag">楼宇服务</span></div><p>常用于医院、酒店、商场、园区和写字楼，完成配送、导览、巡检和清洁任务。</p></div>
           </article>
-
           <article class="card robot-card reveal">
             <div class="robot-art">
               <svg viewBox="0 0 320 240" aria-label="医疗机器人">
@@ -1673,17 +1354,10 @@
                 <circle cx="159" cy="98" r="19" fill="#14283a" stroke="#a78bfa" stroke-width="5"/>
                 <rect x="166" y="92" width="62" height="10" rx="5" fill="#a78bfa" transform="rotate(-20 166 92)"/>
                 <circle cx="230" cy="72" r="11" fill="#ecfbff"/>
-                <path d="M84 128 H126" stroke="#35e4d4" stroke-width="8" stroke-linecap="round"/>
-                <path d="M84 144 H116" stroke="#ffd166" stroke-width="8" stroke-linecap="round"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>医疗机器人</h3>
-              <div class="tag-row"><span class="tag">精细操作</span><span class="tag">安全优先</span><span class="tag">人机协作</span></div>
-              <p>包括手术辅助、康复训练、医院物流和实验室自动化，对精度、稳定性、冗余设计和临床流程融合要求很高。</p>
-            </div>
+            <div class="card-body"><h3>医疗机器人</h3><div class="tag-row"><span class="tag">精细控制</span><span class="tag">安全优先</span><span class="tag">临床辅助</span></div><p>用于手术辅助、康复训练、医院物流和实验室自动化，对安全性与稳定性要求很高。</p></div>
           </article>
-
           <article class="card robot-card reveal">
             <div class="robot-art">
               <svg viewBox="0 0 320 240" aria-label="养老陪护机器人">
@@ -1696,18 +1370,10 @@
                 <rect x="194" y="138" width="44" height="12" rx="6" fill="#a78bfa"/>
                 <rect x="136" y="178" width="12" height="34" rx="6" fill="#35e4d4"/>
                 <rect x="172" y="178" width="12" height="34" rx="6" fill="#35e4d4"/>
-                <rect x="100" y="208" width="120" height="12" rx="6" fill="#1d3448"/>
-                <path d="M58 96 C86 70, 108 64, 132 70" fill="none" stroke="#42a5ff" stroke-width="6" stroke-linecap="round"/>
-                <circle cx="54" cy="102" r="10" fill="#42a5ff"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>养老陪护机器人</h3>
-              <div class="tag-row"><span class="tag">健康监测</span><span class="tag">语音交互</span><span class="tag">陪伴</span></div>
-              <p>可提供用药提醒、跌倒预警、紧急呼叫、情绪陪伴和智能家居联动，是应对老龄化服务压力的辅助工具。</p>
-            </div>
+            <div class="card-body"><h3>养老陪护机器人</h3><div class="tag-row"><span class="tag">健康监测</span><span class="tag">语音交互</span><span class="tag">安全提醒</span></div><p>可提供用药提醒、跌倒预警、紧急呼叫、情绪陪伴和智能家居联动等辅助服务。</p></div>
           </article>
-
           <article class="card robot-card reveal">
             <div class="robot-art">
               <svg viewBox="0 0 320 240" aria-label="人形机器人">
@@ -1717,84 +1383,27 @@
                 <rect x="124" y="110" width="72" height="64" rx="22" fill="#14283a"/>
                 <rect x="78" y="120" width="42" height="12" rx="6" fill="#76e5f2"/>
                 <rect x="200" y="120" width="42" height="12" rx="6" fill="#76e5f2"/>
-                <rect x="94" y="130" width="12" height="54" rx="6" fill="#a78bfa"/>
-                <rect x="214" y="130" width="12" height="54" rx="6" fill="#a78bfa"/>
                 <rect x="136" y="174" width="12" height="44" rx="6" fill="#35e4d4"/>
                 <rect x="172" y="174" width="12" height="44" rx="6" fill="#35e4d4"/>
-                <rect x="126" y="214" width="28" height="10" rx="5" fill="#1d3448"/>
-                <rect x="166" y="214" width="28" height="10" rx="5" fill="#1d3448"/>
-                <circle cx="70" cy="66" r="18" fill="#14283a" stroke="#76e5f2" stroke-width="5"/>
-                <path d="M86 66 H112" stroke="#35e4d4" stroke-width="7" stroke-linecap="round"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>人形机器人</h3>
-              <div class="tag-row"><span class="tag">具身智能</span><span class="tag">通用环境</span><span class="tag">交互</span></div>
-              <p>人形结构天然适配为人类设计的空间，但也带来更高的运动控制、能源、成本和安全挑战。</p>
-            </div>
+            <div class="card-body"><h3>人形机器人</h3><div class="tag-row"><span class="tag">具身智能</span><span class="tag">通用环境</span><span class="tag">人机交互</span></div><p>人形结构适应人类环境，但在运动控制、续航、成本和安全方面仍面临挑战。</p></div>
           </article>
-
           <article class="card robot-card reveal">
             <div class="robot-art">
-              <svg viewBox="0 0 320 240" aria-label="四足巡检机器人">
+              <svg viewBox="0 0 320 240" aria-label="特种机器人">
                 <rect x="74" y="136" width="172" height="56" rx="20" fill="#14283a"/>
                 <rect x="104" y="92" width="112" height="54" rx="16" fill="#ecfbff"/>
                 <circle cx="142" cy="120" r="9" fill="#35e4d4"/>
-                <circle cx="178" cy="120" r="9" fill="#42a5ff"/>
+                <circle cx="178" cy="120" r="9" fill="#45a7ff"/>
                 <rect x="90" y="184" width="28" height="14" rx="7" fill="#a78bfa"/>
                 <rect x="132" y="184" width="28" height="14" rx="7" fill="#a78bfa"/>
                 <rect x="176" y="184" width="28" height="14" rx="7" fill="#35e4d4"/>
                 <rect x="218" y="184" width="28" height="14" rx="7" fill="#35e4d4"/>
-                <path d="M70 88 L104 108" stroke="#35e4d4" stroke-width="7" stroke-linecap="round"/>
-                <circle cx="64" cy="84" r="12" fill="#35e4d4"/>
-                <path d="M250 78 L216 104" stroke="#76e5f2" stroke-width="7" stroke-linecap="round"/>
-                <circle cx="256" cy="72" r="12" fill="#76e5f2"/>
               </svg>
             </div>
-            <div class="card-body">
-              <h3>巡检与特种机器人</h3>
-              <div class="tag-row"><span class="tag">复杂环境</span><span class="tag">远程监测</span><span class="tag">安全保障</span></div>
-              <p>面向电力、消防、石化、矿区、地下管廊和应急救援，价值在于替人进入危险环境。</p>
-            </div>
+            <div class="card-body"><h3>巡检与特种机器人</h3><div class="tag-row"><span class="tag">复杂环境</span><span class="tag">远程监测</span><span class="tag">安全保障</span></div><p>面向电力、消防、石化、矿区和应急救援，价值在于替代人员进入危险环境。</p></div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="lab">
-      <div class="container">
-        <div class="section-title reveal">
-          <div class="eyebrow">交互实验</div>
-          <h2>机器人任务模拟器</h2>
-          <p>拖动滑块观察机器人在“速度、精度、负载”之间的取舍。越快不一定越稳，负载越高也意味着能源、控制和安全压力越大。</p>
-        </div>
-        <div class="lab">
-          <div class="lab-controls reveal">
-            <div class="control">
-              <label for="speed"><span>移动速度</span><b id="speedValue">62%</b></label>
-              <input id="speed" type="range" min="10" max="100" value="62" />
-            </div>
-            <div class="control">
-              <label for="precision"><span>定位精度</span><b id="precisionValue">78%</b></label>
-              <input id="precision" type="range" min="10" max="100" value="78" />
-            </div>
-            <div class="control">
-              <label for="payload"><span>负载重量</span><b id="payloadValue">45%</b></label>
-              <input id="payload" type="range" min="10" max="100" value="45" />
-            </div>
-            <div class="card">
-              <h3 id="labStatus">柔性搬运模式</h3>
-              <p id="labText">当前参数适合仓储搬运、园区配送与轻量级装配任务，兼顾速度与稳定性。</p>
-            </div>
-          </div>
-          <div class="lab-screen reveal">
-            <canvas id="labCanvas" aria-label="机器人任务模拟动画"></canvas>
-            <div class="lab-caption">
-              <div><b>路径规划</b><small>根据障碍点动态调整路线</small></div>
-              <div><b>运动控制</b><small>速度越高，轨迹波动越明显</small></div>
-              <div><b>安全余量</b><small>负载越高，刹停距离越长</small></div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1802,9 +1411,9 @@
     <section id="tech">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">核心技术</div>
-          <h2>机器人如何感知、思考与行动</h2>
-          <p>智能机器人是跨学科系统，真正的难点在于把算法、硬件和场景约束放进同一个闭环里。</p>
+          <div class="eyebrow">技术架构</div>
+          <h2>机器人智能的技术闭环</h2>
+          <p>智能机器人不是单一技术成果，而是传感、算法、控制、机械、能源和交互系统共同融合的结果。</p>
         </div>
         <div class="flow reveal">
           <div class="flow-step">环境感知</div>
@@ -1814,12 +1423,38 @@
           <div class="flow-step">反馈优化</div>
         </div>
         <div class="grid grid-3">
-          <div class="card reveal"><div class="icon-box">视</div><h3>感知系统</h3><p>让机器人获得环境信息，相当于眼睛、耳朵和皮肤。</p><ul><li>机器视觉、深度相机、激光雷达</li><li>力觉、触觉、温度和压力传感器</li><li>多传感器融合与场景理解</li></ul></div>
-          <div class="card reveal"><div class="icon-box">脑</div><h3>智能决策</h3><p>把任务目标转化为可执行的动作计划。</p><ul><li>路径规划、强化学习、任务分解</li><li>大模型与自然语言交互</li><li>具身智能与世界模型探索</li></ul></div>
-          <div class="card reveal"><div class="icon-box">控</div><h3>控制系统</h3><p>让动作稳定、精准、安全地落到物理世界。</p><ul><li>伺服控制、闭环反馈、轨迹跟踪</li><li>机械臂和移动底盘控制</li><li>安全边界与异常停机机制</li></ul></div>
-          <div class="card reveal"><div class="icon-box">执</div><h3>执行机构</h3><p>完成抓取、搬运、移动、加工、检测等动作。</p><ul><li>机械臂、夹爪、吸盘、末端工具</li><li>轮式、履带式、四足与人形结构</li><li>关节电机、减速器和柔性执行器</li></ul></div>
-          <div class="card reveal"><div class="icon-box">能</div><h3>能源与材料</h3><p>决定续航、负载、成本和可维护性。</p><ul><li>电池管理、能耗优化、热管理</li><li>轻量化结构与高强度材料</li><li>模块化维修与寿命设计</li></ul></div>
-          <div class="card reveal"><div class="icon-box">人</div><h3>人机协同</h3><p>让机器人能与人共享空间、理解意图并安全合作。</p><ul><li>语音、触控、手势和远程控制</li><li>协作机器人安全标准</li><li>可解释反馈与任务确认</li></ul></div>
+          <div class="card reveal"><div class="icon-box">视</div><h3>感知系统</h3><p>通过视觉、雷达、力觉、触觉和距离传感器获取环境与自身状态信息。</p></div>
+          <div class="card reveal"><div class="icon-box">脑</div><h3>智能决策</h3><p>通过机器学习、路径规划、大模型交互和任务分解形成行动策略。</p></div>
+          <div class="card reveal"><div class="icon-box">控</div><h3>控制系统</h3><p>通过伺服控制、闭环反馈和轨迹跟踪实现稳定、精准、安全的运动。</p></div>
+          <div class="card reveal"><div class="icon-box">执</div><h3>执行机构</h3><p>通过机械臂、夹爪、底盘、轮足结构和末端工具完成实际操作。</p></div>
+          <div class="card reveal"><div class="icon-box">能</div><h3>能源与材料</h3><p>电池、能耗管理、轻量化材料和热管理决定续航、负载和可靠性。</p></div>
+          <div class="card reveal"><div class="icon-box">人</div><h3>人机协同</h3><p>语音、手势、触控、远程控制和安全机制让机器人更好地与人协作。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="capability">
+      <div class="container">
+        <div class="section-title reveal">
+          <div class="eyebrow">能力对比</div>
+          <h2>不同机器人能力画像</h2>
+          <p>不同机器人类型在感知、决策、控制、交互、环境适应和成熟度方面具有不同特点。</p>
+        </div>
+        <div class="capability-stage">
+          <div class="card radar-panel reveal">
+            <canvas id="radarCanvas" aria-label="机器人能力雷达图"></canvas>
+          </div>
+          <div class="card reveal">
+            <h3 id="capabilityTitle">工业机械臂</h3>
+            <p id="capabilityText">工业机械臂在控制精度、重复稳定性和商业成熟度方面优势明显，是制造场景中应用最成熟的机器人类型。</p>
+            <div class="capability-menu">
+              <button class="capability-btn active" data-kind="arm"><b>工业机械臂</b><span>高精度、高稳定，适合制造产线。</span></button>
+              <button class="capability-btn" data-kind="amr"><b>移动服务机器人</b><span>强调导航、避障、调度和交互。</span></button>
+              <button class="capability-btn" data-kind="medical"><b>医疗机器人</b><span>强调安全、精细控制和流程合规。</span></button>
+              <button class="capability-btn" data-kind="humanoid"><b>人形机器人</b><span>具备通用环境适应潜力，仍面临成本与可靠性挑战。</span></button>
+              <button class="capability-btn" data-kind="special"><b>特种机器人</b><span>强调复杂环境适应、远程控制和可靠通信。</span></button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1828,15 +1463,15 @@
       <div class="container">
         <div class="section-title reveal">
           <div class="eyebrow">应用场景</div>
-          <h2>机器人进入哪些真实场景</h2>
-          <p>机器人落地不是“哪里都能用”，而是要找到重复性强、风险高、精度要求高、劳动力紧缺或服务半径大的任务。</p>
+          <h2>机器人进入真实生产与生活</h2>
+          <p>机器人最适合重复性强、风险高、精度要求高、劳动力紧缺或服务半径大的任务。</p>
         </div>
         <div class="tabs reveal" role="tablist" aria-label="应用场景切换">
-          <button class="tab-btn active" data-tab="factory" role="tab">智能制造</button>
-          <button class="tab-btn" data-tab="logistics" role="tab">物流仓储</button>
-          <button class="tab-btn" data-tab="medical" role="tab">医疗康复</button>
-          <button class="tab-btn" data-tab="home" role="tab">养老家庭</button>
-          <button class="tab-btn" data-tab="special" role="tab">特种作业</button>
+          <button class="tab-btn active" data-tab="factory">智能制造</button>
+          <button class="tab-btn" data-tab="logistics">物流仓储</button>
+          <button class="tab-btn" data-tab="medical">医疗康复</button>
+          <button class="tab-btn" data-tab="home">养老家庭</button>
+          <button class="tab-btn" data-tab="special">特种作业</button>
         </div>
 
         <div class="scenario-panel active reveal" id="factory">
@@ -1850,16 +1485,10 @@
               <circle cx="182" cy="76" r="27" fill="#14283a" stroke="#76e5f2" stroke-width="7"/>
               <path d="M193 68l78-28" stroke="#ffd166" stroke-width="13" stroke-linecap="round"/>
               <circle cx="282" cy="36" r="16" fill="#ecfbff"/>
-              <path d="M170 87l-76 44" stroke="#35e4d4" stroke-width="13" stroke-linecap="round"/>
-              <circle cx="88" cy="135" r="16" fill="#ecfbff"/>
             </svg>
           </div>
-          <div class="grid grid-2">
-            <div class="card"><h3>价值</h3><p>提升产线稳定性和节拍一致性，减少高强度重复劳动，适合焊接、装配、检测、上下料和码垛。</p></div>
-            <div class="card"><h3>关键条件</h3><p>需要稳定工艺流程、夹具与工装配合、设备互联和现场安全管理，系统集成能力很重要。</p></div>
-          </div>
+          <div class="grid grid-2"><div class="card"><h3>应用价值</h3><p>提升产线节拍一致性和质量稳定性，减少高强度重复劳动。</p></div><div class="card"><h3>落地条件</h3><p>需要工艺流程、夹具、产线系统和安全管理协同配合。</p></div></div>
         </div>
-
         <div class="scenario-panel reveal" id="logistics">
           <div class="scenario-visual">
             <svg viewBox="0 0 420 300" aria-label="物流仓储场景">
@@ -1870,15 +1499,10 @@
               <rect x="102" y="198" width="132" height="20" rx="10" fill="#14283a"/>
               <circle cx="120" cy="246" r="20" fill="#35e4d4"/>
               <circle cx="220" cy="246" r="20" fill="#35e4d4"/>
-              <path d="M290 207c28-38 50-74 72-120" stroke="#ffd166" stroke-width="8" stroke-linecap="round" stroke-dasharray="12 14" fill="none"/>
             </svg>
           </div>
-          <div class="grid grid-2">
-            <div class="card"><h3>价值</h3><p>AMR/AGV 可以完成货物搬运、拣选辅助、库内转运和配送，降低人员往返距离。</p></div>
-            <div class="card"><h3>关键条件</h3><p>路线规划、调度系统、货架和订单系统配合决定效率，单台机器人智能必须与群体协同结合。</p></div>
-          </div>
+          <div class="grid grid-2"><div class="card"><h3>应用价值</h3><p>完成货物搬运、库内转运、拣选辅助和楼宇配送，减少人员往返距离。</p></div><div class="card"><h3>落地条件</h3><p>路线规划、调度系统、订单系统和仓储环境需要协同设计。</p></div></div>
         </div>
-
         <div class="scenario-panel reveal" id="medical">
           <div class="scenario-visual">
             <svg viewBox="0 0 420 300" aria-label="医疗康复场景">
@@ -1888,16 +1512,10 @@
               <circle cx="240" cy="116" r="30" fill="#14283a" stroke="#a78bfa" stroke-width="7"/>
               <path d="M257 103l72-35" stroke="#a78bfa" stroke-width="12" stroke-linecap="round"/>
               <circle cx="340" cy="62" r="14" fill="#ecfbff"/>
-              <path d="M229 134l-44 42" stroke="#76e5f2" stroke-width="12" stroke-linecap="round"/>
-              <rect x="174" y="172" width="74" height="18" rx="9" fill="#76e5f2"/>
             </svg>
           </div>
-          <div class="grid grid-2">
-            <div class="card"><h3>价值</h3><p>在手术、康复、检测、医院物流和实验室自动化中，机器人能提升稳定性、减少重复劳动。</p></div>
-            <div class="card"><h3>关键条件</h3><p>医疗场景强调风险控制、流程合规、医生主导和设备验证，不能只追求“酷炫自动化”。</p></div>
-          </div>
+          <div class="grid grid-2"><div class="card"><h3>应用价值</h3><p>支持手术辅助、康复训练、医院物流和实验室自动化，提高稳定性和效率。</p></div><div class="card"><h3>落地条件</h3><p>医疗场景需要严格安全验证、流程合规和医生主导的人机协同。</p></div></div>
         </div>
-
         <div class="scenario-panel reveal" id="home">
           <div class="scenario-visual">
             <svg viewBox="0 0 420 300" aria-label="养老家庭场景">
@@ -1906,72 +1524,42 @@
               <circle cx="190" cy="104" r="8" fill="#14283a"/>
               <circle cx="226" cy="104" r="8" fill="#14283a"/>
               <rect x="178" y="148" width="60" height="54" rx="18" fill="#14283a"/>
-              <path d="M155 162c-36 8-58 28-72 58" stroke="#42a5ff" stroke-width="9" stroke-linecap="round" fill="none"/>
-              <path d="M260 162c34 8 60 30 76 58" stroke="#ffd166" stroke-width="9" stroke-linecap="round" fill="none"/>
               <path d="M204 175l10 12 22-30" stroke="#35e4d4" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div class="grid grid-2">
-            <div class="card"><h3>价值</h3><p>帮助老人完成提醒、看护、呼叫、陪伴和智能家居联动，更多是辅助服务，而不是替代家庭照护。</p></div>
-            <div class="card"><h3>关键条件</h3><p>需要自然交互、低学习成本、隐私保护和异常告警可靠性，用户信任比功能堆叠更重要。</p></div>
-          </div>
+          <div class="grid grid-2"><div class="card"><h3>应用价值</h3><p>提供健康提醒、跌倒预警、紧急呼叫、陪伴交互和智能家居联动。</p></div><div class="card"><h3>落地条件</h3><p>需要自然交互、低学习成本、隐私保护和异常告警可靠性。</p></div></div>
         </div>
-
         <div class="scenario-panel reveal" id="special">
           <div class="scenario-visual">
             <svg viewBox="0 0 420 300" aria-label="特种作业场景">
               <rect x="80" y="178" width="238" height="58" rx="22" fill="#14283a"/>
               <rect x="122" y="124" width="158" height="58" rx="16" fill="#ecfbff"/>
               <circle cx="176" cy="152" r="10" fill="#35e4d4"/>
-              <circle cx="224" cy="152" r="10" fill="#42a5ff"/>
+              <circle cx="224" cy="152" r="10" fill="#45a7ff"/>
               <path d="M104 232l-24 36M150 232l-12 36M250 232l12 36M296 232l24 36" stroke="#a78bfa" stroke-width="12" stroke-linecap="round"/>
-              <path d="M286 142l62-36" stroke="#ffd166" stroke-width="9" stroke-linecap="round"/>
-              <circle cx="360" cy="100" r="15" fill="#ffd166"/>
-              <path d="M82 134l-42-26" stroke="#35e4d4" stroke-width="9" stroke-linecap="round"/>
-              <circle cx="32" cy="102" r="15" fill="#35e4d4"/>
             </svg>
           </div>
-          <div class="grid grid-2">
-            <div class="card"><h3>价值</h3><p>替人进入危险、狭窄、高温、有毒或不稳定环境，常见于巡检、消防、排爆、矿区和救援。</p></div>
-            <div class="card"><h3>关键条件</h3><p>环境适应、通信稳定、续航和远程控制体验是核心，必要时自主能力与人工接管要无缝切换。</p></div>
-          </div>
+          <div class="grid grid-2"><div class="card"><h3>应用价值</h3><p>替代人员进入高温、有毒、狭窄、不稳定或危险环境。</p></div><div class="card"><h3>落地条件</h3><p>环境适应、通信稳定、远程控制和自主安全机制同样重要。</p></div></div>
         </div>
       </div>
     </section>
 
-    <section id="data">
+    <section id="lab">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">产业数据</div>
-          <h2>用数据理解机器人发展</h2>
-          <p>工业机器人规模已经进入高位运行阶段，服务机器人和医疗机器人则在劳动力短缺、老龄化和场景自动化需求下快速演进。</p>
+          <div class="eyebrow">任务模拟</div>
+          <h2>速度、精度与负载的权衡</h2>
+          <p>机器人任务执行需要在效率、稳定性和安全性之间取得平衡。参数变化会影响路径波动、能耗和安全余量。</p>
         </div>
-        <div class="grid grid-4">
-          <div class="card reveal"><div class="metric">542,000</div><h3>全球安装量</h3><p>IFR 统计显示，2024 年全球工业机器人安装量约 542,000 台。</p></div>
-          <div class="card reveal"><div class="metric">4,664,000</div><h3>全球在役量</h3><p>2024 年全球工厂在役工业机器人约 466.4 万台，同比增长约 9%。</p></div>
-          <div class="card reveal"><div class="metric">74%</div><h3>亚洲占比</h3><p>2024 年全球新增工业机器人中，亚洲占 74%，欧洲 16%，美洲 9%。</p></div>
-          <div class="card reveal"><div class="metric">91%</div><h3>医疗机器人增长</h3><p>2024 年医疗机器人销量约 16,700 台，同比增长 91%。</p></div>
-        </div>
-        <div class="chart-board" style="margin-top:16px">
-          <div class="card chart-card reveal">
-            <h3>2024 年主要市场工业机器人安装量</h3>
-            <div class="chart-wrap"><canvas id="barMarket"></canvas></div>
-            <p>单位：台。中国是全球最大工业机器人应用市场，日本、美国、韩国、德国和印度也位列主要市场。</p>
+        <div class="lab">
+          <div class="lab-controls reveal">
+            <div class="control"><label for="speed"><span>移动速度</span><b id="speedValue">62%</b></label><input id="speed" type="range" min="10" max="100" value="62" /></div>
+            <div class="control"><label for="precision"><span>定位精度</span><b id="precisionValue">78%</b></label><input id="precision" type="range" min="10" max="100" value="78" /></div>
+            <div class="control"><label for="payload"><span>负载重量</span><b id="payloadValue">45%</b></label><input id="payload" type="range" min="10" max="100" value="45" /></div>
+            <div class="card"><h3 id="labStatus">柔性搬运模式</h3><p id="labText">当前参数适合仓储搬运、园区配送与轻量级装配任务，兼顾速度与稳定性。</p></div>
           </div>
-          <div class="card chart-card reveal">
-            <h3>2024 年新增部署区域结构</h3>
-            <div class="chart-wrap"><canvas id="donutRegion"></canvas></div>
-            <p>亚洲占比明显领先，说明机器人产业化与制造业自动化深度绑定。</p>
-          </div>
-          <div class="card chart-card reveal">
-            <h3>专业服务机器人应用结构</h3>
-            <div class="chart-wrap"><canvas id="barService"></canvas></div>
-            <p>运输物流是专业服务机器人最大应用类别，酒店服务和专业清洁也有较大规模。</p>
-          </div>
-          <div class="card chart-card reveal">
-            <h3>AI 产业化与机器人智能化</h3>
-            <div class="chart-wrap"><canvas id="lineAI"></canvas></div>
-            <p>Stanford AI Index 显示，2024 年近 90% 知名 AI 模型来自产业界，机器人智能化将持续受益。</p>
+          <div class="lab-screen reveal">
+            <canvas id="labCanvas" aria-label="机器人任务模拟动画"></canvas>
           </div>
         </div>
       </div>
@@ -1980,32 +1568,15 @@
     <section id="future">
       <div class="container">
         <div class="section-title reveal">
-          <div class="eyebrow">未来趋势</div>
-          <h2>机器人下一步会走向哪里</h2>
-          <p>机器人产业的长期方向不是单点炫技，而是把 AI、可靠硬件、低成本制造、场景数据和安全治理一起推进。</p>
+          <div class="eyebrow">发展趋势</div>
+          <h2>机器人智能的发展方向</h2>
+          <p>未来机器人将从单一自动化设备，逐步走向具备环境理解、任务规划、人机协同和持续优化能力的智能系统。</p>
         </div>
         <div class="timeline">
-          <div class="time-item reveal"><div class="card"><h3>趋势一：AI 与机器人深度融合</h3><p>大模型提升语言理解和任务分解能力，机器视觉与强化学习帮助机器人更好理解环境与动作结果。</p></div></div>
-          <div class="time-item reveal"><div class="card"><h3>趋势二：具身智能成为重要方向</h3><p>AI 从屏幕进入真实世界，需要通过身体、传感器和反馈学习物理规律，人形和四足机器人因此受到关注。</p></div></div>
-          <div class="time-item reveal"><div class="card"><h3>趋势三：从单机智能到群体协同</h3><p>仓库、工厂和医院需要的是机器人集群、调度系统、数字孪生和人机协同，而不只是单台设备能力。</p></div></div>
-          <div class="time-item reveal"><div class="card"><h3>趋势四：低成本与高可靠同样关键</h3><p>机器人真正普及取决于整机成本、维护成本、故障率、能耗、续航和部署门槛。</p></div></div>
-          <div class="time-item reveal"><div class="card"><h3>趋势五：安全、伦理与就业需要共同治理</h3><p>机器人进入公共空间后，隐私、责任归属、人身安全和岗位转型会成为必须被认真设计的问题。</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="summary">
-      <div class="container">
-        <div class="section-title reveal">
-          <div class="eyebrow">总结判断</div>
-          <h2>机器人智能化的本质</h2>
-          <p>机器人智能化不是让机器“看起来像人”，而是让它能够在真实环境里可靠完成有价值的任务。</p>
-        </div>
-        <div class="grid grid-4">
-          <div class="card reveal"><h3>产业判断</h3><p>工业机器人规模已经很大，中国是最重要的应用市场之一，国产化和场景拓展正在加速。</p></div>
-          <div class="card reveal"><h3>技术判断</h3><p>感知、决策、控制和执行闭环是核心，大模型会增强交互与任务规划，但不能替代硬件可靠性。</p></div>
-          <div class="card reveal"><h3>应用判断</h3><p>最先落地的是任务明确、收益清晰、风险可控的场景，如制造、物流、医疗辅助和特种巡检。</p></div>
-          <div class="card reveal"><h3>社会判断</h3><p>机器人会改变工作分工，也会创造新的维护、调度、训练、集成和服务岗位。</p></div>
+          <div class="time-item reveal"><div class="card"><h3>AI 与机器人深度融合</h3><p>大模型、机器视觉和强化学习将提升机器人对语言、场景和任务的理解能力。</p></div></div>
+          <div class="time-item reveal"><div class="card"><h3>具身智能持续发展</h3><p>AI 通过机器人身体与真实世界交互，推动人形机器人、四足机器人和通用机器人探索。</p></div></div>
+          <div class="time-item reveal"><div class="card"><h3>从单机智能走向群体协同</h3><p>仓库、工厂和医院将更重视机器人集群调度、数字孪生和系统级效率。</p></div></div>
+          <div class="time-item reveal"><div class="card"><h3>安全与治理更加重要</h3><p>机器人进入公共空间后，需要关注隐私保护、责任边界、人身安全和岗位转型。</p></div></div>
         </div>
       </div>
     </section>
@@ -2015,50 +1586,31 @@
         <div class="section-title reveal">
           <div class="eyebrow">资料来源</div>
           <h2>数据与参考资料</h2>
-          <p>页面中的产业数据主要来自 IFR 与 Stanford HAI 的公开材料；部分内容为基于机器人技术体系的综合归纳。</p>
+          <p>产业数据主要参考国际机器人联合会与 Stanford HAI 的公开材料，技术内容基于机器人系统结构进行综合整理。</p>
         </div>
         <div class="source-list">
-          <div class="source-item reveal">
-            <b>IFR 工业机器人</b>
-            <p><a href="https://ifr.org/news/global-robot-demand-in-factories-doubles-over-10-years/1st-" target="_blank" rel="noopener">World Robotics 2025 Industrial Robots</a>：2024 年全球工业机器人安装量、区域分布、在役量与主要市场数据。</p>
-          </div>
-          <div class="source-item reveal">
-            <b>IFR 服务机器人</b>
-            <p><a href="https://ifr.org/img/worldrobotics/Executive_Summary_WR_2025_Service_Robots.pdf" target="_blank" rel="noopener">World Robotics 2025 Service Robots</a>：2024 年专业服务机器人、医疗机器人、物流、酒店与清洁机器人销量数据。</p>
-          </div>
-          <div class="source-item reveal">
-            <b>Stanford HAI</b>
-            <p><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development" target="_blank" rel="noopener">2025 AI Index Report</a>：2024 年知名 AI 模型产业来源比例，以及 AI 产业化趋势。</p>
-          </div>
-          <div class="source-item reveal">
-            <b>技术归纳</b>
-            <p>核心技术、机器人类型、应用场景与趋势判断为基于公开机器人技术框架、产业报告和典型应用案例的综合整理。</p>
-          </div>
+          <div class="source-item reveal"><b>IFR 工业机器人</b><p><a href="https://ifr.org/news/global-robot-demand-in-factories-doubles-over-10-years/1st-" target="_blank" rel="noopener">World Robotics 2025 Industrial Robots</a>：工业机器人安装量、区域分布、在役量与主要市场数据。</p></div>
+          <div class="source-item reveal"><b>IFR 服务机器人</b><p><a href="https://ifr.org/img/worldrobotics/Executive_Summary_WR_2025_Service_Robots.pdf" target="_blank" rel="noopener">World Robotics 2025 Service Robots</a>：专业服务机器人、医疗机器人、物流、酒店与清洁机器人销量数据。</p></div>
+          <div class="source-item reveal"><b>Stanford HAI</b><p><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development" target="_blank" rel="noopener">2025 AI Index Report</a>：人工智能模型产业来源与 AI 发展趋势。</p></div>
         </div>
       </div>
     </section>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <div class="assist" aria-label="快捷操作">
     <button id="motionBtn" title="暂停或恢复动画" aria-label="暂停或恢复动画">⏸</button>
     <a href="#home" title="返回顶部" aria-label="返回顶部">↑</a>
   </div>
-
   <footer class="footer">
-    <div class="container">
-      机器人智能介绍馆 · 面向展示、汇报与科普的交互式单页网站
-    </div>
+    <div class="container">机器人智能发展研究 · 产业数据、技术体系与应用趋势</div>
   </footer>
 
   <script>
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let motionPaused = false;
-
     const formatNumber = (value) => Number(value).toLocaleString('en-US');
 
     function animateCounts() {
@@ -2090,7 +1642,7 @@
         });
       }, { threshold: .12 });
       $$('.reveal').forEach((el, index) => {
-        el.style.transitionDelay = `${Math.min(index * 0.025, .25)}s`;
+        el.style.transitionDelay = `${Math.min(index * 0.02, .22)}s`;
         io.observe(el);
       });
     }
@@ -2099,10 +1651,7 @@
       const menuBtn = $('#menuBtn');
       const navLinks = $('#navLinks');
       menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
-      $$('#navLinks a').forEach((link) => {
-        link.addEventListener('click', () => navLinks.classList.remove('open'));
-      });
-
+      $$('#navLinks a').forEach((link) => link.addEventListener('click', () => navLinks.classList.remove('open')));
       const sections = $$('main section[id]');
       const navItems = $$('#navLinks a');
       const io = new IntersectionObserver((entries) => {
@@ -2112,37 +1661,45 @@
         });
       }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
       sections.forEach((section) => io.observe(section));
-
       const updateProgress = () => {
         const total = document.documentElement.scrollHeight - window.innerHeight;
-        const ratio = total > 0 ? window.scrollY / total : 0;
-        $('#progress').style.width = `${Math.max(0, Math.min(1, ratio)) * 100}%`;
+        $('#progress').style.width = `${(total > 0 ? window.scrollY / total : 0) * 100}%`;
       };
       window.addEventListener('scroll', updateProgress, { passive: true });
       updateProgress();
     }
 
-    function applySectionOrder() {
-      const main = $('main');
-      const order = [
-        'home',
-        'overview',
-        'competition',
-        'data',
-        'strategy',
-        'capability',
-        'types',
-        'tech',
-        'scenes',
-        'lab',
-        'future',
-        'summary',
-        'sources'
-      ];
-      order
-        .map((id) => document.getElementById(id))
-        .filter(Boolean)
-        .forEach((section) => main.appendChild(section));
+    function setupCursorLight() {
+      const light = $('#cursorLight');
+      if (!light || prefersReduced || window.matchMedia('(pointer: coarse)').matches) {
+        if (light) light.style.display = 'none';
+        return;
+      }
+      window.addEventListener('pointermove', (event) => {
+        light.style.left = `${event.clientX}px`;
+        light.style.top = `${event.clientY}px`;
+      }, { passive: true });
+    }
+
+    function setupButtonsAndCards() {
+      $$('.card').forEach((card) => {
+        if (!card.classList.contains('chart-card') && !card.classList.contains('radar-panel')) card.classList.add('spot-card');
+        card.addEventListener('pointermove', (event) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+          card.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+        });
+      });
+      $$('.btn').forEach((button) => {
+        button.addEventListener('click', (event) => {
+          const rect = button.getBoundingClientRect();
+          button.style.setProperty('--rip-x', `${event.clientX - rect.left}px`);
+          button.style.setProperty('--rip-y', `${event.clientY - rect.top}px`);
+          button.classList.remove('ripple');
+          void button.offsetWidth;
+          button.classList.add('ripple');
+        });
+      });
     }
 
     function setupHeroParallax() {
@@ -2156,244 +1713,50 @@
         const y = (event.clientY - rect.top) / rect.height - .5;
         shell.style.transform = `translateY(-6px) rotateX(${8 - y * 12}deg) rotateY(${-12 + x * 18}deg)`;
       });
-      stage.addEventListener('pointerleave', () => {
-        shell.style.transform = '';
-      });
+      stage.addEventListener('pointerleave', () => shell.style.transform = '');
     }
 
     function setupParticles() {
       const canvas = $('#heroParticles');
       const ctx = canvas.getContext('2d');
       const particles = [];
-      let width = 0;
-      let height = 0;
-      let raf = 0;
-
+      let width = 0, height = 0;
       const resize = () => {
         const rect = canvas.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = rect.width;
-        height = rect.height;
+        width = rect.width; height = rect.height;
         canvas.width = Math.max(1, Math.floor(width * dpr));
         canvas.height = Math.max(1, Math.floor(height * dpr));
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         particles.length = 0;
         const count = Math.max(28, Math.floor(width * height / 17000));
-        for (let i = 0; i < count; i++) {
-          particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - .5) * .45,
-            vy: (Math.random() - .5) * .45,
-            r: Math.random() * 1.8 + .8
-          });
-        }
+        for (let i = 0; i < count; i++) particles.push({ x: Math.random()*width, y: Math.random()*height, vx: (Math.random()-.5)*.45, vy: (Math.random()-.5)*.45, r: Math.random()*1.8+.8 });
       };
-
       const draw = () => {
-        if (motionPaused) {
-          raf = requestAnimationFrame(draw);
-          return;
-        }
-        ctx.clearRect(0, 0, width, height);
-        for (const p of particles) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0 || p.x > width) p.vx *= -1;
-          if (p.y < 0 || p.y > height) p.vy *= -1;
-        }
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const a = particles[i];
-            const b = particles[j];
-            const dx = a.x - b.x;
-            const dy = a.y - b.y;
-            const distance = Math.hypot(dx, dy);
-            if (distance < 96) {
-              ctx.strokeStyle = `rgba(53,228,212,${(1 - distance / 96) * .28})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
+        if (!motionPaused) {
+          ctx.clearRect(0,0,width,height);
+          particles.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+          });
+          for (let i=0;i<particles.length;i++) for (let j=i+1;j<particles.length;j++) {
+            const a = particles[i], b = particles[j], d = Math.hypot(a.x-b.x, a.y-b.y);
+            if (d < 96) {
+              ctx.strokeStyle = `rgba(53,228,212,${(1-d/96)*.28})`;
+              ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
             }
           }
+          particles.forEach((p,i) => {
+            ctx.fillStyle = i % 5 === 0 ? 'rgba(255,209,102,.78)' : 'rgba(53,228,212,.72)';
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+          });
         }
-        particles.forEach((p, index) => {
-          ctx.fillStyle = index % 5 === 0 ? 'rgba(255,209,102,.78)' : 'rgba(53,228,212,.72)';
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-        });
-        raf = requestAnimationFrame(draw);
+        requestAnimationFrame(draw);
       };
-
       resize();
       window.addEventListener('resize', resize);
       if (!prefersReduced) draw();
-      return () => cancelAnimationFrame(raf);
-    }
-
-    function setupLab() {
-      const canvas = $('#labCanvas');
-      const ctx = canvas.getContext('2d');
-      const controls = {
-        speed: $('#speed'),
-        precision: $('#precision'),
-        payload: $('#payload')
-      };
-      const labels = {
-        speed: $('#speedValue'),
-        precision: $('#precisionValue'),
-        payload: $('#payloadValue')
-      };
-      let width = 0;
-      let height = 0;
-      let t = 0;
-
-      function resize() {
-        const rect = canvas.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = rect.width;
-        height = rect.height;
-        canvas.width = Math.max(1, Math.floor(width * dpr));
-        canvas.height = Math.max(1, Math.floor(height * dpr));
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      function values() {
-        return {
-          speed: Number(controls.speed.value),
-          precision: Number(controls.precision.value),
-          payload: Number(controls.payload.value)
-        };
-      }
-
-      function updateText() {
-        const v = values();
-        Object.keys(labels).forEach((key) => labels[key].textContent = `${v[key]}%`);
-        const status = $('#labStatus');
-        const text = $('#labText');
-        if (v.precision > 78 && v.speed < 58) {
-          status.textContent = '精密装配模式';
-          text.textContent = '当前参数偏向高精度，适合电子装配、医疗辅助和实验室操作，牺牲部分速度换取更小误差。';
-        } else if (v.speed > 76 && v.payload < 62) {
-          status.textContent = '高速配送模式';
-          text.textContent = '当前参数偏向速度，适合轻载运输和楼宇配送，但需要更严格的避障和刹停策略。';
-        } else if (v.payload > 72) {
-          status.textContent = '重载搬运模式';
-          text.textContent = '当前负载较高，适合仓储和制造搬运，系统需要预留更多能耗、结构强度和安全余量。';
-        } else {
-          status.textContent = '柔性搬运模式';
-          text.textContent = '当前参数适合仓储搬运、园区配送与轻量级装配任务，兼顾速度与稳定性。';
-        }
-      }
-
-      function drawRobot(x, y, v) {
-        const wobble = (100 - v.precision) / 100 * Math.sin(t * .08) * 8;
-        const scale = .9 + v.payload / 360;
-        ctx.save();
-        ctx.translate(x, y + wobble);
-        ctx.scale(scale, scale);
-        ctx.fillStyle = 'rgba(236,251,255,.95)';
-        roundRect(ctx, -36, -58, 72, 54, 14);
-        ctx.fill();
-        ctx.fillStyle = '#071019';
-        roundRect(ctx, -24, -43, 48, 22, 8);
-        ctx.fill();
-        ctx.fillStyle = '#35e4d4';
-        ctx.beginPath();
-        ctx.arc(-12, -32, 4, 0, Math.PI * 2);
-        ctx.arc(12, -32, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#14283a';
-        roundRect(ctx, -42, -3, 84, 62, 18);
-        ctx.fill();
-        ctx.strokeStyle = '#ffd166';
-        ctx.lineWidth = 6;
-        ctx.beginPath();
-        ctx.moveTo(-42, 20);
-        ctx.lineTo(-78, 36);
-        ctx.moveTo(42, 20);
-        ctx.lineTo(78, 36);
-        ctx.stroke();
-        ctx.fillStyle = '#35e4d4';
-        ctx.beginPath();
-        ctx.arc(-26, 68, 12, 0, Math.PI * 2);
-        ctx.arc(26, 68, 12, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      function roundRect(ctx, x, y, w, h, r) {
-        const radius = Math.min(r, w / 2, h / 2);
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.arcTo(x + w, y, x + w, y + h, radius);
-        ctx.arcTo(x + w, y + h, x, y + h, radius);
-        ctx.arcTo(x, y + h, x, y, radius);
-        ctx.arcTo(x, y, x + w, y, radius);
-        ctx.closePath();
-      }
-
-      function draw() {
-        const v = values();
-        if (!motionPaused) t += v.speed / 80;
-        ctx.clearRect(0, 0, width, height);
-        const margin = 56;
-        const baseY = height * .48;
-        const progress = (Math.sin(t * .02) + 1) / 2;
-        const x = margin + progress * (width - margin * 2);
-        const y = baseY + Math.sin(progress * Math.PI * 2) * 28;
-        const noise = (100 - v.precision) / 100 * 18;
-
-        ctx.strokeStyle = 'rgba(255,255,255,.16)';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([10, 9]);
-        ctx.beginPath();
-        for (let i = 0; i <= 100; i++) {
-          const px = margin + (i / 100) * (width - margin * 2);
-          const py = baseY + Math.sin(i / 100 * Math.PI * 2) * 28;
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const obstacles = [
-          [width * .32, height * .32, 18],
-          [width * .62, height * .62, 22],
-          [width * .76, height * .38, 15]
-        ];
-        obstacles.forEach(([ox, oy, r], index) => {
-          ctx.fillStyle = index % 2 ? 'rgba(255,209,102,.18)' : 'rgba(255,113,141,.18)';
-          ctx.strokeStyle = index % 2 ? 'rgba(255,209,102,.65)' : 'rgba(255,113,141,.6)';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.arc(ox, oy, r + noise * .18, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.stroke();
-        });
-
-        ctx.fillStyle = 'rgba(53,228,212,.9)';
-        ctx.beginPath();
-        ctx.arc(margin, baseY, 7, 0, Math.PI * 2);
-        ctx.arc(width - margin, baseY, 7, 0, Math.PI * 2);
-        ctx.fill();
-
-        drawRobot(x, y, v);
-
-        ctx.fillStyle = 'rgba(255,209,102,.8)';
-        ctx.font = '12px Microsoft YaHei, Arial';
-        ctx.fillText(`安全余量 ${(100 - v.payload * .55 + v.precision * .28).toFixed(0)}%`, Math.max(18, x - 54), Math.max(22, y - 90));
-        requestAnimationFrame(draw);
-      }
-
-      Object.values(controls).forEach((input) => input.addEventListener('input', updateText));
-      resize();
-      updateText();
-      window.addEventListener('resize', resize);
-      draw();
     }
 
     function setupTabs() {
@@ -2406,179 +1769,69 @@
       });
     }
 
-    function setupCursorLight() {
-      const light = $('#cursorLight');
-      if (!light || prefersReduced || window.matchMedia('(pointer: coarse)').matches) {
-        if (light) light.style.display = 'none';
-        return;
-      }
-      window.addEventListener('pointermove', (event) => {
-        light.style.left = `${event.clientX}px`;
-        light.style.top = `${event.clientY}px`;
-      }, { passive: true });
-      window.addEventListener('pointerleave', () => light.style.opacity = '0');
-      window.addEventListener('pointerenter', () => light.style.opacity = '.42');
-    }
-
-    function setupPolishInteractions() {
-      $$('.card').forEach((card) => {
-        if (!card.classList.contains('chart-card') && !card.classList.contains('radar-panel')) {
-          card.classList.add('spot-card');
-        }
-        card.addEventListener('pointermove', (event) => {
-          const rect = card.getBoundingClientRect();
-          const x = ((event.clientX - rect.left) / rect.width) * 100;
-          const y = ((event.clientY - rect.top) / rect.height) * 100;
-          card.style.setProperty('--mx', `${x}%`);
-          card.style.setProperty('--my', `${y}%`);
-        });
-      });
-
-      $$('[data-tilt]').forEach((card) => {
-        if (prefersReduced || window.matchMedia('(pointer: coarse)').matches) return;
-        card.addEventListener('pointermove', (event) => {
-          const rect = card.getBoundingClientRect();
-          const px = (event.clientX - rect.left) / rect.width - .5;
-          const py = (event.clientY - rect.top) / rect.height - .5;
-          card.style.transform = `perspective(900px) rotateX(${-py * 5}deg) rotateY(${px * 6}deg) translateY(-5px)`;
-        });
-        card.addEventListener('pointerleave', () => {
-          card.style.transform = '';
-        });
-      });
-
-      $$('.btn').forEach((button) => {
-        button.addEventListener('click', (event) => {
-          const rect = button.getBoundingClientRect();
-          button.style.setProperty('--rip-x', `${event.clientX - rect.left}px`);
-          button.style.setProperty('--rip-y', `${event.clientY - rect.top}px`);
-          button.classList.remove('ripple');
-          void button.offsetWidth;
-          button.classList.add('ripple');
-        });
-      });
-    }
-
     const capabilityProfiles = {
-      arm: {
-        title: '工业机械臂',
-        text: '工业机械臂在控制精度、重复稳定性和商业成熟度方面最强，是机器人产业落地最成熟的方向。',
-        values: [70, 58, 96, 42, 60, 94]
-      },
-      amr: {
-        title: '移动服务机器人',
-        text: '移动服务机器人更重视自主导航、避障、调度和自然交互，适合楼宇、医院、酒店与园区服务。',
-        values: [82, 72, 68, 74, 76, 78]
-      },
-      medical: {
-        title: '医疗机器人',
-        text: '医疗机器人强调安全、稳定、精细控制和流程合规，技术门槛与验证周期都更高。',
-        values: [76, 68, 92, 58, 52, 64]
-      },
-      humanoid: {
-        title: '人形机器人',
-        text: '人形机器人最具未来想象力，优势在通用环境适应和人机交互，挑战在能耗、成本和稳定泛化。',
-        values: [86, 82, 62, 88, 92, 42]
-      },
-      special: {
-        title: '特种机器人',
-        text: '特种机器人面向危险、复杂或远程环境，强调环境适应、通信可靠、结构强度和任务安全。',
-        values: [88, 70, 74, 52, 94, 66]
-      }
+      arm: { title:'工业机械臂', text:'工业机械臂在控制精度、重复稳定性和商业成熟度方面优势明显，是制造场景中应用最成熟的机器人类型。', values:[70,58,96,42,60,94] },
+      amr: { title:'移动服务机器人', text:'移动服务机器人更重视自主导航、避障、调度和自然交互，适合楼宇、医院、酒店与园区服务。', values:[82,72,68,74,76,78] },
+      medical: { title:'医疗机器人', text:'医疗机器人强调安全、稳定、精细控制和流程合规，技术门槛与验证周期更高。', values:[76,68,92,58,52,64] },
+      humanoid: { title:'人形机器人', text:'人形机器人具备通用环境适应潜力，优势在交互与空间适配，挑战在能耗、成本和可靠性。', values:[86,82,62,88,92,42] },
+      special: { title:'特种机器人', text:'特种机器人面向危险、复杂或远程环境，强调环境适应、通信可靠、结构强度和任务安全。', values:[88,70,74,52,94,66] }
     };
 
     function setupCapabilityRadar() {
       const canvas = $('#radarCanvas');
       if (!canvas) return;
-      const labels = ['感知', '决策', '控制', '交互', '适应', '成熟'];
+      const labels = ['感知','决策','控制','交互','适应','成熟'];
       let current = capabilityProfiles.arm.values.slice();
       let target = current.slice();
-      let raf = 0;
-      let radarWidth = 0;
-      let radarHeight = 0;
-
-      function resizeRadar() {
+      let w = 0, h = 0;
+      const resize = () => {
         const rect = canvas.getBoundingClientRect();
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        radarWidth = rect.width;
-        radarHeight = rect.height;
-        canvas.width = Math.max(1, Math.floor(radarWidth * dpr));
-        canvas.height = Math.max(1, Math.floor(radarHeight * dpr));
-        canvas.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      function draw() {
+        w = rect.width; h = rect.height;
+        canvas.width = Math.max(1, Math.floor(w*dpr));
+        canvas.height = Math.max(1, Math.floor(h*dpr));
+        canvas.getContext('2d').setTransform(dpr,0,0,dpr,0,0);
+      };
+      const draw = () => {
         const ctx = canvas.getContext('2d');
-        const w = radarWidth;
-        const h = radarHeight;
-        const cx = w / 2;
-        const cy = h / 2;
-        const radius = Math.min(w, h) * .34;
-        ctx.clearRect(0, 0, w, h);
-
-        for (let ring = 1; ring <= 5; ring++) {
-          const r = radius * ring / 5;
+        const cx = w/2, cy = h/2, radius = Math.min(w,h)*.34;
+        ctx.clearRect(0,0,w,h);
+        for (let ring=1; ring<=5; ring++) {
+          const r = radius*ring/5;
           ctx.beginPath();
-          labels.forEach((_, i) => {
-            const angle = -Math.PI / 2 + i * Math.PI * 2 / labels.length;
-            const x = cx + Math.cos(angle) * r;
-            const y = cy + Math.sin(angle) * r;
-            i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+          labels.forEach((_,i) => {
+            const a = -Math.PI/2 + i*Math.PI*2/labels.length;
+            const x = cx + Math.cos(a)*r, y = cy + Math.sin(a)*r;
+            i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
           });
-          ctx.closePath();
-          ctx.strokeStyle = `rgba(255,255,255,${ring === 5 ? .22 : .10})`;
-          ctx.stroke();
+          ctx.closePath(); ctx.strokeStyle = `rgba(255,255,255,${ring===5?.22:.10})`; ctx.stroke();
         }
-
-        labels.forEach((label, i) => {
-          const angle = -Math.PI / 2 + i * Math.PI * 2 / labels.length;
-          const x = cx + Math.cos(angle) * radius;
-          const y = cy + Math.sin(angle) * radius;
-          ctx.strokeStyle = 'rgba(53,228,212,.18)';
-          ctx.beginPath();
-          ctx.moveTo(cx, cy);
-          ctx.lineTo(x, y);
-          ctx.stroke();
-          ctx.fillStyle = '#dffcff';
-          ctx.font = '13px Microsoft YaHei, Arial';
-          ctx.textAlign = Math.abs(Math.cos(angle)) < .2 ? 'center' : Math.cos(angle) > 0 ? 'left' : 'right';
-          ctx.fillText(label, cx + Math.cos(angle) * (radius + 24), cy + Math.sin(angle) * (radius + 24) + 4);
+        labels.forEach((label,i) => {
+          const a = -Math.PI/2 + i*Math.PI*2/labels.length;
+          const x = cx + Math.cos(a)*radius, y = cy + Math.sin(a)*radius;
+          ctx.strokeStyle = 'rgba(53,228,212,.18)'; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
+          ctx.fillStyle = '#dffcff'; ctx.font = '13px Microsoft YaHei, Arial';
+          ctx.textAlign = Math.abs(Math.cos(a)) < .2 ? 'center' : Math.cos(a) > 0 ? 'left' : 'right';
+          ctx.fillText(label, cx + Math.cos(a)*(radius+24), cy + Math.sin(a)*(radius+24)+4);
         });
-
-        const gradient = ctx.createRadialGradient(cx, cy, radius * .1, cx, cy, radius);
-        gradient.addColorStop(0, 'rgba(53,228,212,.42)');
-        gradient.addColorStop(1, 'rgba(255,209,102,.16)');
+        const grad = ctx.createRadialGradient(cx,cy,radius*.1,cx,cy,radius);
+        grad.addColorStop(0,'rgba(53,228,212,.42)'); grad.addColorStop(1,'rgba(255,209,102,.16)');
         ctx.beginPath();
-        current.forEach((value, i) => {
-          const angle = -Math.PI / 2 + i * Math.PI * 2 / labels.length;
-          const r = radius * value / 100;
-          const x = cx + Math.cos(angle) * r;
-          const y = cy + Math.sin(angle) * r;
-          i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        current.forEach((value,i) => {
+          const a = -Math.PI/2 + i*Math.PI*2/labels.length;
+          const r = radius*value/100, x = cx + Math.cos(a)*r, y = cy + Math.sin(a)*r;
+          i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
         });
-        ctx.closePath();
-        ctx.fillStyle = gradient;
-        ctx.fill();
-        ctx.strokeStyle = '#35e4d4';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        current.forEach((value, i) => {
-          const angle = -Math.PI / 2 + i * Math.PI * 2 / labels.length;
-          const r = radius * value / 100;
-          ctx.fillStyle = i % 2 ? '#ffd166' : '#35e4d4';
-          ctx.beginPath();
-          ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 5, 0, Math.PI * 2);
-          ctx.fill();
+        ctx.closePath(); ctx.fillStyle = grad; ctx.fill(); ctx.strokeStyle = '#35e4d4'; ctx.lineWidth = 3; ctx.stroke();
+        current.forEach((value,i) => {
+          const a = -Math.PI/2 + i*Math.PI*2/labels.length, r = radius*value/100;
+          ctx.fillStyle = i%2 ? '#ffd166' : '#35e4d4'; ctx.beginPath(); ctx.arc(cx+Math.cos(a)*r, cy+Math.sin(a)*r, 5, 0, Math.PI*2); ctx.fill();
         });
-      }
-
-      function animate() {
-        current = current.map((value, index) => value + (target[index] - value) * .11);
-        draw();
-        raf = requestAnimationFrame(animate);
-      }
-
+      };
+      const animate = () => {
+        current = current.map((value, i) => value + (target[i] - value) * .11);
+        draw(); requestAnimationFrame(animate);
+      };
       $$('.capability-btn').forEach((button) => {
         button.addEventListener('click', () => {
           const profile = capabilityProfiles[button.dataset.kind];
@@ -2586,227 +1839,117 @@
           $('#capabilityTitle').textContent = profile.title;
           $('#capabilityText').textContent = profile.text;
           $$('.capability-btn').forEach((item) => item.classList.toggle('active', item === button));
-          showToast(`已切换到：${profile.title} 能力画像`);
+          showToast(`已切换到：${profile.title}`);
         });
       });
-
-      resizeRadar();
-      window.addEventListener('resize', resizeRadar);
+      resize();
+      window.addEventListener('resize', resize);
       animate();
-      return () => cancelAnimationFrame(raf);
     }
 
-    function setupAutoTour() {
-      const button = $('#tourBtn');
-      if (!button) return;
-      const route = ['overview', 'competition', 'data', 'strategy', 'capability', 'types', 'tech', 'scenes', 'lab', 'future'];
-      let running = false;
-      button.addEventListener('click', async () => {
-        if (running) return;
-        running = true;
-        button.textContent = '演示中...';
-        showToast('自动演示开始：按顺序浏览核心模块');
-        for (const id of route) {
-          const section = document.getElementById(id);
-          if (!section) continue;
-          section.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
-          await wait(prefersReduced ? 250 : 1150);
-        }
-        button.textContent = '一键演示';
-        showToast('演示完成，可以继续手动体验交互模块');
-        running = false;
-      });
-    }
-
-    function wait(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-    let toastTimer = 0;
-    function showToast(message) {
-      const toast = $('#toast');
-      if (!toast) return;
-      toast.textContent = message;
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    function setupLab() {
+      const canvas = $('#labCanvas'), ctx = canvas.getContext('2d');
+      const controls = { speed: $('#speed'), precision: $('#precision'), payload: $('#payload') };
+      const labels = { speed: $('#speedValue'), precision: $('#precisionValue'), payload: $('#payloadValue') };
+      let width = 0, height = 0, t = 0;
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = rect.width; height = rect.height;
+        canvas.width = Math.max(1, Math.floor(width*dpr));
+        canvas.height = Math.max(1, Math.floor(height*dpr));
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+      };
+      const values = () => ({ speed:+controls.speed.value, precision:+controls.precision.value, payload:+controls.payload.value });
+      const updateText = () => {
+        const v = values();
+        Object.keys(labels).forEach(k => labels[k].textContent = `${v[k]}%`);
+        const status = $('#labStatus'), text = $('#labText');
+        if (v.precision > 78 && v.speed < 58) { status.textContent = '精密装配模式'; text.textContent = '当前参数偏向高精度，适合电子装配、医疗辅助和实验室操作。'; }
+        else if (v.speed > 76 && v.payload < 62) { status.textContent = '高速配送模式'; text.textContent = '当前参数偏向速度，适合轻载运输和楼宇配送，需要更严格的避障策略。'; }
+        else if (v.payload > 72) { status.textContent = '重载搬运模式'; text.textContent = '当前负载较高，需要预留更多能耗、结构强度和安全余量。'; }
+        else { status.textContent = '柔性搬运模式'; text.textContent = '当前参数适合仓储搬运、园区配送与轻量级装配任务，兼顾速度与稳定性。'; }
+      };
+      const roundRect = (x,y,w,h,r) => {
+        ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+      };
+      const drawRobot = (x,y,v) => {
+        const wobble = (100-v.precision)/100*Math.sin(t*.08)*8, scale = .9+v.payload/360;
+        ctx.save(); ctx.translate(x,y+wobble); ctx.scale(scale,scale);
+        ctx.fillStyle='rgba(236,251,255,.95)'; roundRect(-36,-58,72,54,14); ctx.fill();
+        ctx.fillStyle='#071019'; roundRect(-24,-43,48,22,8); ctx.fill();
+        ctx.fillStyle='#35e4d4'; ctx.beginPath(); ctx.arc(-12,-32,4,0,Math.PI*2); ctx.arc(12,-32,4,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle='#14283a'; roundRect(-42,-3,84,62,18); ctx.fill();
+        ctx.strokeStyle='#ffd166'; ctx.lineWidth=6; ctx.beginPath(); ctx.moveTo(-42,20); ctx.lineTo(-78,36); ctx.moveTo(42,20); ctx.lineTo(78,36); ctx.stroke();
+        ctx.fillStyle='#35e4d4'; ctx.beginPath(); ctx.arc(-26,68,12,0,Math.PI*2); ctx.arc(26,68,12,0,Math.PI*2); ctx.fill(); ctx.restore();
+      };
+      const draw = () => {
+        const v = values(); if (!motionPaused) t += v.speed/80;
+        ctx.clearRect(0,0,width,height);
+        const margin = 56, baseY = height*.48, progress = (Math.sin(t*.02)+1)/2;
+        const x = margin + progress*(width-margin*2), y = baseY + Math.sin(progress*Math.PI*2)*28, noise = (100-v.precision)/100*18;
+        ctx.strokeStyle='rgba(255,255,255,.16)'; ctx.lineWidth=2; ctx.setLineDash([10,9]); ctx.beginPath();
+        for (let i=0;i<=100;i++) { const px=margin+i/100*(width-margin*2), py=baseY+Math.sin(i/100*Math.PI*2)*28; i?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+        ctx.stroke(); ctx.setLineDash([]);
+        [[width*.32,height*.32,18],[width*.62,height*.62,22],[width*.76,height*.38,15]].forEach(([ox,oy,r],i)=>{ ctx.fillStyle=i%2?'rgba(255,209,102,.18)':'rgba(255,113,141,.18)'; ctx.strokeStyle=i%2?'rgba(255,209,102,.65)':'rgba(255,113,141,.6)'; ctx.beginPath(); ctx.arc(ox,oy,r+noise*.18,0,Math.PI*2); ctx.fill(); ctx.stroke(); });
+        ctx.fillStyle='rgba(53,228,212,.9)'; ctx.beginPath(); ctx.arc(margin,baseY,7,0,Math.PI*2); ctx.arc(width-margin,baseY,7,0,Math.PI*2); ctx.fill();
+        drawRobot(x,y,v);
+        ctx.fillStyle='rgba(255,209,102,.8)'; ctx.font='12px Microsoft YaHei, Arial'; ctx.fillText(`安全余量 ${(100-v.payload*.55+v.precision*.28).toFixed(0)}%`, Math.max(18,x-54), Math.max(22,y-90));
+        requestAnimationFrame(draw);
+      };
+      Object.values(controls).forEach(input => input.addEventListener('input', updateText));
+      resize(); updateText(); window.addEventListener('resize', resize); draw();
     }
 
     function drawBarChart(canvas, labels, values, colors, options = {}) {
-      const ctx = canvas.getContext('2d');
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const width = rect.width;
-      const height = rect.height;
-      const pad = { top: 24, right: 16, bottom: 54, left: 54 };
-      const max = Math.max(...values) * 1.12;
-      ctx.clearRect(0, 0, width, height);
-      ctx.strokeStyle = 'rgba(255,255,255,.09)';
-      ctx.fillStyle = '#b8c9dc';
-      ctx.font = '12px Microsoft YaHei, Arial';
-      for (let i = 0; i <= 4; i++) {
-        const y = pad.top + (height - pad.top - pad.bottom) * i / 4;
-        ctx.beginPath();
-        ctx.moveTo(pad.left, y);
-        ctx.lineTo(width - pad.right, y);
-        ctx.stroke();
-        const value = Math.round(max * (1 - i / 4));
-        ctx.fillText(options.percent ? `${value}%` : compact(value), 4, y + 4);
-      }
-      const barArea = width - pad.left - pad.right;
-      const barWidth = Math.max(14, barArea / labels.length * .58);
-      labels.forEach((label, i) => {
-        const x = pad.left + barArea * (i + .5) / labels.length;
-        const h = (height - pad.top - pad.bottom) * values[i] / max;
-        const y = height - pad.bottom - h;
-        const grad = ctx.createLinearGradient(0, y, 0, height - pad.bottom);
-        grad.addColorStop(0, colors[i % colors.length]);
-        grad.addColorStop(1, 'rgba(255,255,255,.12)');
-        ctx.fillStyle = grad;
-        roundedRect(ctx, x - barWidth / 2, y, barWidth, h, 7);
-        ctx.fill();
-        ctx.fillStyle = '#eaf6ff';
-        ctx.textAlign = 'center';
-        ctx.fillText(options.percent ? `${values[i]}%` : compact(values[i]), x, y - 8);
-        ctx.fillStyle = '#b8c9dc';
-        ctx.fillText(label, x, height - 26);
-      });
-      ctx.textAlign = 'left';
+      const ctx = canvas.getContext('2d'), rect = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(rect.width*dpr)); canvas.height = Math.max(1, Math.floor(rect.height*dpr)); ctx.setTransform(dpr,0,0,dpr,0,0);
+      const width = rect.width, height = rect.height, pad = {top:24,right:16,bottom:54,left:54}, max = Math.max(...values)*1.12;
+      ctx.clearRect(0,0,width,height); ctx.strokeStyle='rgba(255,255,255,.09)'; ctx.fillStyle='#b8c9dc'; ctx.font='12px Microsoft YaHei, Arial';
+      for (let i=0;i<=4;i++) { const y=pad.top+(height-pad.top-pad.bottom)*i/4; ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(width-pad.right,y); ctx.stroke(); const value=Math.round(max*(1-i/4)); ctx.fillText(options.percent?`${value}%`:compact(value),4,y+4); }
+      const area=width-pad.left-pad.right, bw=Math.max(14,area/labels.length*.58);
+      labels.forEach((label,i)=>{ const x=pad.left+area*(i+.5)/labels.length, h=(height-pad.top-pad.bottom)*values[i]/max, y=height-pad.bottom-h; const grad=ctx.createLinearGradient(0,y,0,height-pad.bottom); grad.addColorStop(0,colors[i%colors.length]); grad.addColorStop(1,'rgba(255,255,255,.12)'); ctx.fillStyle=grad; roundedRect(ctx,x-bw/2,y,bw,h,7); ctx.fill(); ctx.fillStyle='#eaf6ff'; ctx.textAlign='center'; ctx.fillText(options.percent?`${values[i]}%`:compact(values[i]),x,y-8); ctx.fillStyle='#b8c9dc'; ctx.fillText(label,x,height-26); });
+      ctx.textAlign='left';
     }
 
     function drawDonut(canvas, labels, values, colors) {
-      const ctx = canvas.getContext('2d');
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const width = rect.width;
-      const height = rect.height;
-      const radius = Math.min(width, height) * .31;
-      const cx = width * .38;
-      const cy = height * .48;
-      const total = values.reduce((a, b) => a + b, 0);
-      let start = -Math.PI / 2;
-      ctx.clearRect(0, 0, width, height);
-      values.forEach((value, i) => {
-        const angle = value / total * Math.PI * 2;
-        ctx.beginPath();
-        ctx.arc(cx, cy, radius, start, start + angle);
-        ctx.arc(cx, cy, radius * .58, start + angle, start, true);
-        ctx.closePath();
-        ctx.fillStyle = colors[i];
-        ctx.fill();
-        start += angle;
-      });
-      ctx.fillStyle = '#f3f8ff';
-      ctx.font = '900 24px Microsoft YaHei, Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('2024', cx, cy - 3);
-      ctx.font = '12px Microsoft YaHei, Arial';
-      ctx.fillStyle = '#b8c9dc';
-      ctx.fillText('新增部署', cx, cy + 18);
-      ctx.textAlign = 'left';
-      labels.forEach((label, i) => {
-        const x = width * .66;
-        const y = height * .26 + i * 32;
-        ctx.fillStyle = colors[i];
-        roundedRect(ctx, x, y - 10, 18, 18, 5);
-        ctx.fill();
-        ctx.fillStyle = '#dcecff';
-        ctx.font = '13px Microsoft YaHei, Arial';
-        ctx.fillText(`${label} ${values[i]}%`, x + 28, y + 4);
-      });
+      const ctx = canvas.getContext('2d'), rect = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(rect.width*dpr)); canvas.height = Math.max(1, Math.floor(rect.height*dpr)); ctx.setTransform(dpr,0,0,dpr,0,0);
+      const width=rect.width, height=rect.height, radius=Math.min(width,height)*.31, cx=width*.38, cy=height*.48, total=values.reduce((a,b)=>a+b,0); let start=-Math.PI/2;
+      ctx.clearRect(0,0,width,height);
+      values.forEach((value,i)=>{ const angle=value/total*Math.PI*2; ctx.beginPath(); ctx.arc(cx,cy,radius,start,start+angle); ctx.arc(cx,cy,radius*.58,start+angle,start,true); ctx.closePath(); ctx.fillStyle=colors[i]; ctx.fill(); start+=angle; });
+      ctx.fillStyle='#f3f8ff'; ctx.font='900 24px Microsoft YaHei, Arial'; ctx.textAlign='center'; ctx.fillText('2024',cx,cy-3); ctx.font='12px Microsoft YaHei, Arial'; ctx.fillStyle='#b8c9dc'; ctx.fillText('新增部署',cx,cy+18);
+      ctx.textAlign='left'; labels.forEach((label,i)=>{ const x=width*.66,y=height*.26+i*32; ctx.fillStyle=colors[i]; roundedRect(ctx,x,y-10,18,18,5); ctx.fill(); ctx.fillStyle='#dcecff'; ctx.font='13px Microsoft YaHei, Arial'; ctx.fillText(`${label} ${values[i]}%`,x+28,y+4); });
     }
 
     function drawLineChart(canvas, labels, values) {
-      const ctx = canvas.getContext('2d');
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const width = rect.width;
-      const height = rect.height;
-      const pad = { top: 26, right: 20, bottom: 42, left: 42 };
-      ctx.clearRect(0, 0, width, height);
-      ctx.strokeStyle = 'rgba(255,255,255,.09)';
-      ctx.fillStyle = '#b8c9dc';
-      ctx.font = '12px Microsoft YaHei, Arial';
-      for (let i = 0; i <= 4; i++) {
-        const y = pad.top + (height - pad.top - pad.bottom) * i / 4;
-        ctx.beginPath();
-        ctx.moveTo(pad.left, y);
-        ctx.lineTo(width - pad.right, y);
-        ctx.stroke();
-        ctx.fillText(`${100 - i * 25}%`, 4, y + 4);
-      }
-      const points = values.map((value, i) => {
-        const x = pad.left + (width - pad.left - pad.right) * i / (values.length - 1);
-        const y = height - pad.bottom - (height - pad.top - pad.bottom) * value / 100;
-        return [x, y];
-      });
-      const gradient = ctx.createLinearGradient(0, pad.top, 0, height - pad.bottom);
-      gradient.addColorStop(0, 'rgba(53,228,212,.34)');
-      gradient.addColorStop(1, 'rgba(53,228,212,0)');
-      ctx.beginPath();
-      ctx.moveTo(points[0][0], height - pad.bottom);
-      points.forEach(([x, y]) => ctx.lineTo(x, y));
-      ctx.lineTo(points[points.length - 1][0], height - pad.bottom);
-      ctx.closePath();
-      ctx.fillStyle = gradient;
-      ctx.fill();
-      ctx.strokeStyle = '#35e4d4';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
-      ctx.stroke();
-      points.forEach(([x, y], i) => {
-        ctx.fillStyle = i ? '#ffd166' : '#42a5ff';
-        ctx.beginPath();
-        ctx.arc(x, y, 7, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#eaf6ff';
-        ctx.textAlign = 'center';
-        ctx.fillText(`${values[i]}%`, x, y - 14);
-        ctx.fillStyle = '#b8c9dc';
-        ctx.fillText(labels[i], x, height - 18);
-      });
-      ctx.textAlign = 'left';
+      const ctx = canvas.getContext('2d'), rect = canvas.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(rect.width*dpr)); canvas.height = Math.max(1, Math.floor(rect.height*dpr)); ctx.setTransform(dpr,0,0,dpr,0,0);
+      const width=rect.width,height=rect.height,pad={top:26,right:20,bottom:42,left:42}; ctx.clearRect(0,0,width,height); ctx.strokeStyle='rgba(255,255,255,.09)'; ctx.fillStyle='#b8c9dc'; ctx.font='12px Microsoft YaHei, Arial';
+      for (let i=0;i<=4;i++) { const y=pad.top+(height-pad.top-pad.bottom)*i/4; ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(width-pad.right,y); ctx.stroke(); ctx.fillText(`${100-i*25}%`,4,y+4); }
+      const points=values.map((v,i)=>[pad.left+(width-pad.left-pad.right)*i/(values.length-1), height-pad.bottom-(height-pad.top-pad.bottom)*v/100]);
+      const grad=ctx.createLinearGradient(0,pad.top,0,height-pad.bottom); grad.addColorStop(0,'rgba(53,228,212,.34)'); grad.addColorStop(1,'rgba(53,228,212,0)');
+      ctx.beginPath(); ctx.moveTo(points[0][0],height-pad.bottom); points.forEach(([x,y])=>ctx.lineTo(x,y)); ctx.lineTo(points.at(-1)[0],height-pad.bottom); ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+      ctx.strokeStyle='#35e4d4'; ctx.lineWidth=4; ctx.beginPath(); points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y)); ctx.stroke();
+      points.forEach(([x,y],i)=>{ ctx.fillStyle=i?'#ffd166':'#45a7ff'; ctx.beginPath(); ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#eaf6ff'; ctx.textAlign='center'; ctx.fillText(`${values[i]}%`,x,y-14); ctx.fillStyle='#b8c9dc'; ctx.fillText(labels[i],x,height-18); });
+      ctx.textAlign='left';
     }
 
-    function roundedRect(ctx, x, y, w, h, r) {
-      const radius = Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2);
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.arcTo(x + w, y, x + w, y + h, radius);
-      ctx.arcTo(x + w, y + h, x, y + h, radius);
-      ctx.arcTo(x, y + h, x, y, radius);
-      ctx.arcTo(x, y, x + w, y, radius);
-      ctx.closePath();
+    function roundedRect(ctx,x,y,w,h,r) {
+      ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
     }
-
-    function compact(value) {
-      if (value >= 10000) return `${(value / 10000).toFixed(value >= 100000 ? 0 : 1)}万`;
-      return String(value);
-    }
+    function compact(value) { return value >= 10000 ? `${(value/10000).toFixed(value >= 100000 ? 0 : 1)}万` : String(value); }
 
     function setupCharts() {
-      const palette = ['#35e4d4', '#42a5ff', '#ffd166', '#a78bfa', '#7cf29c', '#ff718d'];
+      const palette = ['#35e4d4','#45a7ff','#ffd166','#a78bfa','#83f28f','#ff728d'];
       const render = () => {
-        drawBarChart($('#barMarket'), ['全球', '中国', '日本', '美国', '韩国', '德国', '印度'], [542000, 295045, 44453, 34200, 30596, 26982, 9100], palette);
-        drawDonut($('#donutRegion'), ['亚洲', '欧洲', '美洲', '其他'], [74, 16, 9, 1], palette);
-        drawBarChart($('#barService'), ['物流', '酒店', '清洁', '农业', '医疗'], [102900, 42000, 25000, 19500, 16700], palette);
-        drawLineChart($('#lineAI'), ['2023', '2024'], [60, 90]);
+        drawBarChart($('#barMarket'), ['全球','中国','日本','美国','韩国','德国','印度'], [542000,295045,44453,34200,30596,26982,9100], palette);
+        drawDonut($('#donutRegion'), ['亚洲','欧洲','美洲','其他'], [74,16,9,1], palette);
+        drawBarChart($('#barService'), ['物流','酒店','清洁','农业','医疗'], [102900,42000,25000,19500,16700], palette);
+        drawLineChart($('#lineAI'), ['2023','2024'], [60,90]);
       };
       render();
-      window.addEventListener('resize', () => {
-        clearTimeout(setupCharts.timer);
-        setupCharts.timer = setTimeout(render, 120);
-      });
+      window.addEventListener('resize', () => { clearTimeout(setupCharts.timer); setupCharts.timer = setTimeout(render, 120); });
     }
 
     function setupMotionToggle() {
@@ -2818,18 +1961,25 @@
       });
     }
 
-    applySectionOrder();
+    let toastTimer = 0;
+    function showToast(message) {
+      const toast = $('#toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    }
+
     animateCounts();
     setupReveal();
     setupNavigation();
+    setupCursorLight();
+    setupButtonsAndCards();
     setupHeroParallax();
     setupParticles();
-    setupLab();
     setupTabs();
-    setupCursorLight();
-    setupPolishInteractions();
     setupCapabilityRadar();
-    setupAutoTour();
+    setupLab();
     setupCharts();
     setupMotionToggle();
   </script>
